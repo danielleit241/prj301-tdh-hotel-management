@@ -1,3 +1,9 @@
+*1. Hình ảnh chi tiết phòng
+*2. Setting lại database về việc booking (ngày book, ngày kết thúc, trạng thái) 
+	VD: kiểu như là trong ngày đó thì trạng thái nó đã đặt, còn ngày khác thì chưa
+*3. Quản lý phòng - thêm ảnh khi SỬA
+*4. Quản lý booking -> Lấy dữ liệu database -> thêm 1 button trên GUI(filter status)
+
 Hòa: Login - Kiểm tra login user -> Chuyển hướng page!
 	+ User -> DTO, DAO
 		+ DAO: Check username, getRole, getUser
