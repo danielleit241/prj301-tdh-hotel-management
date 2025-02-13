@@ -5,12 +5,6 @@ Hòa: Login - Kiểm tra login user -> Chuyển hướng page!
 	+ Authorize User
 Đạt, Thịnh: Room:
 	+ DTO, DAO rooms
-	+ DAO: Search theo giá, tên, loại phòng
-		Thêm, xóa, sửa
+	+ DAO: Thinh: Search theo giá, tên, loại phòng, sap xep theo gia
+		Dat: Thêm, xóa, sửa
 		Kiểm tra -> trạng thái theo date (Check rooms)
-
-- GUI: Admin k cần đẹp - đủ chức năng
-	Member cần đẹp -> quan trọng chức năng Booking phải rõ ràng
-	Guest -> View
--> Thêm Booking, Admin là done
--> Up lên Group Kì 4 -> Add readme.
