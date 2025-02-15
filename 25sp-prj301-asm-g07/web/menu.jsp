@@ -13,6 +13,7 @@
     </head>
     <body>
         <a href="login.jsp">Login</a>
+        <a href="signup.jsp">Sign Up</a>
         <a href="login?action=logout">Logout</a>
     </body>
 </html>
