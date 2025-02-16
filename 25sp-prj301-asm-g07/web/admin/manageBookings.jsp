@@ -17,8 +17,8 @@
    //     roomStatus.put(String.valueOf(booking.getRoomID()), "booked");
     }
 
-    request.setAttribute("rooms", rooms);
-    request.setAttribute("roomStatus", roomStatus);
+    // request.setAttribute("rooms", rooms);
+    // request.setAttribute("roomStatus", roomStatus);
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 %>
