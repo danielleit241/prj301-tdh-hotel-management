@@ -4,10 +4,11 @@ go
 --drop database HotelManagement
 use HotelManagement
 
+
 CREATE TABLE users (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(30) NOT NULL,
-    name VARCHAR(24) UNIQUE,
+    name NVARCHAR(24) NOT NULL,
     role VARCHAR(6) NOT NULL CHECK (role IN ('admin', 'member')) DEFAULT 'member',
     createAt DATETIME DEFAULT GETDATE()
 );
@@ -35,6 +36,7 @@ CREATE TABLE bookings (
     bookingID VARCHAR(50) PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     roomID INT NOT NULL,
+	phone VARCHAR(11) NOT NULL UNIQUE,
     checkInDate DATE NOT NULL,
     checkOutDate DATE NOT NULL,
     status VARCHAR(10) CHECK (status IN ('confirmed', 'cancel', 'pending')) DEFAULT 'pending',
