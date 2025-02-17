@@ -22,22 +22,12 @@ public class RoomDAO {
 
     public List<RoomDTO> getAllRooms() {
         List<RoomDTO> rooms = new ArrayList<>();
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        try (Connection conn = DBUtils.getConnection()) {
-            String query = " SELECT * FROM rooms ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-=======
->>>>>>> Stashed changes
+
         String sql = "SELECT * FROM rooms";
         try {
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-<<<<<<< Updated upstream
-=======
->>>>>>> f7529ab4d775dd154231fc216d4d3d9688bb4f2d
->>>>>>> Stashed changes
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
