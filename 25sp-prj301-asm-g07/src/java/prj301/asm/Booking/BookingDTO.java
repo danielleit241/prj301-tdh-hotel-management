@@ -21,8 +21,6 @@ public class BookingDTO {
     private double totalPrice;
 
     
-    
-
     public BookingDTO(String bookingID, String phone, Date checkInDate, Date checkOutDate, double totalPrice) {
         this.bookingID = bookingID;
         this.phone = phone;
@@ -30,9 +28,8 @@ public class BookingDTO {
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
     }
-
     
-
+    
     public String getBookingID() {
         return bookingID;
     }

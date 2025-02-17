@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import prj301asm.utils.DBUtils;
@@ -21,9 +22,10 @@ public class RoomDAO {
 
     public List<RoomDTO> getAllRooms() {
         List<RoomDTO> rooms = new ArrayList<>();
-        try (Connection conn = DBUtils.getConnection()) {
-            String query = "SELECT * FROM rooms";
-            PreparedStatement stmt = conn.prepareStatement(query);
+        String sql = "SELECT * FROM rooms";
+        try {
+            Connection conn = DBUtils.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -35,16 +37,18 @@ public class RoomDAO {
                 RoomDTO room = new RoomDTO(id, romeName, typeName, price, description);
                 rooms.add(room);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return rooms;
     }
 
     public boolean addRoom(String roomID, String romeName, String typeName, BigDecimal price, String description) {
-        try (Connection con = DBUtils.getConnection()) {
-            String query = "INSERT INTO rooms (roomID, romeName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = con.prepareStatement(query);
+        String sql = "INSERT INTO rooms (roomID, romeName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, roomID);
             stmt.setString(2, romeName);
             stmt.setString(3, typeName);
@@ -52,16 +56,17 @@ public class RoomDAO {
             stmt.setString(5, description);
             stmt.executeUpdate();
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return false;
     }
 
     public boolean updateRoom(String roomID, String romeName, String typeName, BigDecimal price, String description) {
-        try (Connection conn = DBUtils.getConnection()) {
-            String query = "UPDATE rooms SET roomID = ?, romeName = ?, typeName = ?, price = ?, description = ? WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
+        String sql = "UPDATE rooms SET roomID = ?, romeName = ?, typeName = ?, price = ?, description = ? WHERE id = ?";
+        try {
+            Connection conn = DBUtils.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, roomID);
             stmt.setString(2, romeName);
             stmt.setString(3, typeName);
@@ -69,21 +74,22 @@ public class RoomDAO {
             stmt.setString(5, description);
             stmt.executeUpdate();
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
     public boolean deleteRoom(String roomID) {
-        try (Connection conn = DBUtils.getConnection()) {
-            String query = "DELETE FROM rooms WHERE roomID = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
+        String sql = "DELETE FROM rooms WHERE roomID = ?";
+        try {
+            Connection conn = DBUtils.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, roomID);
             stmt.executeUpdate();
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return false;
     }
