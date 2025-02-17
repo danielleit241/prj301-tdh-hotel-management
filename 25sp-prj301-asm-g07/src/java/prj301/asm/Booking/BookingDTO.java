@@ -20,16 +20,38 @@ public class BookingDTO {
     private Date checkOutDate;
     private double totalPrice;
 
+<<<<<<< HEAD
+    public BookingDTO(String bookingID, String phone, Date checkInDate, Date checkOutDate, String status,double totalPrice) {
+=======
     
     public BookingDTO(String bookingID, String phone, Date checkInDate, Date checkOutDate, double totalPrice) {
+>>>>>>> f7529ab4d775dd154231fc216d4d3d9688bb4f2d
         this.bookingID = bookingID;
         this.phone = phone;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+        this.status = status;
         this.totalPrice = totalPrice;
+        
     }
+<<<<<<< HEAD
+
+    public String getStatus() {
+        return status;
+    }
+<<<<<<< Updated upstream
     
     
+=======
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+=======
+    
+>>>>>>> f7529ab4d775dd154231fc216d4d3d9688bb4f2d
+    
+>>>>>>> Stashed changes
     public String getBookingID() {
         return bookingID;
     }
