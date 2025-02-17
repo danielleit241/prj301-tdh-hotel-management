@@ -59,7 +59,7 @@ public class BookingDAO {
         }
     }
 
-    public boolean updateBooking(int bookingID, String phone, Date checkInDate, Date checkOutDate, double price) {
+    public boolean updateBooking(String bookingID, String phone, Date checkInDate, Date checkOutDate, double price) {
         long days = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24);
         double totalPrice = days * price;                      
         try{ 
@@ -70,7 +70,7 @@ public class BookingDAO {
             updateStmt.setDate(2, checkInDate);
             updateStmt.setDate(3, checkOutDate);
             updateStmt.setDouble(4, totalPrice);
-            updateStmt.setInt(5, bookingID);
+            updateStmt.setString(5, bookingID);
             updateStmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -79,12 +79,12 @@ public class BookingDAO {
         return false;
     }
 
-    public boolean deleteBooking(int bookingID) {
+    public boolean deleteBooking(String bookingID) {
         try {
             Connection conn = DBUtils.getConnection(); 
             String deleteSql = "DELETE FROM bookings WHERE bookingID = ?";
             PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
-            deleteStmt.setInt(1, bookingID);
+            deleteStmt.setString(1, bookingID);
             deleteStmt.executeUpdate();
             return true;
         } catch (SQLException e) {
