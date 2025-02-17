@@ -18,6 +18,7 @@ public class BookingDTO {
     private String phone;
     private Date checkInDate;
     private Date checkOutDate;
+    private String status;
     private double totalPrice;
 
 <<<<<<< HEAD
