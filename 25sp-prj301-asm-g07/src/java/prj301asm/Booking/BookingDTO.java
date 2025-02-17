@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prj301.asm.Booking;
+package prj301asm.Booking;
 
 import java.sql.Date;
 

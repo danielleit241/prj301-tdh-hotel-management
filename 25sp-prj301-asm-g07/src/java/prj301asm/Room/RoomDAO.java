@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prj301.asm.Room;
+package prj301asm.Room;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
