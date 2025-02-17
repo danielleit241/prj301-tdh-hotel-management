@@ -36,7 +36,7 @@ CREATE TABLE bookings (
     bookingID VARCHAR(50) PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     roomID INT NOT NULL,
-	phone VARCHAR(11) NOT NULL UNIQUE,
+    phone VARCHAR(11) NOT NULL UNIQUE,
     checkInDate DATE NOT NULL,
     checkOutDate DATE NOT NULL,
     status VARCHAR(10) CHECK (status IN ('confirmed', 'cancel', 'pending')) DEFAULT 'pending',
