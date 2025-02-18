@@ -13,14 +13,14 @@ import java.math.BigDecimal;
  */
 public class RoomDTO {
     private int roomID;
-    private String romeName;
+    private String roomName;
     private String typeName;
     private BigDecimal price;
     private String description;
 
-    public RoomDTO(int roomID, String romeName, String typeName, BigDecimal price, String description) {
+    public RoomDTO(int roomID, String roomName, String typeName, BigDecimal price, String description) {
         this.roomID = roomID;
-        this.romeName = romeName;
+        this.roomName = roomName;
         this.typeName = typeName;
         this.price = price;
         this.description = description;
@@ -34,12 +34,12 @@ public class RoomDTO {
         this.roomID = roomID;
     }
 
-    public String getRomeName() {
-        return romeName;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setRomeName(String romeName) {
-        this.romeName = romeName;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getTypeName() {

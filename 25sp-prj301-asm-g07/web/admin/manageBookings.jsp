@@ -1,27 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List, prj301.asm.Room.RoomDTO, prj301.asm.Room.RoomDAO, prj301.asm.Booking.BookingDTO, prj301.asm.Booking.BookingDAO, java.text.SimpleDateFormat" %>
-<%
-    RoomDAO roomDAO = new RoomDAO();
-    BookingDAO bookingDAO = new BookingDAO();
 
-    List<RoomDTO> rooms = roomDAO.getAllRooms();
-    //List<BookingDTO> bookings = bookingDAO.getAllBookings();
-
-    java.util.Map<String, String> roomStatus = new java.util.HashMap<>();
-    for (RoomDTO room : rooms) {
-        roomStatus.put(String.valueOf(room.getRoomID()), "available");
-    }
-
-   // for (BookingDTO booking : bookings) {
-   //     roomStatus.put(String.valueOf(booking.getRoomID()), "booked");
-    }
-
-    // request.setAttribute("rooms", rooms);
-    // request.setAttribute("roomStatus", roomStatus);
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-%>
 <!DOCTYPE html>
 <html>
     <head>

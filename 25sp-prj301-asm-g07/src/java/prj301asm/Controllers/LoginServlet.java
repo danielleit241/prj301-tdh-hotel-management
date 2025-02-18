@@ -32,7 +32,11 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);
             if (user != null) {
                 session.setAttribute("user", user);
-                response.sendRedirect("home.jsp");
+                if(user.getRole().equals("member")){
+                    response.sendRedirect("home.jsp");
+                }else if(user.getRole().equals("admin")){
+                    response.sendRedirect("admin/dashboard.jsp");
+                }   
             } else {
                 request.setAttribute("error", "Username or Password is not correct!");
                 RequestDispatcher rd = request.getRequestDispatcher("/login");
