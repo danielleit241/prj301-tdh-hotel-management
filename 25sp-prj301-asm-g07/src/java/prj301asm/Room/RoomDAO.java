@@ -95,4 +95,32 @@ public class RoomDAO {
         }
         return false;
     }
+
+    public RoomDTO getRoomByID(int roomID) {
+        RoomDTO room = new RoomDTO();
+
+        String sql = " SELECT * FROM rooms WHERE roomID = ? ";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, roomID);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    int id = rs.getInt("roomID");
+                    String romeName = rs.getString("romeName");
+                    String description = rs.getString("description");
+                    BigDecimal price = rs.getBigDecimal("price");
+                    String typeName = rs.getString("typeName");
+                    
+                    room = new RoomDTO(id, romeName, typeName, price, description);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return room;
+    }
 }
