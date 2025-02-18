@@ -20,16 +20,30 @@ import prj301asm.utils.DBUtils;
  */
 public class RoomDAO {
 
-    public List<RoomDTO> getRoomsByPage(int page, int pageSize) {
+    public List<RoomDTO> getRoomsByPage(int page, int pageSize, String typeRoom) {
         List<RoomDTO> list = new ArrayList<RoomDTO>();
         int offSet = (page - 1) * pageSize;
 
-        String sql = " SELECT * FROM Rooms ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        String sql = " SELECT * FROM Rooms ";
+
+        if (typeRoom != null) {
+            sql += " WHERE typeName = ? ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        } else {
+            sql += " ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        }
+
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement sttm = con.prepareStatement(sql);
-            sttm.setInt(1, offSet);
-            sttm.setInt(2, pageSize);
+            if (typeRoom != null) {
+                sttm.setString(1, typeRoom);
+                sttm.setInt(2, offSet);
+                sttm.setInt(3, pageSize);
+            } else {
+                sttm.setInt(1, offSet);
+                sttm.setInt(2, pageSize);
+            }
+
             ResultSet rs = sttm.executeQuery();
 
             if (rs != null) {
@@ -47,32 +61,6 @@ public class RoomDAO {
             System.out.println(e);
         }
         return list;
-    }
-
-    public List<RoomDTO> getAllRooms() {
-        List<RoomDTO> rooms = new ArrayList<>();
-
-        String sql = "SELECT * FROM rooms";
-        try {
-            Connection conn = DBUtils.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("roomID");
-                String romeName = rs.getString("romeName");
-                String description = rs.getString("description");
-                BigDecimal price = rs.getBigDecimal("price");
-                String typeName = rs.getString("typeName");
-                RoomDTO room = new RoomDTO(id, romeName, typeName, price, description);
-                rooms.add(room);
-            }
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return rooms;
     }
 
     public boolean addRoom(String roomID, String romeName, String typeName, BigDecimal price, String description) {

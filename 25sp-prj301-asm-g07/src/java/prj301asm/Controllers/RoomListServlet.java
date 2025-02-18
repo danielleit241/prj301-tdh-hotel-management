@@ -24,11 +24,15 @@ public class RoomListServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = 1;
+        String typeRoom = request.getParameter("typeRoom");
+        if(typeRoom == null){
+            typeRoom = "";
+        }
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         RoomDAO dao = new RoomDAO();
-        ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE);
+        ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE, typeRoom);
         
         int totalPages = (int) Math.ceil((double) 50 / PAGE_SIZE);
 

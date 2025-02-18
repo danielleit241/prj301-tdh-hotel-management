@@ -1,16 +1,41 @@
-*1. Hình ảnh chi tiết phòng
-*2. Setting lại database về việc booking (ngày book, ngày kết thúc, trạng thái) 
-	VD: kiểu như là trong ngày đó thì trạng thái nó đã đặt, còn ngày khác thì chưa
-*3. Quản lý phòng - thêm ảnh khi SỬA
-*4. Quản lý booking -> Lấy dữ liệu database -> thêm 1 button trên GUI(filter status)
+-------------------------------------------------
 
-Hòa: Login - Kiểm tra login user -> Chuyển hướng page!
-	+ User -> DTO, DAO
-		+ DAO: Check username, getRole, getUser
-	+ Sign up page!
-	+ Authorize User
-Đạt, Thịnh: Room:
-	+ DTO, DAO rooms
-	+ DAO: Thinh: Search theo giá, tên, loại phòng, sap xep theo gia
-		Dat: Thêm, xóa, sửa
-		Kiểm tra -> trạng thái theo date (Check rooms)
+hiện tại chỉ cần các trang jsp sau:
+
+**QUAN TRỌNG (cần tập trung trước):
+1. Home (guest, member, admin) hiện ra thông tin khách sạn và các nút thao tác chuyển tiếp (demo signup|login)
+2. Trang admin (manageRoom, manageBookings, roomEdit)
+3. Trang member (roomList, roomDetails, bookings, payments)
+4. Signup, Login
+**LÀM SAU:
+1. booking.jsp và payment.jsp 
+	+ Hai cái này nên tập trung làm sau, cứ làm lặt vặt xong từng cái nhỏ trước rồi build qua cái này
+
+-------------------------------------------------
+
+TASK: -> LÀM XONG PHẢI BÁO CÁO LẠI, OK HẾT RỒI THÌ MỚI UP CODE LÊN GIT
+
+@Phú Thịnh làm phần jsp manageRoom bên admin (coding 1 Servlet mới nhé, đẩy dữ liệu lên trước như demo GUI)
+
+@Ngô Thành Đạt làm phần manageBookings theo mẫu sql sau: (Nếu giá trị là NULL -> auto bên jsp phải để là "đang chờ")
+
+"
+SELECT b.bookingID,
+	   r.RoomID,
+	   u.name AS BookedBy,
+       b.checkInDate,
+       b.checkOutDate,
+       CASE 
+         WHEN b.checkInDate IS NULL OR b.checkOutDate IS NULL 
+              OR CAST(GETDATE() AS DATE) < b.checkInDate 
+              THEN N'chưa đặt'
+         WHEN CAST(GETDATE() AS DATE) BETWEEN b.checkInDate AND b.checkOutDate 
+              THEN N'đang đặt'
+         WHEN CAST(GETDATE() AS DATE) > b.checkOutDate 
+              THEN N'đã đặt'
+       END AS BookingStatus
+FROM Rooms r
+LEFT JOIN bookings b ON r.RoomID = b.RoomID
+LEFT JOIN users u ON b.username = u.username;
+"
+
