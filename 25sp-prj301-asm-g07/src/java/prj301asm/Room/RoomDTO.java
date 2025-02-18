@@ -20,8 +20,6 @@ public class RoomDTO {
 
     public RoomDTO() {
     }
-
-    
     
     public RoomDTO(int roomID, String roomName, String typeName, BigDecimal price, String description) {
         this.roomID = roomID;
