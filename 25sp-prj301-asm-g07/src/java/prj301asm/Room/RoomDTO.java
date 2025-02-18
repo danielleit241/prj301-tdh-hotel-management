@@ -18,6 +18,9 @@ public class RoomDTO {
     private BigDecimal price;
     private String description;
 
+    public RoomDTO() {
+    }
+    
     public RoomDTO(int roomID, String roomName, String typeName, BigDecimal price, String description) {
         this.roomID = roomID;
         this.roomName = roomName;
