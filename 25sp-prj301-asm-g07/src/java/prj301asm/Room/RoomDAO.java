@@ -20,6 +20,35 @@ import prj301asm.utils.DBUtils;
  */
 public class RoomDAO {
 
+    public List<RoomDTO> getRoomsByPage(int page, int pageSize) {
+        List<RoomDTO> list = new ArrayList<RoomDTO>();
+        int offSet = (page - 1) * pageSize;
+
+        String sql = " SELECT * FROM Rooms ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement sttm = con.prepareStatement(sql);
+            sttm.setInt(1, offSet);
+            sttm.setInt(2, pageSize);
+            ResultSet rs = sttm.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    int id = rs.getInt("roomID");
+                    String romeName = rs.getString("romeName");
+                    String description = rs.getString("description");
+                    BigDecimal price = rs.getBigDecimal("price");
+                    String typeName = rs.getString("typeName");
+                    RoomDTO room = new RoomDTO(id, romeName, typeName, price, description);
+                    list.add(room);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<RoomDTO> getAllRooms() {
         List<RoomDTO> rooms = new ArrayList<>();
 

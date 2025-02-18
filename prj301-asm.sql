@@ -4,7 +4,6 @@ go
 --drop database HotelManagement
 use HotelManagement
 
-
 CREATE TABLE users (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(30) NOT NULL,
@@ -12,11 +11,6 @@ CREATE TABLE users (
     role VARCHAR(6) NOT NULL CHECK (role IN ('admin', 'member')) DEFAULT 'member',
     createAt DATETIME DEFAULT GETDATE()
 );
-
-insert into users(username, password, name, role) 
-	values('hoa', 'hoa', N'Hòa Lê', 'admin'),
-		('dat', 'dat', N'Đạt 09', 'admin'),
-		('thinh', 'thinh', N'Thịnh Tu', 'admin');
 
 CREATE TABLE roomTypes (
     typeName NVARCHAR(50) NOT NULL PRIMARY KEY,
@@ -46,12 +40,6 @@ CREATE TABLE bookings (
     FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE
 );
 
-------------------------------TEST-------------------------------
---select * from bookings
---insert into bookings(bookingID, username, roomID, checkInDate, checkOutDate, status, totalPrice)
---	values ('Test12345', 'hoa', 101, '2-13-2025', '2-15-2025', 'confirmed', 150000)
------------------------------------------------------------------
-
 CREATE TABLE payments (
     paymentID VARCHAR(50) PRIMARY KEY,
     bookingID VARCHAR(50) NOT NULL,
@@ -71,7 +59,13 @@ CREATE TABLE feedback (
     FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
     FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE
 );
-		
+	
+--------------------------------------------------------------------------------------------------------------------------
+
+insert into users(username, password, name, role) 
+	values('hoa', 'hoa', N'Hòa Lê', 'admin'),
+		('dat', 'dat', N'Đạt 09', 'admin'),
+		('thinh', 'thinh', N'Thịnh Tu', 'admin');
 
 -- Insert data into table roomTypes
 INSERT INTO roomTypes (typeName, description)

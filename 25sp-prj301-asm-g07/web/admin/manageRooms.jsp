@@ -1,58 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List, prj301.asm.Room.RoomDTO, prj301.asm.Room.RoomDAO, java.math.BigDecimal" %>
-<%
-    RoomDAO roomDAO = new RoomDAO();
-    String action = request.getParameter("action");
-
-    if ("add".equals(action)) {
-        if (request.getMethod().equalsIgnoreCase("post")) {
-            String roomID = request.getParameter("roomID");
-            String romeName = request.getParameter("romeName");
-            String typeName = request.getParameter("typeName");
-            BigDecimal price = new BigDecimal(request.getParameter("price"));
-            String description = request.getParameter("description");
-
-            boolean success = roomDAO.addRoom(roomID, romeName, typeName, price, description);
-            if (success) {
-                response.sendRedirect("manageRooms.jsp?addSuccess=true"); // Refresh trang sau khi thêm thành công
-            } else {
-                request.setAttribute("addError", "Thêm phòng thất bại. Vui lòng kiểm tra lại thông tin.");
-            }
-            return;
-        }
-    } else if ("edit".equals(action)) {
-        if (request.getMethod().equalsIgnoreCase("post")) {
-            String roomID = request.getParameter("roomID"); // Lấy roomID để cập nhật
-            String romeName = request.getParameter("romeName");
-            String typeName = request.getParameter("typeName");
-            BigDecimal price = new BigDecimal(request.getParameter("price"));
-            String description = request.getParameter("description");
-
-            boolean success = roomDAO.updateRoom(roomID, romeName, typeName, price, description);
-            if (success) {
-                response.sendRedirect("manageRooms.jsp?editSuccess=true"); // Refresh trang sau khi sửa thành công
-            } else {
-                request.setAttribute("editError", "Cập nhật phòng thất bại. Vui lòng kiểm tra lại thông tin.");
-            }
-            return;
-        } else { // Hiển thị form sửa phòng (hiện tại không cần thiết trong code này, vì form sửa nằm trong modal và dữ liệu được điền trực tiếp từ list rooms)
-            // ... (Bạn có thể thêm logic lấy thông tin phòng nếu cần hiển thị thông tin cũ trước khi sửa trong tương lai) ...
-        }
-    } else if ("delete".equals(action)) {
-        String roomID = request.getParameter("roomID");
-        boolean success = roomDAO.deleteRoom(roomID);
-        if (success) {
-            response.sendRedirect("manageRooms.jsp?deleteSuccess=true"); // Refresh trang sau khi xóa thành công
-        } else {
-            request.setAttribute("deleteError", "Xóa phòng thất bại.");
-        }
-        return;
-    }
-
-    List<RoomDTO> rooms = roomDAO.getAllRooms();
-    request.setAttribute("rooms", rooms);
-%>
 <!DOCTYPE html>
 <html>
     <head>
