@@ -23,22 +23,27 @@ public class RoomListServlet extends HttpServlet {
     private static final int PAGE_SIZE = 9;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int page = 1;
         String typeRoom = request.getParameter("typeRoom");
-        if(typeRoom == null){
-            typeRoom = "";
+        if (typeRoom == null) {
+            typeRoom = null;
         }
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
+        String pageParam = request.getParameter("page");
+        int page;
+        if (pageParam != null && !pageParam.trim().isEmpty()) {
+            page = Integer.parseInt(pageParam);
+        }else{
+            page = 1;
         }
+
         RoomDAO dao = new RoomDAO();
         ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE, typeRoom);
-        
+
         int totalPages = (int) Math.ceil((double) 50 / PAGE_SIZE);
 
         request.setAttribute("list", list);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
+        request.setAttribute("search", typeRoom);
 
         request.getRequestDispatcher("roomList.jsp").forward(request, response);
     }

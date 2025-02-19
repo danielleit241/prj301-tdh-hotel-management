@@ -115,13 +115,19 @@
         </style>
     </head>
     <body>
-
+        <div>
+            <form action="./roomList">
+                <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}" />
+                <input type="text" name="typeRoom" value="${search != null ? search : ""}">
+                <input type="submit" value="Search">
+            </form>
+        </div>
         <div class="container">
             <!-- Lặp qua danh sách phòng -->
             <c:forEach var="room" items="${list}">
                 <div class="card">
                     <!-- Hiển thị ảnh phòng -->
-                    <img src="images/${room.roomID}.png" alt="Room Image">
+                    <a href="roomDetails?roomID=${room.roomID}"><img src="images/${room.roomID}.png" alt="Room Image"></a>
                     <div class="favorite-icon">❤️</div>
                     <div class="card-content">
                         <!-- Tên phòng -->

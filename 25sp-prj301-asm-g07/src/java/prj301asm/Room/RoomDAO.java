@@ -27,16 +27,15 @@ public class RoomDAO {
         String sql = " SELECT * FROM Rooms ";
 
         if (typeRoom != null) {
-            sql += " WHERE typeName = ? ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+            sql += " WHERE typeName like ? ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         } else {
             sql += " ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         }
-
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement sttm = con.prepareStatement(sql);
             if (typeRoom != null) {
-                sttm.setString(1, typeRoom);
+                sttm.setString(1, "%" + typeRoom + "%");
                 sttm.setInt(2, offSet);
                 sttm.setInt(3, pageSize);
             } else {
@@ -130,7 +129,7 @@ public class RoomDAO {
                     String description = rs.getString("description");
                     BigDecimal price = rs.getBigDecimal("price");
                     String typeName = rs.getString("typeName");
-                    
+
                     room = new RoomDTO(id, romeName, typeName, price, description);
                 }
             }

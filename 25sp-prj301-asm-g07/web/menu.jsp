@@ -15,5 +15,6 @@
         <a href="login.jsp">Login</a>
         <a href="signup.jsp">Sign Up</a>
         <a href="login?action=logout">Logout</a>
+        <a href="roomList?page=1">Our Room</a>
     </body>
 </html>
