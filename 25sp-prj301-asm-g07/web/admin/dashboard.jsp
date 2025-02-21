@@ -61,7 +61,7 @@
                     <a href="manageRooms.jsp" class="btn btn-outline-primary w-100">Quản lý Phòng</a>
                 </div>
                 <div class="col-md-4">
-                    <a href="manageBookings.jsp" class="btn btn-outline-primary w-100">Quản lý Đặt Phòng</a>
+                    <a href="./manageBookings" class="btn btn-outline-primary w-100">Quản lý Đặt Phòng</a>
                 </div>
                 <div class="col-md-4">
                     <a href="manageReviews.jsp" class="btn btn-outline-primary w-100">Quản lý Đánh giá</a>

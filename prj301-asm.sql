@@ -1,6 +1,5 @@
 ﻿create database HotelManagement
 go
-
 --drop database HotelManagement
 use HotelManagement
 
@@ -39,7 +38,6 @@ CREATE TABLE bookings (
     FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
     FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE
 );
-
 CREATE TABLE payments (
     paymentID VARCHAR(50) PRIMARY KEY,
     bookingID VARCHAR(50) NOT NULL,
@@ -239,4 +237,27 @@ VALUES
     (1105, N'Modern Single Room with Minimalist Design', N'Single Room', 510000,
      N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a minimalist style.')
 ;
+
+SELECT b.bookingID,
+	   r.RoomID,
+	   r.romeName,
+	   r.typeName,
+	   r.price,
+	   r.description,
+	   b.phone,
+	   u.name AS BookedBy,
+       b.checkInDate,
+       b.checkOutDate,
+       CASE 
+         WHEN b.checkInDate IS NULL OR b.checkOutDate IS NULL 
+              OR CAST(GETDATE() AS DATE) < b.checkInDate 
+              THEN N'chưa đặt'
+         WHEN CAST(GETDATE() AS DATE) BETWEEN b.checkInDate AND b.checkOutDate 
+              THEN N'đang đặt'
+         WHEN CAST(GETDATE() AS DATE) > b.checkOutDate 
+              THEN N'đã đặt'
+       END AS BookingStatus
+FROM Rooms r
+LEFT JOIN bookings b ON r.RoomID = b.RoomID
+LEFT JOIN users u ON b.username = u.username;
 

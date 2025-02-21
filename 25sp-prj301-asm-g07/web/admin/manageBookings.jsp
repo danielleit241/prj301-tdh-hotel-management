@@ -9,6 +9,8 @@
         <style>
             .room-status {
                 font-weight: bold;
+                white-space: nowrap; 
+
             }
             .booked {
                 color: red;
@@ -71,15 +73,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="room" items="${rooms}">
+                    <c:forEach var="room" items="${roomBookings}">
                         <tr>
                             <td><c:out value="${room.getRoomID()}"/></td>
                             <td><c:out value="${room.getRomeName()}"/></td>
                             <td><c:out value="${room.getTypeName()}"/></td>
-                            <td><c:out value="${room.getPrice()}"/></td>
+                            <td><c:out value="${room.getTotalPrice()}"/></td>
                             <td><c:out value="${room.getDescription()}"/></td>
-                            <td class="room-status ${roomStatus[room.roomID] == 'booked'? 'booked': 'available'}">
-                                <c:out value="${roomStatus[room.roomID] == 'booked'? 'Booked': 'Available'}"/>
+                            <td class="room-status" 
+                                <c:choose>
+                                    <c:when test="${room.getStatus() == 'chưa đặt'}">style="color: red;"</c:when>
+                                    <c:when test="${room.getStatus() == 'đã đặt'}">style="color: green;"</c:when>
+                                    <c:otherwise>style="color: black;"</c:otherwise>
+                                </c:choose>
+                                > 
+                                <c:out value="${room.getStatus()}"/>
                             </td>
                         </tr>
                     </c:forEach>
