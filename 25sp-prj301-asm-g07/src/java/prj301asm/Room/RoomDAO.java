@@ -139,4 +139,32 @@ public class RoomDAO {
         }
         return room;
     }
+    
+    public List<RoomDTO> getAllRoom() {
+        List<RoomDTO> getAllRoom = new ArrayList<>();
+        String sql = " SELECT * FROM rooms ";
+        try {
+            Connection conn = DBUtils.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    int roomID = rs.getInt("roomID");
+                    String romeName = rs.getString("romeName");
+                    String typeName = rs.getString("typeName");                   
+                    BigDecimal price = rs.getBigDecimal("price");
+                    String description = rs.getString("description");
+                    
+                    RoomDTO room = new RoomDTO(roomID, romeName, typeName, price, description);
+                    getAllRoom.add(room);
+                }
+            }
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return getAllRoom;
+    }
 }
