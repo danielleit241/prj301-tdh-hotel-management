@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,34 +19,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">THD-Hotel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="">Hello: ${sessionScope.user.name}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="login.jsp">Log In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="signup.jsp">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login?action=logout">Log Out</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="roomList?page=1">Room List</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <body>
+        <%@include file="/navbar.jsp"%>
         <h2>Hello: ${sessionScope.user.name}</h1>
-    </body>
+</body>
 </html>
