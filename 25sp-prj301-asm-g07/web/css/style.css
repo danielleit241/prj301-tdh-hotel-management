@@ -28,18 +28,6 @@
     margin-left: 15px; /* Khoảng cách giữa các mục */
 }
 
-/*booking*/
-.room-status {
-    font-weight: bold;
-    white-space: nowrap; 
-}
-.booked {
-    color: red;
-}
-.available {
-    color: green;
-}
-
 /*home*/
 h2{
     padding: 20px 50px;
@@ -84,4 +72,27 @@ body {
 .signup-link {
     text-align: center;
     margin-top: 15px;
+}
+
+/*manageRooms*/
+.dropdown-menu {
+    background-color: black;
+}
+.dropdown-item {
+    color: white; 
+}
+.dropdown-item:hover {
+    background-color: #333;
+}
+
+/*manageBooking.jsp*/
+.room-status {
+    font-weight: bold;
+    white-space: nowrap; 
+}
+.booked {
+    color: red;
+}
+.available {
+    color: green;
 }

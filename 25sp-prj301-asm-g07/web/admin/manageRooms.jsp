@@ -11,17 +11,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <style>
-            .dropdown-menu {
-                background-color: black;
-            }
-            .dropdown-item {
-                color: white; 
-            }
-            .dropdown-item:hover {
-                background-color: #333;
-            }
-        </style>
     </head>
     <body>
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRoomModal">
