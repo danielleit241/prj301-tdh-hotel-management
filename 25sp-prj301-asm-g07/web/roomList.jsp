@@ -127,7 +127,7 @@
             <c:forEach var="room" items="${list}">
                 <div class="card">
                     <!-- Hiển thị ảnh phòng -->
-                    <a href="roomDetails?roomID=${room.roomID}"><img src="images/${room.roomID}.png" alt="Room Image"></a>
+                    <a href="roomDetails?roomID=${room.roomID}"><img src="images/${room.roomID}/${room.roomID}.jpg" alt="Room Image"></a>
                     <div class="favorite-icon">❤️</div>
                     <div class="card-content">
                         <!-- Tên phòng -->
