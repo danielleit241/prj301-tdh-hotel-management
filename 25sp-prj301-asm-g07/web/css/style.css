@@ -1,0 +1,87 @@
+/*nav*/
+.navbar {
+    background-color: white !important; /* Màu nền trắng */
+    border-bottom: 1px solid #ddd; /* Đường kẻ dưới navbar */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #333!important;
+    font-size: 14px;
+    font-weight: bold; /* Thêm thuộc tính này để in đậm chữ */
+    font-family: 'Open Sans', sans-serif; 
+}
+
+.navbar-brand{
+    font-size: 25px;
+}
+
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link:focus {
+    color: red !important; /* Màu đỏ khi active hoặc hover */
+    background-color: transparent !important; /* Nền trong suốt */
+    border-bottom: 2px solid red; /* Đường kẻ dưới khi active */
+}
+
+.navbar-nav .nav-item {
+    margin-left: 15px; /* Khoảng cách giữa các mục */
+}
+
+/*booking*/
+.room-status {
+    font-weight: bold;
+    white-space: nowrap; 
+}
+.booked {
+    color: red;
+}
+.available {
+    color: green;
+}
+
+/*home*/
+h2{
+    padding: 20px 50px;
+}
+
+/*login*/
+body {
+    background-color: #f4f4f4; /* Light gray background */
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.login-form {
+    background-color: #ffffff;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+.form-label {
+    font-weight: 500;
+    color: #555;
+}
+.btn-primary {
+    background-color: rgb(200, 67, 97); 
+    border-color: #007bff;
+    width: 100%; 
+    margin-top: 25px;
+}
+.btn-primary:hover {
+    background-color: rgb(180, 67, 97);
+    border-color: #0062cc;
+}
+.signup-link {
+    text-align: center;
+    margin-top: 15px;
+}

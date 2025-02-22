@@ -56,6 +56,7 @@ public class RoomDAO {
                     list.add(room);
                 }
             }
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -72,8 +73,10 @@ public class RoomDAO {
             stmt.setString(3, typeName);
             stmt.setBigDecimal(4, price);
             stmt.setString(5, description);
-            stmt.executeUpdate();
-            return true;
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -90,8 +93,10 @@ public class RoomDAO {
             stmt.setString(3, typeName);
             stmt.setBigDecimal(4, price);
             stmt.setString(5, description);
-            stmt.executeUpdate();
-            return true;
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,8 +109,10 @@ public class RoomDAO {
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, roomID);
-            stmt.executeUpdate();
-            return true;
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -133,6 +140,7 @@ public class RoomDAO {
                     room = new RoomDTO(id, romeName, typeName, price, description);
                 }
             }
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
             e.printStackTrace();

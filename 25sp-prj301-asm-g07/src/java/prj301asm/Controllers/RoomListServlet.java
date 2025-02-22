@@ -29,7 +29,7 @@ public class RoomListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user.getRole().equals("member")) {
+        if ( user == null || user.getRole().equals("member")) {
             String typeRoom = request.getParameter("typeRoom");
             if (typeRoom == null) {
                 typeRoom = null;

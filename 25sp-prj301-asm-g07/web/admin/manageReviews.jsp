@@ -2,9 +2,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quản Lý Đánh Giá - Hotel Management (Giao Diện Đẹp)</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <%-- **Updated Bootstrap CSS version to 5.3.0** --%>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css"/>
+        <!--font - family-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <style>
             body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f9; margin: 0; padding: 0; color: #333; }
             .container { width: 90%; max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
@@ -30,19 +35,6 @@
             .action-buttons button.delete { background-color: #dc3545; }
             .action-buttons button.delete:hover { background-color: #c82333; }
             .no-reviews { text-align: center; padding: 20px; color: #777; }
-            /* Navbar styles - Copied from manageRooms.jsp */
-            .navbar {
-                background-color: black !important;
-            }
-
-            .navbar-brand,
-            .navbar-nav .nav-link {
-                color: white !important;
-            }
-
-            .navbar-nav .nav-link.active {
-                color: #cccccc !important;
-            }
 
             .dropdown-menu {
                 background-color: black;
@@ -60,26 +52,28 @@
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light"> <%-- **Pasted Navbar code here** --%>
-            <a class="navbar-brand" href="#">THD-Hotel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.jsp">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="roomList.jsp">Danh sách phòng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Đặt phòng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liên hệ</a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">THD-Hotel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home.jsp">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="roomList.jsp">Danh sách phòng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Đặt phòng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Liên hệ</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
 
@@ -173,10 +167,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            <%-- Hiển thị thông báo nếu không có đánh giá (ví dụ, khi danh sách rỗng) --%>
-            <%-- <p class="no-reviews">Không có đánh giá nào.</p> --%>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <%-- **Updated Bootstrap JS version to 5.3.0** --%>
     </body>
 </html>
