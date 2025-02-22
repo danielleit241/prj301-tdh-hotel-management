@@ -58,7 +58,7 @@
             <h2 class="text-center">Quản trị viên - Bảng điều khiển</h2>
             <div class="row mt-4">
                 <div class="col-md-4">
-                    <a href="manageRooms.jsp" class="btn btn-outline-primary w-100">Quản lý Phòng</a>
+                    <a href="./manageRooms" class="btn btn-outline-primary w-100">Quản lý Phòng</a>
                 </div>
                 <div class="col-md-4">
                     <a href="./manageBookings" class="btn btn-outline-primary w-100">Quản lý Đặt Phòng</a>
