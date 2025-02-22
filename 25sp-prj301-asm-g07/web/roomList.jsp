@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -123,17 +124,18 @@
             </form>
         </div>
         <div class="container">
-            <!-- Lặp qua danh sách phòng -->
             <c:forEach var="room" items="${list}">
                 <div class="card">
-                    <!-- Hiển thị ảnh phòng -->
-                    <a href="roomDetails?roomID=${room.roomID}"><img src="images/${room.roomID}/${room.roomID}.jpg" alt="Room Image"></a>
+                    <a href="roomDetails?roomID=${room.roomID}">
+                        <img src="images/${room.roomID}/${room.roomID}.jpg" alt="Room Image">
+                    </a>
                     <div class="favorite-icon">❤️</div>
                     <div class="card-content">
-                        <!-- Tên phòng -->
                         <h3>${room.roomName}</h3>
-                        <p>Loại phòng: ${room.typeName}</p>
-                        <p class="price">Bắt đầu từ: ${room.price} VNĐ</p>
+                        <p>Type room: ${room.typeName}</p>
+                        <p class="price">Starting from: 
+                            <fmt:formatNumber value="${room.price}" pattern="#,##0" /> VNĐ
+                        </p>
                     </div>
                 </div>
             </c:forEach>

@@ -67,6 +67,7 @@ public class RoomBookingDAO {
                     list.add(roomBooking);
                 }
             }
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
             e.printStackTrace();
