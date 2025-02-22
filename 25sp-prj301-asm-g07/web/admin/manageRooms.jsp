@@ -3,22 +3,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quản lý Phòng</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css"/>
+        <!--font - family-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <style>
-            .navbar {
-                background-color: black !important;
-            }
-
-            .navbar-brand,
-            .navbar-nav .nav-link {
-                color: white !important;
-            }
-
-            .navbar-nav .nav-link.active {
-                color: #cccccc !important; 
-            }
-
             .dropdown-menu {
                 background-color: black;
             }
@@ -31,9 +24,31 @@
         </style>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">THD-Hotel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home.jsp">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="roomList.jsp">Danh sách phòng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Đặt phòng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Liên hệ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container mt-5">
-
-
             <%-- Thông báo thành công/thất bại --%>
             <c:if test="${param.addSuccess == 'true'}">
                 <div class="alert alert-success" role="alert">Thêm phòng thành công!</div>
@@ -53,32 +68,8 @@
             <c:if test="${requestScope.deleteError != null}">
                 <div class="alert alert-danger" role="alert">${requestScope.deleteError}</div>
             </c:if>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="#">THD-Hotel</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.jsp">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="roomList.jsp">Danh sách phòng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Đặt phòng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Liên hệ</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
 
-                <h2 style="text-align: center">Quản lý Phòng</h2>
+            <h2 style="text-align: center">Quản lý Phòng</h2>
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRoomModal">
                 Thêm phòng mới
             </button>

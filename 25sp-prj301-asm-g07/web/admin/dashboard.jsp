@@ -2,35 +2,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Dashboard</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            .navbar {
-                background-color: black !important;
-            }
-
-            .navbar-brand,
-            .navbar-nav .nav-link { /* Combined selectors for efficiency */
-                color: white !important;
-            }
-
-            .navbar-nav .nav-link.active {
-                color: #cccccc !important; 
-            }
-
-            .dropdown-menu {
-                background-color: black;
-            }
-            .dropdown-item {
-                color: white; 
-            }
-            .dropdown-item:hover {
-                background-color: #333;
-            }
-        </style>
+        <link rel="stylesheet" href="../css/style.css"/>
+        <!--font - family-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">THD-Hotel</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,13 +21,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="home.jsp">Trang chủ</a>
+                            <a class="nav-link" aria-current="page" href="home.jsp">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="roomList.jsp">Danh sách phòng</a>
+                            <a class="nav-link" href="./manageRooms">Danh sách phòng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Đặt phòng</a>
+                            <a class="nav-link" href="./manageBookings">Quản Lí Đặt phòng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quản Lí Đánh Giá</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Liên hệ</a>
@@ -54,6 +39,7 @@
                 </div>
             </div>
         </nav>
+
         <div class="container mt-5">
             <h2 class="text-center">Quản trị viên - Bảng điều khiển</h2>
             <div class="row mt-4">
