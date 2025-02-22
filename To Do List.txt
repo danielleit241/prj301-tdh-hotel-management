@@ -17,25 +17,15 @@ TASK: -> LÀM XONG PHẢI BÁO CÁO LẠI, OK HẾT RỒI THÌ MỚI UP CODE LÊ
 
 @Phú Thịnh làm phần jsp manageRoom bên admin (coding 1 Servlet mới nhé, đẩy dữ liệu lên trước như demo GUI)
 
-@Ngô Thành Đạt làm phần manageBookings theo mẫu sql sau: (Nếu giá trị là NULL -> auto bên jsp phải để là "đang chờ")
+CSS:
 
-"
-SELECT b.bookingID,
-	   r.RoomID,
-	   u.name AS BookedBy,
-       b.checkInDate,
-       b.checkOutDate,
-       CASE 
-         WHEN b.checkInDate IS NULL OR b.checkOutDate IS NULL 
-              OR CAST(GETDATE() AS DATE) < b.checkInDate 
-              THEN N'chưa đặt'
-         WHEN CAST(GETDATE() AS DATE) BETWEEN b.checkInDate AND b.checkOutDate 
-              THEN N'đang đặt'
-         WHEN CAST(GETDATE() AS DATE) > b.checkOutDate 
-              THEN N'đã đặt'
-       END AS BookingStatus
-FROM Rooms r
-LEFT JOIN bookings b ON r.RoomID = b.RoomID
-LEFT JOIN users u ON b.username = u.username;
-"
-
+Nav: 3 phần (3 6 3)
+Khi vào trang nào đó -> [Our Room]
+RoomList -> CSS lại sao cho 
+	nav
+	[our room]
+	[thanh công cụ]
+	   [Phòng]
+	[pre 1 2 3 4 5 next] (kiểm tra phần currentPage if(currentPage > 1) sẽ hiện nút pre, nếu if(totalPage <= currentPage) sẽ hiện nút next)
+	[footer] -> i chang nav -> 1 cái footer cho tất cả!
+	
