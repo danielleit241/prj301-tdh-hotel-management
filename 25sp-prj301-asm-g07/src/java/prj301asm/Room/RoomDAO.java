@@ -130,15 +130,13 @@ public class RoomDAO {
 
             ResultSet rs = stmt.executeQuery();
             if (rs != null) {
-                while (rs.next()) {
                     int id = rs.getInt("roomID");
-                    String romeName = rs.getString("romeName");
+                    String roomName = rs.getString("roomName");
                     String description = rs.getString("description");
                     BigDecimal price = rs.getBigDecimal("price");
                     String typeName = rs.getString("typeName");
 
-                    room = new RoomDTO(id, romeName, typeName, price, description);
-                }
+                    room = new RoomDTO(id, roomName, typeName, price, description);
             }
             con.close();
         } catch (SQLException e) {

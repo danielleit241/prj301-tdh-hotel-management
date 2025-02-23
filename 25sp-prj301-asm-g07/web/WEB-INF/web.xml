@@ -43,6 +43,15 @@
         <url-pattern>/admin/manageBookings</url-pattern>
     </servlet-mapping>
     
+     <servlet>
+        <servlet-name>RoomDetailsServlet</servlet-name>
+        <servlet-class>prj301asm.Controllers.RoomDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RoomDetailsServlet</servlet-name>
+        <url-pattern>/roomDetails</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
