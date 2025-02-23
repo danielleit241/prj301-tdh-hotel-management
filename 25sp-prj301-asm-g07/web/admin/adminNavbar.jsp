@@ -13,15 +13,12 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
+            <div class="container d-flex justify-content-between">
                 <a class="navbar-brand" href="#">THD-Hotel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
+                <div class="navbar-nav">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="home.jsp">Trang chủ</a>
+                            <a class="nav-link" aria-current="page" href="dashboard.jsp">Trang chủ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./manageRooms">Danh sách phòng</a>
@@ -35,10 +32,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Liên hệ</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login?action=logout">Đăng xuất</a>
-                        </li>
                     </ul>
+                </div>
+                <div class="navbar-nav">
+                    <span class="nav-link">
+                        Hello: ${sessionScope.user.name} |
+                        <a href="../login?action=logout" class="logout-link">Đăng xuất</a>
+                    </span>
                 </div>
             </div>
         </nav>

@@ -23,7 +23,7 @@ public class RoomBookingDAO {
     public List<RoomBookingDTO> getAllRoomBookings() {
         List<RoomBookingDTO> list = new ArrayList<>();
         String sql = "SELECT b.bookingID,\n"
-                + "       r.RoomID,\n"
+                + "       r.roomID,\n"
                 + "       r.roomName,\n"
                 + "       r.typeName,\n"
                 + "       r.price,\n"
@@ -54,7 +54,7 @@ public class RoomBookingDAO {
                     RoomBookingDTO roomBooking = new RoomBookingDTO();
 
                     roomBooking.setBookingID(rs.getString("bookingID"));
-                    roomBooking.setRoomID(rs.getInt("RoomID"));
+                    roomBooking.setRoomID(rs.getInt("roomID"));
                     roomBooking.setRoomName(rs.getString("roomName"));
                     roomBooking.setTypeName(rs.getString("typeName"));
                     roomBooking.setTotalPrice(rs.getBigDecimal("price"));

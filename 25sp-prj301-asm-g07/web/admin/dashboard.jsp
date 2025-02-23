@@ -14,16 +14,12 @@
     <body>
         <%@include file="./adminNavbar.jsp"%>
         <div class="container mt-5">
-            <h2 class="text-center">Quản trị viên - Bảng điều khiển</h2>
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <a href="./manageRooms" class="btn btn-outline-primary w-100">Quản lý Phòng</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="./manageBookings" class="btn btn-outline-primary w-100">Quản lý Đặt Phòng</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="manageReviews.jsp" class="btn btn-outline-primary w-100">Quản lý Đánh giá</a>
+            <<div class="container admin-dashboard">
+                <h2>Quản trị viên - Bảng điều khiển</h2>
+                <div class="dashboard-buttons">
+                    <a href="./manageRooms" class="dashboard-button">Quản lý Phòng</a>
+                    <a href="./manageBookings" class="dashboard-button">Quản lý Đặt Phòng</a>
+                    <a href="./manageReviews" class="dashboard-button">Quản lý Đánh giá</a>
                 </div>
             </div>
         </div>

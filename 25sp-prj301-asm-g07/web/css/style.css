@@ -1,36 +1,93 @@
+*{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
 /*nav*/
 .navbar {
-    background-color: white !important; /* Màu nền trắng */
-    border-bottom: 1px solid #ddd; /* Đường kẻ dưới navbar */
+    background-color: white !important;
+    border-bottom: 1px solid #ddd;
 }
 
 .navbar-brand,
 .navbar-nav .nav-link {
-    color: #333!important;
-    font-size: 14px;
-    font-weight: bold; /* Thêm thuộc tính này để in đậm chữ */
-    font-family: 'Open Sans', sans-serif; 
+    color: #333 !important;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.navbar-brand{
-    font-size: 25px;
+.navbar-brand {
+    font-size: 30px;
 }
 
 .navbar-nav .nav-item .nav-link.active,
 .navbar-nav .nav-item .nav-link:hover,
 .navbar-nav .nav-item .nav-link:focus {
-    color: red !important; /* Màu đỏ khi active hoặc hover */
-    background-color: transparent !important; /* Nền trong suốt */
-    border-bottom: 2px solid red; /* Đường kẻ dưới khi active */
+    color: red !important;
+    background-color: transparent !important;
+    border-bottom: 2px solid red;
 }
 
 .navbar-nav .nav-item {
-    margin-left: 15px; /* Khoảng cách giữa các mục */
+    margin-left: 15px;
 }
+.logout-link {
+    color: #333333 !important;
+}
+
+.navbar-nav .nav-link a {
+    color: #333333 !important;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+
+/*admin/dashboard*/
+/* ... Các CSS hiện tại của bạn ... */
+
+/* ... Các CSS hiện tại của bạn ... */
+
+.container.admin-dashboard {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.admin-dashboard h2 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.admin-dashboard .dashboard-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.admin-dashboard .dashboard-button {
+    padding: 15px 60px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #f8f9fa;
+    /* Thêm thuộc tính này để đảm bảo các nút có kích thước bằng nhau */
+    flex: 1; 
+    /* Thêm thuộc tính này để căn giữa chữ theo chiều ngang */
+    text-align: center;
+}
+
+.admin-dashboard .dashboard-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
 
 /*home*/
 h2{
-    padding: 20px 50px;
+    padding: 20px 158px;
 }
 
 /*login*/
@@ -95,4 +152,153 @@ body {
 }
 .available {
     color: green;
+}
+
+/*member/roomList.jsp*/
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: calc(33.33% - 20px); /* Điều chỉnh kích thước thẻ để vừa 3 thẻ trên mỗi hàng */
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden; /* Ẩn phần ảnh bị tràn ra khỏi thẻ */
+}
+
+.card img {
+    width: 100%;
+    height: 200px; /* Điều chỉnh chiều cao ảnh */
+    object-fit: cover; /* Giữ nguyên tỷ lệ ảnh và đảm bảo ảnh lấp đầy khung */
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.card-content p{
+    margin-top: 15px
+}
+
+.card h5 {
+    margin-top: 0;
+}
+
+.price {
+    font-weight: bold;
+    color: #f00;
+}
+
+/* CSS cho phân trang */
+.pagination {
+    display: flex; /* Sử dụng flexbox để căn giữa */
+    justify-content: center; /* Căn giữa các nút theo chiều ngang */
+    /* Các thuộc tính khác giữ nguyên */
+}
+.pagination a {
+    color: black;
+    float: left; /* Sắp xếp các nút theo chiều ngang */
+    padding: 8px 16px; /* Chỉnh sửa padding để nút rộng hơn */
+    text-decoration: none;
+    transition: background-color.3s;
+    border: 1px solid #ddd;
+    margin: 0 4px; /* Khoảng cách giữa các nút */
+    border-radius: 20px; /* Bo tròn viền của từng nút */
+}.pagination a.active {
+    background-color: #E10F34; /* Màu xanh lá cây */
+    color: white;
+    border: 1px solid #E10F34;
+}.pagination a:hover:not(.active) {
+    background-color: #E10F34;
+}.pagination.dots {
+    padding: 8px 12px;
+    margin: 0 4px;
+}
+
+/*home*//* CSS cho Hero Section */
+/* CSS cho Hero Section */.banner_main {
+    position: relative; /* Để chứa form đặt phòng */
+}.carousel-item > img {
+    width: 100%;
+    height: 90vh; /* Chiều cao bằng 90% màn hình */
+    object-fit: cover; /* Giữ nguyên tỷ lệ ảnh và đảm bảo ảnh lấp đầy khung */
+}.carousel-caption {
+    position: absolute;
+    top: 40%; /* Vị trí của caption */
+    right: 15%; /* Caption nằm ở bên phải */
+    transform: translateY(-50%);
+    text-align: right; /* Căn phải */
+    color: white;
+}.carousel-caption h1 {
+    font-size: 4em;
+    margin-bottom: 0.5em;
+    white-space: nowrap; /* Giữ cho tiêu đề nằm trên một hàng */
+}.carousel-caption a {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1em;
+}.carousel-indicators {
+    bottom: 20px;
+}.booking_ocline {
+    position: absolute;
+    top: 40%; /* Căn giữa theo chiều dọc */
+    left: 15%; /* Form nằm ở bên trái */
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Nền đen mờ */
+    border: 2px solid white; /* Viền trắng */
+    padding: 20px;
+    border-radius: 10px; /* Bo góc */
+    max-width: 450px; /* Điều chỉnh độ rộng tối đa của form */
+    z-index: 10; /* Đảm bảo form hiển thị trên ảnh nền */
+}.booking_ocline h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: left; /* Căn trái */
+}
+
+/*... (Các CSS khác giữ nguyên)... */
+
+.book_now {
+    display: flex; /* Sắp xếp các trường theo chiều ngang */
+    align-items: center; /* Căn giữa các trường theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa các trường */
+    flex-direction: column; /* Xếp các trường theo chiều dọc */
+}.book_now > div {
+    width: 100%; /* Các trường chiếm toàn bộ chiều rộng */
+    margin-bottom: 10px;
+}.book_now span {
+    display: block; /* Các label hiển thị trên dòng riêng biệt */
+    margin-bottom: 5px;
+    color: white;
+}.online_book {
+    width: 85%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Để padding và border được tính vào width */
+    margin-bottom: 25px;
+}.date_cua {
+    position: relative;
+    left: 5px;
+    margin: 5px;
+}.book_btn {
+    background-color: #ff0000; /* Màu đỏ */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 80px;
+    width: 50%;
+}.book_btn:hover {
+    background-color: #cc0000; /* Màu đỏ đậm hơn khi hover */
 }

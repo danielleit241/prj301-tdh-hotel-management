@@ -24,7 +24,7 @@ import prj301asm.User.UserDTO;
  */
 public class RoomListServlet extends HttpServlet {
 
-    private static final int PAGE_SIZE = 9;
+    private static final int PAGE_SIZE = 6;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);

@@ -21,8 +21,6 @@ public class RoomBookingDTO {
     private Date checkInDate;
     private Date checkOutDate;
     private BigDecimal totalPrice; 
-    
-    
     private String description;
     private String status;
     private int roomID;
