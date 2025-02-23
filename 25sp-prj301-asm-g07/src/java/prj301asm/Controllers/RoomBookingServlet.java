@@ -14,8 +14,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import prj301asm.Room.RoomDAO;
+import prj301asm.Room.RoomDTO;
 import prj301asm.RoomBooking.RoomBookingDAO;
 import prj301asm.RoomBooking.RoomBookingDTO;
+import prj301asm.User.UserDTO;
 
 /**
  *
@@ -37,11 +41,35 @@ public class RoomBookingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         /* TODO output your page here. You may use following sample code. */
-        RoomBookingDAO dao = new RoomBookingDAO();
-        ArrayList<RoomBookingDTO> list = (ArrayList<RoomBookingDTO>) dao.getAllRoomBookings();
+        HttpSession session = request.getSession(false);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        
+        int roomID = Integer.parseInt(request.getParameter("roomID"));
+        String action = request.getParameter("action");
+        
+        RoomDAO roomDao = new RoomDAO();
+        RoomDTO room = roomDao.getRoomByID(roomID);
+        
+        if (user.getRole().equals("admin")) {
+            RoomBookingDAO dao = new RoomBookingDAO();
+            ArrayList<RoomBookingDTO> list = (ArrayList<RoomBookingDTO>) dao.getAllRoomBookings();
 
-        request.setAttribute("roomBookings", list);
-        request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
+            request.setAttribute("roomBookings", list);
+            request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
+            return;
+        }else if(user.getRole().equals("member")){
+            
+            if(action.equals("booking")){
+                
+                request.setAttribute("room", room);
+                
+                request.getRequestDispatcher("booking.jsp").forward(request, response);
+                return;
+            }
+            else if(action.equals("payment")){
+                
+            }
+        }
 
     }
 

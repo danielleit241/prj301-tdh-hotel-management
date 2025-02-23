@@ -21,16 +21,23 @@ public class RoomDetailsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("roomID");
-        int roomID = Integer.parseInt(id);
-      
+        String roomIDParam = request.getParameter("roomID");
+        if (roomIDParam == null || roomIDParam.trim().isEmpty()) {
+            response.sendRedirect("./roomList?page=1");
+            return;
+        }
+
+        int id = Integer.parseInt(roomIDParam);
+        request.setAttribute("id", id);
         RoomDAO dao = new RoomDAO();
-        RoomDTO room = dao.getRoomByID(roomID);
+        RoomDTO room = dao.getRoomByID(id);
         if (room == null) {
-            response.sendRedirect("/roomList?page=1");
-        } else {    
-            request.setAttribute("room", room);
+            response.sendRedirect("./roomList?page=1");
+            return;
+        } else {
+            request.setAttribute("roomDetail", room);
             request.getRequestDispatcher("roomDetails.jsp").forward(request, response);
+            return;
         }
     }
 

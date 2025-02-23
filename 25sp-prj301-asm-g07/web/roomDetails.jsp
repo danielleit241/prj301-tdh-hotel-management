@@ -1,10 +1,3 @@
-<%-- 
-    Document   : roomDetails
-    Created on : Feb 23, 2025, 7:41:23 PM
-    Author     : TRAN PHU THINH
---%>
-
-<%@page import="prj301asm.Room.RoomDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -12,23 +5,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Room Details</title>
     </head>
-
     <body>
-        <%@include file = "navbar.jsp" %>
-        <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}.jpg">
-        <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_1.jpg">
-        <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_2.jpg">
-        <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_3.jpg">
-        <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_4.jpg">
-        <h3>${room.roomName}</h3>
-        <p>Type room: ${room.typeName}</p>
-        <p class="price">Starting from: 
-            <fmt:formatNumber value="${room.price}" pattern="#,##0" /> VNĐ
-        </p>
-        <p>Description:
-            ${room.description}</p>
-    </body>
+        <%@ include file="navbar.jsp" %>
+        <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}.jpg" alt="Room Image">
+        <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_1.jpg" alt="Room Image 1">
+        <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_2.jpg" alt="Room Image 2">
+        <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_3.jpg" alt="Room Image 3">
+        <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_4.jpg" alt="Room Image 4">
 
+        <h3>${requestScope.roomDetail.roomName}</h3>
+        <p>Type room: ${requestScope.roomDetail.typeName}</p>
+        <p>Price: <fmt:formatNumber value="${requestScope.roomDetail.price}" pattern="#,##0" /> VNĐ</p>
+        <p>Description: ${requestScope.roomDetail.description}</p>
+        <button>
+            <a href="booking?roomID=${requestScope.roomDetail.roomID}&action=booking">Book now!</a>
+        </button>
+    </body>
 </html>
