@@ -302,3 +302,139 @@ body {
 }.book_btn:hover {
     background-color: #cc0000; /* Màu đỏ đậm hơn khi hover */
 }
+
+/*member/roomDetails*/
+/* ... Các CSS hiện tại của bạn ... */
+.room-details-page.room-details-container {
+    width: 90%; /* Chiếm 90% chiều rộng màn hình */
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+    margin: 50px auto;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm đổ bóng */
+}.room-details-page.room-details-container.image-section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}.room-details-page.room-details-container.image-section.main-image {
+    width: 100%;
+    height: 300px; /* Tăng chiều cao ảnh chính */
+    object-fit: cover; /* Giữ nguyên tỷ lệ ảnh */
+    border-radius: 4px;
+}.room-details-page.room-details-container.image-section.gallery-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}.room-details-page.room-details-container.image-section.gallery-row img {
+    width: calc(25% - 5px);
+    height: 100px; /* Tăng chiều cao ảnh nhỏ */
+    object-fit: cover; /* Giữ nguyên tỷ lệ ảnh */
+    border-radius: 4px;
+}.room-details-page.room-details-container.details-section {
+    width: 50%;
+    padding-left: 20px;
+}.room-details-page.room-details-container h3 {
+    font-size: 1.8em; /* Tăng kích thước tiêu đề */
+    margin-bottom: 10px;
+    color: #333;
+}.room-details-page.room-details-container p {
+    font-size: 1.1em; /* Tăng kích thước chữ */
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 15px;
+}.room-details-page.room-details-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em; /* Tăng kích thước chữ */
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}.room-details-page.room-details-container button:hover {
+    background-color: #0056b3;
+}.room-details-page.room-details-container button a {
+    color: white;
+    text-decoration: none;
+}
+
+
+.room-details-container {
+    width: 1800px;
+    margin: 50px auto;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    display: flex; /* Sử dụng flexbox */
+    padding: 20px;
+}
+
+.room-details-container .image-section {
+    width: 50%; /* Chiếm 50% chiều rộng */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.room-details-container .image-section .main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.room-details-container .image-section .gallery-row {
+    display: flex;
+    justify-content: space-between; /* Căn đều các ảnh */
+    gap: 5px;
+}
+
+.room-details-container .image-section .gallery-row img {
+    width: calc(25% - 5px); /* Mỗi ảnh chiếm 25% chiều rộng */
+    height: auto;
+    border-radius: 4px;
+}
+
+.room-details-container .details-section {
+    width: 50%; /* Chiếm 50% chiều rộng */
+    padding-left: 20px;
+}
+
+.room-details-container h1 {
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.room-details-container p {
+    font-size: 18px;
+    line-height: 2.6;
+    color: #555;
+    margin-bottom: 15px;
+}
+.room-details-container .price {
+    color: red;
+}
+.room-details-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.room-details-container button:hover {
+    background-color: #0056b3;
+}
+
+.room-details-container button a {
+    color: white;
+    text-decoration: none;
+}
