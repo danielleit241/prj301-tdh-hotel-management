@@ -51,11 +51,11 @@
                                         </div>
                                         <div class="col-md-12">
                                             <span>Departure: </span>
-                                            <input class="online_book" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
+                                            <input class="online_book1" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
                                             <img class="date_cua" src="images/date.png" alt="Date">
-                                        </div>
+                                        </div>  
                                         <div class="col-md-12">
-                                            <button class="book_btn">Book Now</button>
+                                            <a class="book_btn" href="roomList?page=1">BOOK NOW</a>
                                         </div>
                                     </div>
                                 </form>

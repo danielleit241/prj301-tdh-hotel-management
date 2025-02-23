@@ -283,6 +283,7 @@ body {
     border-radius: 10px; /* Bo góc */
     max-width: 450px; /* Điều chỉnh độ rộng tối đa của form */
     z-index: 10; /* Đảm bảo form hiển thị trên ảnh nền */
+    height: 380px;
 }.booking_ocline h1 {
     color: white;
     font-size: 2.5rem;
@@ -310,7 +311,14 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box; /* Để padding và border được tính vào width */
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+}.online_book1 {
+    width: 85%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Để padding và border được tính vào width */
+    margin-bottom: 45px;
 }.date_cua {
     position: relative;
     left: 5px;
@@ -318,12 +326,12 @@ body {
 }.book_btn {
     background-color: #ff0000; /* Màu đỏ */
     color: white;
-    padding: 10px 20px;
+    padding: 10px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 80px;
-    width: 50%;
+    margin-left: 95px;
+    text-decoration: none;
 }.book_btn:hover {
     background-color: #cc0000; /* Màu đỏ đậm hơn khi hover */
 }
