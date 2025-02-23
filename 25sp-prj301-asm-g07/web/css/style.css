@@ -419,7 +419,7 @@ body {
     color: red;
 }
 .room-details-container button {
-    background-color: #007bff;
+    background-color: #CB1A3C;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -431,10 +431,12 @@ body {
 }
 
 .room-details-container button:hover {
-    background-color: #0056b3;
+    background-color: #E10F34;
 }
 
 .room-details-container button a {
     color: white;
     text-decoration: none;
 }
+.details-button{
+    color: #E10F34;

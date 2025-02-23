@@ -31,7 +31,7 @@
                 <p class="price">Price: <fmt:formatNumber value="${requestScope.roomDetail.price}" pattern="#,##0" /> VNĐ</p>
                 <p>Description: Modern single room equipped with an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine.</p>
 
-                <button>
+                <button class="details-button">
                     <a href="booking?roomID=${requestScope.roomDetail.roomID}&action=booking">Book now!</a>
                 </button>
             </div>
