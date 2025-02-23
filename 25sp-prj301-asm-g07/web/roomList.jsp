@@ -19,11 +19,11 @@
     </head>
     <body>
         <%@include file="/navbar.jsp"%>
-        <div>
-            <form action="./roomList">
+        <div class="search-container"> 
+            <form action="./roomList" class="search-form"> 
                 <input type="hidden" name="page" value="${currentPage!= null? currentPage: 1}" />
-                <input type="text" name="typeRoom" value="${search!= null? search: ""}">
-                <input type="submit" value="Search">
+                <input type="text" name="typeRoom" value="${search!= null? search: ""}" class="search-input"> 
+                <input type="submit" value="Search" class="search-button"> 
             </form>
         </div>
         <div class="container">

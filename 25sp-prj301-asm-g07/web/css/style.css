@@ -155,6 +155,31 @@ body {
 }
 
 /*member/roomList.jsp*/
+
+/* CSS cho form tìm kiếm */.search-form {
+    display: flex;
+    justify-content: center; /* Căn giữa form */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    margin: 20px 0; /* Khoảng cách trên dưới */
+}.search-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 500px; /* Điều chỉnh chiều rộng input */
+    margin-right: 30px; /* Khoảng cách giữa input và button */
+}.search-form input[type="submit"] {
+    background-color: #CB1A3C; /* Màu xanh */
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng chuyển màu */
+}.search-form input[type="submit"]:hover {
+    background-color: #E10F34; /* Màu xanh đậm hơn khi hover */
+}
+
+
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -440,3 +465,4 @@ body {
 }
 .details-button{
     color: #E10F34;
+}
