@@ -8,20 +8,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/style.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <style>
-            .dropdown-menu {
-                background-color: black;
-            }
-            .dropdown-item {
-                color: white; 
-            }
-            .dropdown-item:hover {
-                background-color: #333;
-            }
-        </style>
     </head>
     <body>
-        <%@include file="./adminNavbar.jsp"%>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRoomModal">
             Thêm phòng mới
         </button>
@@ -45,10 +33,8 @@
                         <td><c:out value="${room.getTypeName()}"/></td>
                         <td><c:out value="${room.getPrice()}"/></td>
                         <td><c:out value="${room.getDescription()}"/></td>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRoomModal${room.roomID}">Sửa</button>
-                            <a href="manageRooms.jsp?action=delete&roomID=${room.roomID}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng này?')">Xóa</a>
-                        </td>
+                    
+                    
                     </tr>                   
                 </c:forEach>
             </tbody>
