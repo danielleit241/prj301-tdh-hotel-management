@@ -30,7 +30,7 @@ public class RoomServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
-        
+
         String action = request.getParameter("action");
         if (user == null || user.getRole().equals("member")) {
             if (action == null || action.equals("list")) {
@@ -80,11 +80,33 @@ public class RoomServlet extends HttpServlet {
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
-            
-            //delete
+                
+            } else if (action.equals("update")) {
+                String roomID = request.getParameter("roomID");
+                String roomName = request.getParameter("roomName");
+                String typeName = request.getParameter("typeName");
+                String priceStr = request.getParameter("price");
+                BigDecimal price = new BigDecimal(priceStr);
+                String description = request.getParameter("description");
+
+                RoomDAO dao = new RoomDAO();
+                RoomDTO roomDTO = new RoomDTO();
+                
+
+                roomDTO.setRoomName(roomName);
+                roomDTO.setTypeName(typeName);
+                roomDTO.setPrice(price);
+                roomDTO.setDescription(description);
+
+                dao.updateRoom(roomID, roomName, typeName, price, description);
+
+                request.setAttribute("room", roomDTO);
+                RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
+                rd.forward(request, response);
+            }
+
         }
-        
-        
+
     }
 
     @Override
