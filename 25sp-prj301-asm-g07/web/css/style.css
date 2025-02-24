@@ -153,7 +153,65 @@ body {
 .available {
     color: green;
 }
+/* CSS cho bảng Quản lý Phòng (admin/manageRooms) */
+.admin-manage-rooms {
+    width: 100%;
+    overflow-x: auto;
+}
 
+.admin-manage-rooms table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-manage-rooms th,
+.admin-manage-rooms td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.admin-manage-rooms th {
+    background-color: #f2f2f2;
+}
+
+.admin-manage-rooms td.description {
+    max-width: 1000px;
+    white-space: normal; /* Cho phép nội dung xuống dòng */
+    overflow: visible; /* Cho phép nội dung tràn ra nếu cần */
+}
+
+.admin-manage-rooms td.actions {
+    white-space: nowrap;
+}
+
+.admin-manage-rooms td.actions a {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white;
+}
+
+.admin-manage-rooms td.actions a.custom-edit-button {
+    background-color: #F8BB00;
+}
+
+.admin-manage-rooms td.actions a.custom-edit-button:hover {
+    background-color: #F8BB00;
+}
+
+.admin-manage-rooms td.actions a.custom-delete-button {
+    background-color: #dc3545;
+}
+
+.admin-manage-rooms td.actions a.custom-delete-button:hover {
+    background-color: #c82333;
+}
 /*member/roomList.jsp*/
 
 /* CSS cho form tìm kiếm */.search-form {
@@ -216,7 +274,12 @@ body {
     font-weight: bold;
     color: #f00;
 }
-
+.editroom{
+    padding: 5px 5px;
+}
+.deleteroom{
+    padding: 5px 5px
+}
 /* CSS cho phân trang */
 .pagination {
     display: flex; /* Sử dụng flexbox để căn giữa */
@@ -242,6 +305,8 @@ body {
     padding: 8px 12px;
     margin: 0 4px;
 }
+
+
 
 /*home*//* CSS cho Hero Section */
 /* CSS cho Hero Section */.banner_main {

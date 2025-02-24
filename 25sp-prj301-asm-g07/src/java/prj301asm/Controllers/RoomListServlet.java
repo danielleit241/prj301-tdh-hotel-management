@@ -27,6 +27,7 @@ public class RoomListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
+        
         String action = request.getParameter("action");
         if (user == null || user.getRole().equals("member")) {
             if (action == null || action.equals("list")) {

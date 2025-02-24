@@ -10,12 +10,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-                <%@include file="adminNavbar.jsp" %>
+        <%@include file="adminNavbar.jsp" %>
         <button style="width: 500px; height: 50px; margin-left: 700px" type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRoomModal">
             Thêm phòng mới
         </button>
 
-        <table class="table">
+        <table class="admin-manage-rooms">
             <thead>
                 <tr>
                     <th>Room ID</th>
@@ -33,12 +33,15 @@
                         <td><c:out value="${room.getRoomName()}"/></td>
                         <td><c:out value="${room.getTypeName()}"/></td>
                         <td><c:out value="${room.getPrice()}"/></td>
-                        <td><c:out value="${room.getDescription()}"/></td>
-                    
-                    
-                    </tr>                   
+                        <td class="description"><c:out value="${room.getDescription()}"/></td>
+                        <td class="actions">
+                            <a href="editRoom?roomId=${room.getRoomID()}" class="custom-edit-button">Sửa</a>
+                            <a href="deleteRoom?roomId=${room.getRoomID()}" class="custom-delete-button" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng này?')">Xóa</a>
+                        </td>
+                    </tr>
                 </c:forEach>
             </tbody>
         </table>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
