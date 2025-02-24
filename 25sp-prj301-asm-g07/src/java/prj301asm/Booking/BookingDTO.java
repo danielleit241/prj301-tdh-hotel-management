@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prj301asm.RoomBooking;
+package prj301asm.Booking;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -12,8 +12,8 @@ import java.sql.Date;
  *
  * @author ACER
  */
-public class RoomBookingDTO {
-
+public class BookingDTO {
+    //Important Information
     private String bookingID;
     private String bookedBy;
     private String phone;
@@ -21,15 +21,16 @@ public class RoomBookingDTO {
     private Date checkInDate;
     private Date checkOutDate;
     private BigDecimal totalPrice; 
-    private String description;
     private String status;
+    //Not required
+    private String description;
     private int roomID;
     private String typeName;
 
-    public RoomBookingDTO() {
+    public BookingDTO() {
     }
 
-    public RoomBookingDTO(int roomID, String roomName, String typeName, BigDecimal totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
+    public BookingDTO(int roomID, String roomName, String typeName, BigDecimal totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.typeName = typeName;

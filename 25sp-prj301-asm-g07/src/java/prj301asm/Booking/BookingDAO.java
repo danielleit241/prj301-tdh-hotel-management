@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prj301asm.RoomBooking;
+package prj301asm.Booking;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,10 +18,10 @@ import prj301asm.utils.DBUtils;
  *
  * @author ACER
  */
-public class RoomBookingDAO {
+public class BookingDAO {
 
-    public List<RoomBookingDTO> getAllRoomBookings() {
-        List<RoomBookingDTO> list = new ArrayList<>();
+    public List<BookingDTO> getAllRoomBookings() {
+        List<BookingDTO> list = new ArrayList<>();
         String sql = "SELECT b.bookingID,\n"
                 + "       r.roomID,\n"
                 + "       r.roomName,\n"
@@ -51,7 +51,7 @@ public class RoomBookingDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs != null) {
                 while (rs.next()) {
-                    RoomBookingDTO roomBooking = new RoomBookingDTO();
+                    BookingDTO roomBooking = new BookingDTO();
 
                     roomBooking.setBookingID(rs.getString("bookingID"));
                     roomBooking.setRoomID(rs.getInt("roomID"));

@@ -32,7 +32,7 @@
                     <c:forEach var="room" items="${roomBookings}">
                         <tr>
                             <td><c:out value="${room.getRoomID()}"/></td>
-                            <td><c:out value="${room.getRomeName()}"/></td>
+                            <td><c:out value="${room.getRoomName()}"/></td>
                             <td><c:out value="${room.getTypeName()}"/></td>
                             <td><c:out value="${room.getTotalPrice()}"/></td>
                             <td><c:out value="${room.getDescription()}"/></td>

@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>RoomListServlet</servlet-name>
-        <servlet-class>prj301asm.Controllers.RoomListServlet</servlet-class>
+        <servlet-class>prj301asm.Controllers.RoomServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -23,7 +23,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>RoomBookingServlet</servlet-name>
-        <servlet-class>prj301asm.Controllers.RoomBookingServlet</servlet-class>
+        <servlet-class>prj301asm.Controllers.BookingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RoomBookingServlet</servlet-name>
@@ -34,7 +34,6 @@
         <servlet-name>RoomListServlet</servlet-name>
         <url-pattern>/roomList</url-pattern>
         <url-pattern>/admin/manageRooms</url-pattern>
-   
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

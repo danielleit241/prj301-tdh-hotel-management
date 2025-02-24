@@ -17,15 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import prj301asm.Room.RoomDAO;
 import prj301asm.Room.RoomDTO;
-import prj301asm.RoomBooking.RoomBookingDAO;
-import prj301asm.RoomBooking.RoomBookingDTO;
+import prj301asm.Booking.BookingDAO;
+import prj301asm.Booking.BookingDTO;
 import prj301asm.User.UserDTO;
 
 /**
  *
  * @author ACER
  */
-public class RoomBookingServlet extends HttpServlet {
+public class BookingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,31 +43,29 @@ public class RoomBookingServlet extends HttpServlet {
         /* TODO output your page here. You may use following sample code. */
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
-        
-        int roomID = Integer.parseInt(request.getParameter("roomID"));
-        String action = request.getParameter("action");
-        
-        RoomDAO roomDao = new RoomDAO();
-        RoomDTO room = roomDao.getRoomByID(roomID);
-        
+
         if (user.getRole().equals("admin")) {
-            RoomBookingDAO dao = new RoomBookingDAO();
-            ArrayList<RoomBookingDTO> list = (ArrayList<RoomBookingDTO>) dao.getAllRoomBookings();
+            BookingDAO dao = new BookingDAO();
+            ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAllRoomBookings();
 
             request.setAttribute("roomBookings", list);
             request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
             return;
-        }else if(user.getRole().equals("member")){
-            
-            if(action.equals("booking")){
-                
+        } else if (user.getRole().equals("member")) {
+
+            int roomID = Integer.parseInt(request.getParameter("roomID"));
+            String action = request.getParameter("action");
+
+            RoomDAO roomDao = new RoomDAO();
+            RoomDTO room = roomDao.getRoomByID(roomID);
+            if (action.equals("booking")) {
+
                 request.setAttribute("room", room);
-                
+
                 request.getRequestDispatcher("booking.jsp").forward(request, response);
                 return;
-            }
-            else if(action.equals("payment")){
-                
+            } else if (action.equals("payment")) {
+
             }
         }
 

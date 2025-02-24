@@ -20,7 +20,7 @@ import prj301asm.User.UserDTO;
  *
  * @author hoade
  */
-public class RoomListServlet extends HttpServlet {
+public class RoomServlet extends HttpServlet {
 
     private static final int PAGE_SIZE = 6;
 
@@ -77,7 +77,9 @@ public class RoomListServlet extends HttpServlet {
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
-            } 
+            }//update
+            
+            //delete
         }
     }
 
