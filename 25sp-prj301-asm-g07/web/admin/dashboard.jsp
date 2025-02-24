@@ -14,10 +14,10 @@
     <body>
         <%@include file="./adminNavbar.jsp"%>
         <div class="container mt-5">
-            <<div class="container admin-dashboard">
+            <div class="container admin-dashboard">
                 <h2>Quản trị viên - Bảng điều khiển</h2>
                 <div class="dashboard-buttons">
-                    <a href="./manageRooms" class="dashboard-button">Quản lý Phòng</a>
+                    <a href="./manageRooms?action=manageList" class="dashboard-button">Quản lý Phòng</a>
                     <a href="./manageBookings" class="dashboard-button">Quản lý Đặt Phòng</a>
                     <a href="./manageReviews" class="dashboard-button">Quản lý Đánh giá</a>
                 </div>
