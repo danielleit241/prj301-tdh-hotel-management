@@ -59,25 +59,24 @@ public class RoomListServlet extends HttpServlet {
                     response.sendRedirect("./roomList?page=1&action=list");
                     return;
                 }
-
                 int id = Integer.parseInt(roomIDParam);
                 request.setAttribute("id", id);
                 RoomDAO dao = new RoomDAO();
                 RoomDTO room = dao.getRoomByID(id);
                 if (room == null) {
                     response.sendRedirect("./roomList?page=1&action=list");
-                    return;
                 } else {
                     request.setAttribute("roomDetail", room);
                     request.getRequestDispatcher("roomDetails.jsp").forward(request, response);
-                    return;
                 }
             }
         } else if (user.getRole().equals("admin")) {
-            RoomDAO dao = new RoomDAO();
-            ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
+            if (action == null || action.equals("manageList")) {
+                RoomDAO dao = new RoomDAO();
+                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
+            } 
         }
     }
 

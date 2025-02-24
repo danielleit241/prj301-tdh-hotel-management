@@ -34,6 +34,7 @@
         <servlet-name>RoomListServlet</servlet-name>
         <url-pattern>/roomList</url-pattern>
         <url-pattern>/admin/manageRooms</url-pattern>
+   
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
