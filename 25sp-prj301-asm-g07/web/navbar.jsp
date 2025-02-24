@@ -38,7 +38,7 @@
                             <a class="nav-link" href="roomList?page=1&action=list">OUR ROOM</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">BOOKING</a>
+                            <a class="nav-link" href="booking?action=list">BOOKING</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">CONTACT</a>

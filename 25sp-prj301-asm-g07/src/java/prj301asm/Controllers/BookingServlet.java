@@ -59,7 +59,7 @@ public class BookingServlet extends HttpServlet {
             RoomDAO roomDao = new RoomDAO();
             RoomDTO room = roomDao.getRoomByID(roomID);
             if (action.equals("booking")) {
-
+                request.setAttribute("bookingID", generateBookingID());
                 request.setAttribute("room", room);
 
                 request.getRequestDispatcher("booking.jsp").forward(request, response);
@@ -69,6 +69,24 @@ public class BookingServlet extends HttpServlet {
             }
         }
 
+    }
+
+    protected String generateBookingID() {
+        String uniqueID = null;
+        int nextNumber = 0001;
+        BookingDAO dao = new BookingDAO();
+        String maxID = dao.getMaxBookingId();
+        if (maxID != null) {
+            String numPart = maxID.replace("Booking", "");
+            try {
+                int currentMax = Integer.parseInt(numPart);
+                nextNumber = currentMax + 1;
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+        }
+        uniqueID = "B" + String.format("%06d", nextNumber);
+        return uniqueID;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

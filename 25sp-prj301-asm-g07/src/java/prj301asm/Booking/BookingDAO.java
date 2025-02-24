@@ -20,6 +20,22 @@ import prj301asm.utils.DBUtils;
  */
 public class BookingDAO {
 
+    public String getMaxBookingId() {
+        String sql = "SELECT MAX(bookingID) as maxID FROM bookings";
+        String maxBookingID = null;
+        try (Connection con = DBUtils.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                maxBookingID = rs.getString("maxID");
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maxBookingID;
+    }
+
     public List<BookingDTO> getAllRoomBookings() {
         List<BookingDTO> list = new ArrayList<>();
         String sql = "SELECT b.bookingID,\n"
@@ -75,7 +91,7 @@ public class BookingDAO {
         }
         return list;
     }
-    
+
     public boolean addBooking(String bookingID, String username, int roomID, String phone, Date checkInDate, Date checkOutDate, double totalPrice) {
 //        long days = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24);
 //        double totalPrice = days * price;

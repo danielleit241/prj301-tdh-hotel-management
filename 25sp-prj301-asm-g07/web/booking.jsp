@@ -13,13 +13,13 @@
     </head>
     <body>
         <form action="./booking">
-            <p>BookingID: 123</p>
+            <p>BookingID: ${requestScope.bookingID}</p>
             <p>Booked by: ${sessionScope.user.name}</p>
             <p>
                 <input type="number" name="phone">     
             </p>
             <p>Room name:
-                ${sessionScope.room.roomName}
+                ${requestScope.room.roomName}
             </p>
             
             <p>Check In Date:
