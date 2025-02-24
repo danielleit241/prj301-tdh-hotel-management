@@ -48,11 +48,11 @@ public class RoomDAO {
             if (rs != null) {
                 while (rs.next()) {
                     int id = rs.getInt("roomID");
-                    String romeName = rs.getString("romeName");
+                    String roomName = rs.getString("roomName");
                     String description = rs.getString("description");
                     BigDecimal price = rs.getBigDecimal("price");
                     String typeName = rs.getString("typeName");
-                    RoomDTO room = new RoomDTO(id, romeName, typeName, price, description);
+                    RoomDTO room = new RoomDTO(id, roomName, typeName, price, description);
                     list.add(room);
                 }
             }
@@ -63,13 +63,13 @@ public class RoomDAO {
         return list;
     }
 
-    public boolean addRoom(String roomID, String romeName, String typeName, BigDecimal price, String description) {
-        String sql = "INSERT INTO rooms (roomID, romeName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
+    public boolean addRoom(String roomID, String roomName, String typeName, BigDecimal price, String description) {
+        String sql = "INSERT INTO rooms (roomID, roomName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, roomID);
-            stmt.setString(2, romeName);
+            stmt.setString(2, roomName);
             stmt.setString(3, typeName);
             stmt.setBigDecimal(4, price);
             stmt.setString(5, description);
@@ -83,13 +83,13 @@ public class RoomDAO {
         return false;
     }
 
-    public boolean updateRoom(String roomID, String romeName, String typeName, BigDecimal price, String description) {
-        String sql = "UPDATE rooms SET roomID = ?, romeName = ?, typeName = ?, price = ?, description = ? WHERE id = ?";
+    public boolean updateRoom(String roomID, String roomName, String typeName, BigDecimal price, String description) {
+        String sql = "UPDATE rooms SET roomID = ?, roomName = ?, typeName = ?, price = ?, description = ? WHERE id = ?";
         try {
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, roomID);
-            stmt.setString(2, romeName);
+            stmt.setString(2, roomName);
             stmt.setString(3, typeName);
             stmt.setBigDecimal(4, price);
             stmt.setString(5, description);
@@ -120,7 +120,7 @@ public class RoomDAO {
     }
 
     public RoomDTO getRoomByID(int roomID) {
-        RoomDTO room = new RoomDTO();
+        RoomDTO room = null;
 
         String sql = " SELECT * FROM rooms WHERE roomID = ? ";
         try {
@@ -129,14 +129,16 @@ public class RoomDAO {
             stmt.setInt(1, roomID);
 
             ResultSet rs = stmt.executeQuery();
-            if (rs != null) {
-                    int id = rs.getInt("roomID");
-                    String roomName = rs.getString("roomName");
-                    String description = rs.getString("description");
-                    BigDecimal price = rs.getBigDecimal("price");
-                    String typeName = rs.getString("typeName");
+            if (rs.next()) {
+                room = new RoomDTO();
+                int id = rs.getInt("roomID");
+                String roomName = rs.getString("roomName");
+                String typeName = rs.getString("typeName");
+                BigDecimal price = rs.getBigDecimal("price");
+                String description = rs.getString("description");
 
-                    room = new RoomDTO(id, roomName, typeName, price, description);
+                room = new RoomDTO(id, roomName, typeName, price, description);
+                return room;
             }
             con.close();
         } catch (SQLException e) {
@@ -145,7 +147,7 @@ public class RoomDAO {
         }
         return room;
     }
-    
+
     public List<RoomDTO> getAllRoom() {
         List<RoomDTO> getAllRoom = new ArrayList<>();
         String sql = " SELECT * FROM rooms ";
@@ -157,12 +159,12 @@ public class RoomDAO {
             if (rs != null) {
                 while (rs.next()) {
                     int roomID = rs.getInt("roomID");
-                    String romeName = rs.getString("romeName");
-                    String typeName = rs.getString("typeName");                   
+                    String roomName = rs.getString("roomName");
+                    String typeName = rs.getString("typeName");
                     BigDecimal price = rs.getBigDecimal("price");
                     String description = rs.getString("description");
-                    
-                    RoomDTO room = new RoomDTO(roomID, romeName, typeName, price, description);
+
+                    RoomDTO room = new RoomDTO(roomID, roomName, typeName, price, description);
                     getAllRoom.add(room);
                 }
             }

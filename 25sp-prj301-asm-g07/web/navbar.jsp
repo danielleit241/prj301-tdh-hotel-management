@@ -21,37 +21,44 @@
     <body>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
+            <div class="container d-flex justify-content-between">
                 <a class="navbar-brand" href="#">THD-Hotel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="">Hello: ${sessionScope.user.name}</a>
-                        </li>
+                <div class="navbar-nav">
+                    <ul class="navbar-nav me-auto">
                         <c:choose>
                             <c:when test="${empty sessionScope.user}">
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="login.jsp">Log In</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="signup.jsp">Sign Up</a>
-                                </li>
                             </c:when>
                             <c:otherwise>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login?action=logout">Log Out</a>
-                                </li>
                             </c:otherwise>
                         </c:choose>
                         <li class="nav-item">
-                            <a class="nav-link" href="roomList?page=1">Room List</a>
+                            <a class="nav-link" href="home.jsp">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="roomList?page=1">OUR ROOM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">BOOKING</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">CONTACT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">ABOUT </a>
                         </li>
                     </ul>
                 </div>
+                <div class="navbar-nav">
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.user}">
+                            <span class="nav-link">Hello: ${sessionScope.user.name} | <a href="login?action=logout" class="logout-link">Log Out</a></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="nav-link"><a href="login.jsp">Log In</a> | <a href="signup.jsp">Sign Up</a></span>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </nav>
-</body>
+    </body>
 </html>

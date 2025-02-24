@@ -10,7 +10,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+                <%@include file="adminNavbar.jsp" %>
+        <button style="width: 500px; height: 50px; margin-left: 700px" type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRoomModal">
             Thêm phòng mới
         </button>
 

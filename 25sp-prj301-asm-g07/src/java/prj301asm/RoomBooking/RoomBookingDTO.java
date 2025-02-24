@@ -13,26 +13,25 @@ import java.sql.Date;
  * @author ACER
  */
 public class RoomBookingDTO {
-    private int roomID;
-    private String romeName;
-    private String typeName;
-    private BigDecimal totalPrice;
-    private String description;
-    private String phone;
+
     private String bookingID;
-    private String bookedBy; 
+    private String bookedBy;
+    private String phone;
+    private String roomName;
     private Date checkInDate;
     private Date checkOutDate;
+    private BigDecimal totalPrice; 
+    private String description;
     private String status;
+    private int roomID;
+    private String typeName;
 
     public RoomBookingDTO() {
     }
-    
-    
 
-    public RoomBookingDTO(int roomID, String romeName, String typeName, BigDecimal totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
+    public RoomBookingDTO(int roomID, String roomName, String typeName, BigDecimal totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
         this.roomID = roomID;
-        this.romeName = romeName;
+        this.roomName = roomName;
         this.typeName = typeName;
         this.totalPrice = totalPrice;
         this.description = description;
@@ -52,12 +51,12 @@ public class RoomBookingDTO {
         this.roomID = roomID;
     }
 
-    public String getRomeName() {
-        return romeName;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setRomeName(String romeName) {
-        this.romeName = romeName;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getTypeName() {
@@ -131,6 +130,5 @@ public class RoomBookingDTO {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
+
 }

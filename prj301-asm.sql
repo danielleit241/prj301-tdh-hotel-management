@@ -1,6 +1,8 @@
 ﻿create database HotelManagement
 go
---drop database HotelManagement
+
+
+
 use HotelManagement
 
 CREATE TABLE users (
@@ -18,7 +20,7 @@ CREATE TABLE roomTypes (
 
 CREATE TABLE rooms (
     roomID INT PRIMARY KEY,
-    romeName NVARCHAR(100) NOT NULL,
+    roomName NVARCHAR(100) NOT NULL,
     typeName NVARCHAR(50) NOT NULL,
     price DECIMAL(10, 2) NOT NULL CHECK (price > 0),
     description NVARCHAR(1000),
@@ -74,7 +76,7 @@ VALUES
     (N'Quad Room', N'Spacious room, perfect for larger families or groups of friends.');
 
 -- Insert data into table rooms with 50 rooms, each having a unique name and description
-INSERT INTO rooms (roomID, romeName, typeName, price, description)
+INSERT INTO rooms (roomID, roomName, typeName, price, description)
 VALUES
     -- Group 1 (5 rooms)
     (101, N'Modern Single Room with Air Conditioner', N'Single Room', 500000,
@@ -237,27 +239,3 @@ VALUES
     (1105, N'Modern Single Room with Minimalist Design', N'Single Room', 510000,
      N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a minimalist style.')
 ;
-
-SELECT b.bookingID,
-	   r.RoomID,
-	   r.romeName,
-	   r.typeName,
-	   r.price,
-	   r.description,
-	   b.phone,
-	   u.name AS BookedBy,
-       b.checkInDate,
-       b.checkOutDate,
-       CASE 
-         WHEN b.checkInDate IS NULL OR b.checkOutDate IS NULL 
-              OR CAST(GETDATE() AS DATE) < b.checkInDate 
-              THEN N'chưa đặt'
-         WHEN CAST(GETDATE() AS DATE) BETWEEN b.checkInDate AND b.checkOutDate 
-              THEN N'đang đặt'
-         WHEN CAST(GETDATE() AS DATE) > b.checkOutDate 
-              THEN N'đã đặt'
-       END AS BookingStatus
-FROM Rooms r
-LEFT JOIN bookings b ON r.RoomID = b.RoomID
-LEFT JOIN users u ON b.username = u.username;
-

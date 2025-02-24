@@ -6,6 +6,7 @@
 package prj301asm.RoomBooking;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +23,8 @@ public class RoomBookingDAO {
     public List<RoomBookingDTO> getAllRoomBookings() {
         List<RoomBookingDTO> list = new ArrayList<>();
         String sql = "SELECT b.bookingID,\n"
-                + "       r.RoomID,\n"
-                + "       r.romeName,\n"
+                + "       r.roomID,\n"
+                + "       r.roomName,\n"
                 + "       r.typeName,\n"
                 + "       r.price,\n"
                 + "       r.description,\n"
@@ -53,8 +54,8 @@ public class RoomBookingDAO {
                     RoomBookingDTO roomBooking = new RoomBookingDTO();
 
                     roomBooking.setBookingID(rs.getString("bookingID"));
-                    roomBooking.setRoomID(rs.getInt("RoomID"));
-                    roomBooking.setRomeName(rs.getString("romeName"));
+                    roomBooking.setRoomID(rs.getInt("roomID"));
+                    roomBooking.setRoomName(rs.getString("roomName"));
                     roomBooking.setTypeName(rs.getString("typeName"));
                     roomBooking.setTotalPrice(rs.getBigDecimal("price"));
                     roomBooking.setDescription(rs.getString("description"));
@@ -73,5 +74,71 @@ public class RoomBookingDAO {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public boolean addBooking(String bookingID, String username, int roomID, String phone, Date checkInDate, Date checkOutDate, double totalPrice) {
+//        long days = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24);
+//        double totalPrice = days * price;
+        String sql = " INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+        try {
+            Connection conn = DBUtils.getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, bookingID);
+            stmt.setString(2, username);
+            stmt.setInt(3, roomID);
+            stmt.setString(4, phone);
+            stmt.setDate(5, checkInDate);
+            stmt.setDate(6, checkOutDate);
+            stmt.setDouble(7, totalPrice);
+            //...
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean updateBooking(String bookingID, String phone, Date checkInDate, Date checkOutDate, String status, double totalPrice) {
+//        long days = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24);
+//        double totalPrice = days * price;
+        try {
+            Connection conn = DBUtils.getConnection();
+            String updateSql = " UPDATE bookings SET phone = ?, checkInDate = ?, checkOutDate = ?, status = ?, totalPrice = ? WHERE bookingID = ? ";
+            PreparedStatement updateStmt = conn.prepareStatement(updateSql);
+            updateStmt.setString(1, phone);
+            updateStmt.setDate(2, checkInDate);
+            updateStmt.setDate(3, checkOutDate);
+            updateStmt.setString(4, status);
+            updateStmt.setDouble(5, totalPrice);
+            updateStmt.setString(6, bookingID);
+            if (updateStmt.executeUpdate() > 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean deleteBooking(String bookingID) {
+        try {
+            Connection conn = DBUtils.getConnection();
+            String deleteSql = " DELETE FROM bookings WHERE bookingID = ? ";
+            PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+            deleteStmt.setString(1, bookingID);
+            deleteStmt.executeUpdate();
+            if (deleteStmt.executeUpdate() > 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }
