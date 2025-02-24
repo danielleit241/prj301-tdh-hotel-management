@@ -178,7 +178,7 @@ VALUES
     (704, N'Luxurious Quad Room with LED Entertainment', N'Quad Room', 1260000,
      N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom is equipped with a large bathtub, a washing machine, and a heater—ideal for larger groups.'),
      
-    -- Group 8 (4 rooms)
+    -- Group 8 (5 rooms)
     (801, N'Modern Single Room with Elegant Interior', N'Single Room', 570000,
      N'Single room with an air conditioner, a 32-inch LED TV, and refined ceramic tile flooring; the bathroom features a modern shower and a compact washing machine for a relaxing ambiance.'),
      
@@ -190,6 +190,9 @@ VALUES
      
     (804, N'Spacious Quad Room with Large Bathtub', N'Quad Room', 1270000,
      N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and an integrated heater.'),
+
+    (805, N'Modern Single Room with Elegant Interior', N'Single Room', 500000,
+     N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a modern shower and a compact washing machine in a minimalist style.'),
      
     -- Group 9 (5 rooms)
     (901, N'Practical Single Room with Washing Machine', N'Single Room', 580000,

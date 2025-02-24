@@ -29,7 +29,7 @@
         <div class="container">
             <c:forEach var="room" items="${list}">
                 <div class="card">
-                    <a href="roomDetails?roomID=${room.roomID}">
+                    <a href="roomList?roomID=${room.roomID}&action=details">
                         <img src="images/${room.roomID}/${room.roomID}.jpg" alt="Room Image">
                     </a>
                     <div class="card-content">

@@ -22,7 +22,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
-                <a class="navbar-brand" href="#">THD-Hotel</a>
+                <a class="navbar-brand" href="home.jsp">THD-Hotel</a>
                 <div class="navbar-nav">
                     <ul class="navbar-nav me-auto">
                         <c:choose>
@@ -35,7 +35,7 @@
                             <a class="nav-link" href="home.jsp">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="roomList?page=1">OUR ROOM</a>
+                            <a class="nav-link" href="roomList?page=1&action=list">OUR ROOM</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">BOOKING</a>
