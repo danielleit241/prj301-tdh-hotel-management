@@ -85,8 +85,7 @@ public class RoomServlet extends HttpServlet {
                 String roomID = request.getParameter("roomID");
                 String roomName = request.getParameter("roomName");
                 String typeName = request.getParameter("typeName");
-                String priceStr = request.getParameter("price");
-                BigDecimal price = new BigDecimal(priceStr);
+                int price= Integer.parseInt(request.getParameter("price"));
                 String description = request.getParameter("description");
 
                 RoomDAO dao = new RoomDAO();

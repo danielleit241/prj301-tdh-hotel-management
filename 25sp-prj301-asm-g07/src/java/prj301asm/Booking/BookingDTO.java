@@ -20,7 +20,7 @@ public class BookingDTO {
     private String roomName;
     private Date checkInDate;
     private Date checkOutDate;
-    private BigDecimal totalPrice; 
+    private int totalPrice; 
     private String status;
     //Not required
     private String description;
@@ -30,7 +30,7 @@ public class BookingDTO {
     public BookingDTO() {
     }
 
-    public BookingDTO(int roomID, String roomName, String typeName, BigDecimal totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
+    public BookingDTO(int roomID, String roomName, String typeName, int totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.typeName = typeName;
@@ -68,11 +68,11 @@ public class BookingDTO {
         this.typeName = typeName;
     }
 
-    public BigDecimal getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 

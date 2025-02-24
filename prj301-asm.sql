@@ -2,7 +2,6 @@
 go
 
 
-
 use HotelManagement
 
 CREATE TABLE users (
@@ -22,7 +21,7 @@ CREATE TABLE rooms (
     roomID INT PRIMARY KEY,
     roomName NVARCHAR(100) NOT NULL,
     typeName NVARCHAR(50) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL CHECK (price > 0),
+    price int NOT NULL CHECK (price > 0),
     description NVARCHAR(1000),
     FOREIGN KEY (typeName) REFERENCES roomTypes(typeName) ON DELETE CASCADE
 );
@@ -31,11 +30,11 @@ CREATE TABLE bookings (
     bookingID VARCHAR(50) PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     roomID INT NOT NULL,
-    phone VARCHAR(11) NOT NULL UNIQUE,
+    phone VARCHAR(11) NOT NULL,
     checkInDate DATE NOT NULL,
     checkOutDate DATE NOT NULL,
     status VARCHAR(10) CHECK (status IN ('confirmed', 'cancel', 'pending')) DEFAULT 'pending',
-    totalPrice DECIMAL(10, 2) NOT NULL CHECK (totalPrice >= 0),
+    totalPrice int NOT NULL CHECK (totalPrice >= 0),
     createAt DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
     FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE
@@ -242,3 +241,7 @@ VALUES
     (1105, N'Modern Single Room with Minimalist Design', N'Single Room', 510000,
      N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a minimalist style.')
 ;
+
+select * from bookings
+
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, totalPrice) VALUES ('B1000004', 'hoa1', 103, '0327030024', '2025-04-02', '2025-05-04', 7000000)

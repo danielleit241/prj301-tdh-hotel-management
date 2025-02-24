@@ -15,13 +15,13 @@ public class RoomDTO {
     private int roomID;
     private String roomName;
     private String typeName;
-    private BigDecimal price;
+    private int price;
     private String description;
 
     public RoomDTO() {
     }
     
-    public RoomDTO(int roomID, String roomName, String typeName, BigDecimal price, String description) {
+    public RoomDTO(int roomID, String roomName, String typeName, int price, String description) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.typeName = typeName;
@@ -53,11 +53,11 @@ public class RoomDTO {
         this.typeName = typeName;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

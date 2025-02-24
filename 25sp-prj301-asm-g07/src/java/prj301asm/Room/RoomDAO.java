@@ -50,7 +50,7 @@ public class RoomDAO {
                     int id = rs.getInt("roomID");
                     String roomName = rs.getString("roomName");
                     String description = rs.getString("description");
-                    BigDecimal price = rs.getBigDecimal("price");
+                    int price = rs.getInt("price");
                     String typeName = rs.getString("typeName");
                     RoomDTO room = new RoomDTO(id, roomName, typeName, price, description);
                     list.add(room);
@@ -63,7 +63,7 @@ public class RoomDAO {
         return list;
     }
 
-    public boolean addRoom(String roomID, String roomName, String typeName, BigDecimal price, String description) {
+    public boolean addRoom(String roomID, String roomName, String typeName, int price, String description) {
         String sql = "INSERT INTO rooms (roomID, roomName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection con = DBUtils.getConnection();
@@ -71,7 +71,7 @@ public class RoomDAO {
             stmt.setString(1, roomID);
             stmt.setString(2, roomName);
             stmt.setString(3, typeName);
-            stmt.setBigDecimal(4, price);
+            stmt.setInt(4, price);
             stmt.setString(5, description);
             if (stmt.executeUpdate() > 0) {
                 return true;
@@ -83,7 +83,7 @@ public class RoomDAO {
         return false;
     }
 
-    public boolean updateRoom(String roomID, String roomName, String typeName, BigDecimal price, String description) {
+    public boolean updateRoom(String roomID, String roomName, String typeName, int price, String description) {
         String sql = "UPDATE rooms SET roomID = ?, roomName = ?, typeName = ?, price = ?, description = ? WHERE id = ?";
         try {
             Connection conn = DBUtils.getConnection();
@@ -91,7 +91,7 @@ public class RoomDAO {
             stmt.setString(1, roomID);
             stmt.setString(2, roomName);
             stmt.setString(3, typeName);
-            stmt.setBigDecimal(4, price);
+            stmt.setInt(4, price);
             stmt.setString(5, description);
             if (stmt.executeUpdate() > 0) {
                 return true;
@@ -134,7 +134,7 @@ public class RoomDAO {
                 int id = rs.getInt("roomID");
                 String roomName = rs.getString("roomName");
                 String typeName = rs.getString("typeName");
-                BigDecimal price = rs.getBigDecimal("price");
+                int price = rs.getInt("price");
                 String description = rs.getString("description");
 
                 room = new RoomDTO(id, roomName, typeName, price, description);
@@ -161,7 +161,7 @@ public class RoomDAO {
                     int roomID = rs.getInt("roomID");
                     String roomName = rs.getString("roomName");
                     String typeName = rs.getString("typeName");
-                    BigDecimal price = rs.getBigDecimal("price");
+                    int price = rs.getInt("price");
                     String description = rs.getString("description");
 
                     RoomDTO room = new RoomDTO(roomID, roomName, typeName, price, description);
