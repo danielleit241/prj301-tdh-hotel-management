@@ -6,12 +6,15 @@
 package prj301asm.Controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import prj301asm.Room.RoomDAO;
 import prj301asm.Room.RoomDTO;
 import prj301asm.User.UserDTO;
@@ -77,10 +80,11 @@ public class RoomServlet extends HttpServlet {
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
-            }
             
             //delete
         }
+        
+        
     }
 
     @Override
