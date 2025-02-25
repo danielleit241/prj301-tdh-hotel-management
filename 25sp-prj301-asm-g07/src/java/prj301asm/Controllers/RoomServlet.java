@@ -32,7 +32,7 @@ public class RoomServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
         String action = request.getParameter("action");
-        
+
         if (user == null || user.getRole().equals("member")) {
             if (action == null || action.equals("list")) {
                 String typeRoom = request.getParameter("typeRoom");
@@ -89,13 +89,10 @@ public class RoomServlet extends HttpServlet {
                     log("Parameter id has wrong format.");
                 }
                 RoomDAO dao = new RoomDAO();
-
                 RoomDTO room = dao.getRoomByID(roomID);
-
                 request.setAttribute("room", room);
                 RequestDispatcher rd = request.getRequestDispatcher("roomDetails.jsp");
                 rd.forward(request, response);
-
             } else if (action.equals("edit")) {
                 Integer roomID = null;
                 try {
@@ -105,52 +102,30 @@ public class RoomServlet extends HttpServlet {
                 }
                 RoomDAO dao = new RoomDAO();
                 RoomDTO room = dao.getRoomByID(roomID);
-
                 request.setAttribute("room", room);
                 RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
                 rd.forward(request, response);
-
             } else if (action.equals("update")) {
-                try {
-                    int roomID = Integer.parseInt(request.getParameter("roomID"));
-                    String roomName = request.getParameter("roomName");
-                    String typeName = request.getParameter("typeName");
-                    int price = Integer.parseInt(request.getParameter("price"));
-                    String description = request.getParameter("description");
-
-                    RoomDAO dao = new RoomDAO();
-                    RoomDTO room = dao.getRoomByID(roomID);
-
-                    if (room == null) {
-                        request.setAttribute("error", "Room does not esxits!");
-                        RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
-                        rd.forward(request, response);
-                        return;
-                    } else {
-                        room.setRoomName(roomName);
-                        room.setTypeName(typeName);
-                        room.setPrice(price);
-                        room.setDescription(description);
-                       room = dao.updateRoom(roomID, roomName, typeName, price, description);
-                        if (room == null) {
-                            request.setAttribute("error", "Update failed. Try again");
-                            RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
-                            rd.forward(request, response);
-                            return;
-                        } else {
-                            response.sendRedirect("./manageRooms");
-                        }
-                    }
-
-                } catch (NumberFormatException e) {
-                    request.setAttribute("error", "Room ID or Price is invalid!");
+                int roomID = Integer.parseInt(request.getParameter("roomID"));
+                String roomName = request.getParameter("roomName");
+                String typeName = request.getParameter("typeName");
+                int price = Integer.parseInt(request.getParameter("price"));
+                String description = request.getParameter("description");
+                RoomDAO dao = new RoomDAO();
+                RoomDTO room = dao.getRoomByID(roomID);
+                room.setRoomName(roomName);
+                room.setTypeName(typeName);
+                room.setPrice(price);
+                room.setDescription(description);
+                room = dao.updateRoom(roomID, roomName, typeName, price, description);
+                if (room == null) {
+                    request.setAttribute("error", "Update failed. Try again");
                     RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
                     rd.forward(request, response);
-                } catch (Exception e) {
-                    request.setAttribute("error", "Invalid: " + e.getMessage());
-                    RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
-                    rd.forward(request, response);
+                } else {
+                    response.sendRedirect("./manageRooms");
                 }
+
             }
         }
 
