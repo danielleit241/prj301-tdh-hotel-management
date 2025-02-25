@@ -92,14 +92,14 @@ public class BookingDAO {
                 + "    r.roomID,\n "
                 + "    r.roomName,\n "
                 + "    r.typeName,\n "
-                + "    r.price,\n "
+                + "    b.totalPrice,\n "
                 + "    r.description,\n "
                 + "    b.phone,\n "
                 + "    u.name AS BookedBy,\n "
                 + "    b.checkInDate,\n "
                 + "    b.checkOutDate,\n "
                 + "    CASE \n"
-                + "    WHEN b.bookingID IS NOT NULL THEN N'đã đặt'\n "
+                + "    WHEN b.bookingID IS NOT NULL THEN N'đang đặt (chưa thanh toán)'\n "
                 + "    ELSE N'chưa đặt'\n"
                 + "	END AS status\n"
                 + " FROM Rooms r\n "
@@ -118,7 +118,7 @@ public class BookingDAO {
                     roomBooking.setRoomID(rs.getInt("roomID"));
                     roomBooking.setRoomName(rs.getString("roomName"));
                     roomBooking.setTypeName(rs.getString("typeName"));
-                    roomBooking.setTotalPrice(rs.getInt("price"));
+                    roomBooking.setTotalPrice(rs.getInt("totalPrice"));
                     roomBooking.setDescription(rs.getString("description"));
                     roomBooking.setPhone(rs.getString("phone"));
                     roomBooking.setBookedBy(rs.getString("BookedBy"));

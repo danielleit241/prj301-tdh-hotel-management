@@ -5,7 +5,6 @@
  */
 package prj301asm.Room;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,8 +30,7 @@ public class RoomDAO {
         } else {
             sql += " ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         }
-        
-        
+
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement sttm = con.prepareStatement(sql);
@@ -65,12 +63,12 @@ public class RoomDAO {
         return list;
     }
 
-    public boolean addRoom(String roomID, String roomName, String typeName, int price, String description) {
+    public boolean addRoom(int roomID, String roomName, String typeName, int price, String description) {
         String sql = "INSERT INTO rooms (roomID, roomName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, roomID);
+            stmt.setInt(1, roomID);
             stmt.setString(2, roomName);
             stmt.setString(3, typeName);
             stmt.setInt(4, price);
@@ -85,24 +83,28 @@ public class RoomDAO {
         return false;
     }
 
-    public boolean updateRoom(String roomID, String roomName, String typeName, int price, String description) {
-        String sql = "UPDATE rooms SET roomID = ?, roomName = ?, typeName = ?, price = ?, description = ? WHERE id = ?";
+    public RoomDTO updateRoom(int roomID, String roomName, String typeName, int price, String description) {
+        RoomDTO room = null;
+        String sql = "UPDATE rooms SET roomName = ?, typeName = ?, price = ?, description = ? WHERE roomID = ?";
         try {
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, roomID);
-            stmt.setString(2, roomName);
-            stmt.setString(3, typeName);
-            stmt.setInt(4, price);
-            stmt.setString(5, description);
+
+            stmt.setString(1, roomName);
+            stmt.setString(2, typeName);
+            stmt.setInt(3, price);
+            stmt.setString(4, description);
+            stmt.setInt(5, roomID);
+
             if (stmt.executeUpdate() > 0) {
-                return true;
+                room = new RoomDTO(roomID, roomName, typeName, price, description);
+                return room;
             }
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public boolean deleteRoom(String roomID) {
@@ -177,4 +179,5 @@ public class RoomDAO {
         }
         return getAllRoom;
     }
+
 }

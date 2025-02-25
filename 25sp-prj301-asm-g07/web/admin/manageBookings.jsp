@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,26 +21,32 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Booking ID</th>
                         <th>Room ID</th>
-                        <th>Tên phòng</th>
-                        <th>Loại phòng</th>
-                        <th>Giá</th>
-                        <th>Mô tả</th>
-                        <th>Trạng thái</th>
+                        <th>Type Room</th>
+                        <th>Check In Date</th>
+                        <th>Check Out Date</th>
+                        <th>Phone</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="room" items="${roomBookings}">
                         <tr>
+                            <td><c:out value="${room.getBookingID()}"/></td>
                             <td><c:out value="${room.getRoomID()}"/></td>
-                            <td><c:out value="${room.getRoomName()}"/></td>
                             <td><c:out value="${room.getTypeName()}"/></td>
-                            <td><c:out value="${room.getTotalPrice()}"/></td>
-                            <td><c:out value="${room.getDescription()}"/></td>
+                            <td><c:out value="${room.getCheckInDate()}"/></td>
+                            <td><c:out value="${room.getCheckOutDate()}"/></td>
+                            <td><c:out value="${room.getPhone()}"/></td>
+                            <td>
+                                <fmt:formatNumber value="${room.getTotalPrice()}" pattern="#,##0 VNĐ" />
+                            </td>     
                             <td class="room-status" 
                                 <c:choose>
                                     <c:when test="${room.getStatus() == 'chưa đặt'}">style="color: red;"</c:when>
-                                    <c:when test="${room.getStatus() == 'đã đặt'}">style="color: green;"</c:when>
+                                    <c:when test="${room.getStatus() == 'đang đặt (chưa thanh toán)'}">style="color: #F8B701;"</c:when>
                                     <c:otherwise>style="color: black;"</c:otherwise>
                                 </c:choose>
                                 > 
