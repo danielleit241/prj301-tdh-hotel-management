@@ -43,7 +43,10 @@
                                 <td>
                                     <fmt:formatDate value="${booking.checkOutDate}" pattern="yyyy-MM-dd" />
                                 </td>
-                                <td>${booking.totalPrice}</td>
+                                
+                                <td>
+                                    <p><fmt:formatNumber value="${booking.totalPrice}" pattern="#,##0"/> VNĐ</p>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
