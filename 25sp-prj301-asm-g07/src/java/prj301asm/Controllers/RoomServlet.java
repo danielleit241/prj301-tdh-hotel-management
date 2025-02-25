@@ -33,7 +33,7 @@ public class RoomServlet extends HttpServlet {
         UserDTO user = (UserDTO) session.getAttribute("user");
 
         String action = request.getParameter("action");
-        if (user == null || user.getRole().equals("member")) {
+        if (user == null || user.getRole().equals("member") || user.getRole().equals("admin")) {
             if (action == null || action.equals("list")) {
                 String typeRoom = request.getParameter("typeRoom");
                 if (typeRoom == null) {
