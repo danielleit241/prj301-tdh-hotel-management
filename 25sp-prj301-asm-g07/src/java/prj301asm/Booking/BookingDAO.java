@@ -20,20 +20,43 @@ import prj301asm.utils.DBUtils;
  */
 public class BookingDAO {
 
-    public boolean isBooked(int roomID, Date CheckIn, Date CheckOut) {
+    public List<BookingDTO> getListUserBooking(String username) {
+        List<BookingDTO> userBooked = new ArrayList<>();
+        String sql = "SELECT * FROM bookings WHERE username = ?";
+        try (Connection con = DBUtils.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    BookingDTO booking = new BookingDTO();
+                    booking.setBookingID(rs.getString("bookingID"));
+                    booking.setUsername(rs.getString("username"));
+                    booking.setRoomID(rs.getInt("roomID"));
+                    booking.setCheckInDate(rs.getDate("checkInDate"));
+                    booking.setCheckOutDate(rs.getDate("checkOutDate"));
+                    booking.setTotalPrice(rs.getInt("totalPrice"));
+                    userBooked.add(booking);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userBooked;
+    }
+
+    public boolean isBooked(int roomID, Date newCheckIn, Date newCheckOut) {
         boolean booked = false;
-        
         String sql = "SELECT COUNT(*) FROM bookings "
                 + "WHERE roomID = ? "
-                + "AND checkInDate <= ? "
-                + "AND checkoutdate >= ?";
+                + "AND checkInDate < ? " // so sánh với newCheckOut
+                + "AND checkoutdate > ?";   // so sánh với newCheckIn
         try (Connection con = DBUtils.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, roomID);
-            ps.setDate(2, CheckIn);
-            ps.setDate(3, CheckOut);
+            ps.setDate(2, newCheckOut);
+            ps.setDate(3, newCheckIn);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next() && rs.getInt(1) > 0) {
@@ -41,7 +64,7 @@ public class BookingDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return booked;
     }
@@ -118,29 +141,26 @@ public class BookingDAO {
         return list;
     }
 
-    public boolean addBooking(String bookingID, String username, int roomID, String phone, 
-                            String checkIn, String checkOut, int totalPrice) {
-    String sql = "INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, totalPrice) "
-               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-         
-         stmt.setString(1, bookingID);
-         stmt.setString(2, username);
-         stmt.setInt(3, roomID);
-         stmt.setString(4, phone);
-         stmt.setString(5, checkIn);
-         stmt.setString(6, checkOut);
-         stmt.setInt(7, totalPrice);
-         
-         int rowsAffected = stmt.executeUpdate();
-         return rowsAffected > 0;
-    } catch (SQLException e) {
-         e.printStackTrace();
+    public boolean addBooking(BookingDTO booking) {
+        String sql = "INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBUtils.getConnection();) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, booking.getBookingID());
+            stmt.setString(2, booking.getUsername());
+            stmt.setInt(3, booking.getRoomID());
+            stmt.setString(4, booking.getPhone());
+            stmt.setDate(5, booking.getCheckInDate());
+            stmt.setDate(6, booking.getCheckOutDate());
+            stmt.setInt(7, booking.getTotalPrice());
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
-    return false;
-}
-
 
     public boolean updateBooking(String bookingID, String phone, Date checkInDate, Date checkOutDate, String status, int totalPrice) {
 //        long days = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24);

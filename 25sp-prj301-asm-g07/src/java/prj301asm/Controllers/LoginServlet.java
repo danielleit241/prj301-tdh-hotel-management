@@ -32,26 +32,27 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);
             if (user != null) {
                 session.setAttribute("user", user);
-                if(user.getRole().equals("member")){
-                    //response.sendRedirect("./roomList?page=1");
+                if (user.getRole().equals("member")) {
                     response.sendRedirect("home.jsp");
-                }else if(user.getRole().equals("admin")){
+                } else if (user.getRole().equals("admin")) {
                     response.sendRedirect("admin/dashboard.jsp");
-                }   
+                }
             } else {
-                request.setAttribute("error", "Username or Password is not correct!");
-                RequestDispatcher rd = request.getRequestDispatcher("/login");
-                rd.forward(request, response);
-                return;
+                forwardToLoginJSP(request, response, "Username or Password is not correct!");
             }
         } else if (action.equals("logout")) {
             HttpSession session = request.getSession(false);
-            session.invalidate();
-            request.setAttribute("error", "Logout Sucessfully");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
-            return;
+            if (session != null) {
+                session.invalidate();
+            }
+            forwardToLoginJSP(request, response, "Logout Sucessfully");
         }
+    }
+    
+    private void forwardToLoginJSP(HttpServletRequest request, HttpServletResponse response,
+            String errorMessage) throws ServletException, IOException {
+        request.setAttribute("error", errorMessage);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     @Override

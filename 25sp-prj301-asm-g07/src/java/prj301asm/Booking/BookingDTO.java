@@ -5,7 +5,6 @@
  */
 package prj301asm.Booking;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -16,6 +15,7 @@ public class BookingDTO {
     //Important Information
     private String bookingID;
     private String bookedBy;
+    private String username;
     private String phone;
     private String roomName;
     private Date checkInDate;
@@ -30,6 +30,19 @@ public class BookingDTO {
     public BookingDTO() {
     }
 
+    
+
+    public BookingDTO(String bookingID, String username, int roomID, String phone, Date checkInDate, Date checkOutDate, int totalPrice) {
+        this.bookingID = bookingID;
+        this.username = username;
+        this.phone = phone;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalPrice = totalPrice;
+        this.roomID = roomID;
+    }
+
+
     public BookingDTO(int roomID, String roomName, String typeName, int totalPrice, String description, String phone, String bookingID, String bookedBy, Date checkInDate, Date checkOutDate, String status) {
         this.roomID = roomID;
         this.roomName = roomName;
@@ -43,6 +56,16 @@ public class BookingDTO {
         this.checkOutDate = checkOutDate;
         this.status = status;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    
 
     public int getRoomID() {
         return roomID;

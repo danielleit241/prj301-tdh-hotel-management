@@ -6,11 +6,9 @@
 package prj301asm.Controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,37 +45,76 @@ public class BookingServlet extends HttpServlet {
         if (user.getRole().equals("admin")) {
             BookingDAO dao = new BookingDAO();
             ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAllRoomBookings();
-
             request.setAttribute("roomBookings", list);
             request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
-            return;
         } else if (user.getRole().equals("member")) {
-
-            int roomID = Integer.parseInt(request.getParameter("roomID"));
             String action = request.getParameter("action");
-
+            BookingDAO bookingDao = new BookingDAO();
             RoomDAO roomDao = new RoomDAO();
-            RoomDTO room = roomDao.getRoomByID(roomID);
-            if (action.equals("booking")) {
+            if (action.equals("list")) {
+                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getListUserBooking(user.getUsername());
+                request.setAttribute("bookingList", list);
+                request.getRequestDispatcher("bookingList.jsp").forward(request, response);
+            } else if (action.equals("booking")) {
+                int roomID = Integer.parseInt(request.getParameter("roomID"));
+                RoomDTO room = roomDao.getRoomByID(roomID);
                 request.setAttribute("bookingID", generateBookingID());
                 request.setAttribute("room", room);
-
+                request.setAttribute("nextAction", "createBooking");
                 request.getRequestDispatcher("booking.jsp").forward(request, response);
-                return;
-            } else if (action.equals("payment")) {
+            } else if (action.equals("createBooking")) {
+                int roomID = Integer.parseInt(request.getParameter("roomID"));
+                String bookingID = request.getParameter("bookingID");
+                String phone = request.getParameter("phone");
+                int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+                String dateIn = request.getParameter("checkin");
+                String dateOut = request.getParameter("checkout");
+                
+                Date checkinDate = Date.valueOf(dateIn);
+                Date checkoutDate = Date.valueOf(dateOut);
+
+                RoomDTO room = roomDao.getRoomByID(roomID);
+
+                if (checkinDate.compareTo(checkoutDate) >= 0) {
+                    forwardToBookingJSP(request, response, bookingID, room,
+                            "Error Date: Check-in must be before Check-out.");
+                } else {
+                    boolean booked = bookingDao.isBooked(roomID, checkinDate, checkoutDate);
+                    if (booked) {
+                        forwardToBookingJSP(request, response, bookingID, room,
+                                "Error Date: Room is already booked in the selected time period.");
+                    }
+                    BookingDTO booking = new BookingDTO(bookingID, user.getUsername(), roomID, phone, checkinDate, checkoutDate, totalPrice);
+                    boolean isAdded = bookingDao.addBooking(booking);
+                    if (isAdded) {
+                        ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getListUserBooking(user.getUsername());
+                        request.setAttribute("bookingList", list);
+                        request.getRequestDispatcher("bookingList.jsp").forward(request, response);
+                    } else {
+                        forwardToBookingJSP(request, response, bookingID, room, "Booking Fail");
+                    }
+
+                }
 
             }
         }
-
     }
 
-    protected String generateBookingID() {
+    private void forwardToBookingJSP(HttpServletRequest request, HttpServletResponse response,
+            String bookingID, RoomDTO room, String errorMessage) throws ServletException, IOException {
+        request.setAttribute("bookingID", bookingID);
+        request.setAttribute("room", room);
+        request.setAttribute("error", errorMessage);
+        request.getRequestDispatcher("booking.jsp").forward(request, response);
+    }
+
+    private String generateBookingID() {
         String uniqueID = null;
-        int nextNumber = 0001;
+        int nextNumber = 000001;
         BookingDAO dao = new BookingDAO();
         String maxID = dao.getMaxBookingId();
         if (maxID != null) {
-            String numPart = maxID.replace("Booking", "");
+            String numPart = maxID.replace("B", "");
             try {
                 int currentMax = Integer.parseInt(numPart);
                 nextNumber = currentMax + 1;

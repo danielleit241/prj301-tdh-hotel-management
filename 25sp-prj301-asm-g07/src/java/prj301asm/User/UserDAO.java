@@ -64,7 +64,7 @@ public class UserDAO {
         try {
 
             Connection con = DBUtils.getConnection();
-            String sql = " SELECT name, role FROM users ";
+            String sql = " SELECT name, role ,username FROM users ";
             sql += " WHERE username = ?  AND password = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -79,6 +79,8 @@ public class UserDAO {
                     user = new UserDTO();
                     user.setName(rs.getString("name"));
                     user.setRole(rs.getString("role"));
+                    user.setUsername(rs.getString("username"));
+                    
                 }
             }
             con.close();
