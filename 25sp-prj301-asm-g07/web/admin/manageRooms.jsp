@@ -11,7 +11,6 @@
     </head>
     <body>
         <%@include file="adminNavbar.jsp" %>
-
         <table class="admin-manage-rooms">
             <thead>
                 <tr>
@@ -25,7 +24,6 @@
             </thead>
             <tbody>
                 <c:forEach var="room" items="${list}">
-                    
                     <tr>
                         <td><c:out value="${room.getRoomID()}"/></td>
                         <td><c:out value="${room.getRoomName()}"/></td>
@@ -34,7 +32,6 @@
                         <td class="description"><c:out value="${room.getDescription()}"/></td>
                         <td class="actions">
                             <a href="manageRooms?roomID=${room.getRoomID()}&action=details" class="custom-edit-button">Sửa</a>
-                            <a href="deleteRoom?roomId=${room.getRoomID()}" class="custom-delete-button" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng này?')">Xóa</a>
                         </td>
                     </tr>
                 </c:forEach>

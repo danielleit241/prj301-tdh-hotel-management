@@ -31,9 +31,9 @@ public class RoomServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
-
         String action = request.getParameter("action");
-        if (user == null || user.getRole().equals("member") || user.getRole().equals("admin")) {
+        
+        if (user == null || user.getRole().equals("member")) {
             if (action == null || action.equals("list")) {
                 String typeRoom = request.getParameter("typeRoom");
                 if (typeRoom == null) {
@@ -81,9 +81,7 @@ public class RoomServlet extends HttpServlet {
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
-
             } else if (action.equals("details")) {
-
                 Integer roomID = null;
                 try {
                     roomID = Integer.parseInt(request.getParameter("roomID"));
@@ -133,7 +131,6 @@ public class RoomServlet extends HttpServlet {
                         room.setTypeName(typeName);
                         room.setPrice(price);
                         room.setDescription(description);
-
                        room = dao.updateRoom(roomID, roomName, typeName, price, description);
                         if (room == null) {
                             request.setAttribute("error", "Update failed. Try again");
