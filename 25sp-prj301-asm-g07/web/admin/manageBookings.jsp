@@ -46,6 +46,7 @@
                             <td class="room-status" 
                                 <c:choose>
                                     <c:when test="${room.getStatus() == 'chưa đặt'}">style="color: red;"</c:when>
+                                    <c:when test="${room.getStatus() == 'đã đặt'}">style="color: green;"</c:when>
                                     <c:when test="${room.getStatus() == 'đang đặt (chưa thanh toán)'}">style="color: #F8B701;"</c:when>
                                     <c:otherwise>style="color: black;"</c:otherwise>
                                 </c:choose>
