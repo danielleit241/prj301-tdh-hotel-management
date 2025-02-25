@@ -20,7 +20,7 @@
                         Room ID
                     </td>
                     <td>
-                        <input name="roomID" value="${requestScope.room.roomID}">
+                        <input type="text" name="roomID" value="${requestScope.room.roomID}" readonly>
                     </td>
                 </tr>
 
