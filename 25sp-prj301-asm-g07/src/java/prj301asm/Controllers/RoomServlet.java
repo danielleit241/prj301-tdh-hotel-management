@@ -50,7 +50,9 @@ public class RoomServlet extends HttpServlet {
                 RoomDAO dao = new RoomDAO();
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE, typeRoom);
 
-                int totalPages = (int) Math.ceil((double) 50 / PAGE_SIZE);
+                int totalRoomCount = dao.countRoomsByTypeRoom(typeRoom);
+
+                int totalPages = (int) Math.ceil((double) totalRoomCount / PAGE_SIZE);
 
                 request.setAttribute("list", list);
                 request.setAttribute("currentPage", page);

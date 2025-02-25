@@ -21,6 +21,8 @@
         <%@include file="/navbar.jsp"%>
         <div class="search-container"> 
             <form action="./roomList" class="search-form"> 
+                <button type="submit" name="sort" value="asc">Giá từ Thấp Đến Cao</button>
+                <button type="submit" name="sort" value="desc">Giá từ Cao Đến Thấp</button>
                 <input type="hidden" name="page" value="${currentPage!= null? currentPage: 1}" />
                 <input type="text" name="typeRoom" value="${search!= null? search: ""}" class="search-input"> 
                 <input type="submit" value="Search" class="search-button"> 

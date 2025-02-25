@@ -180,4 +180,31 @@ public class RoomDAO {
         return getAllRoom;
     }
 
+    public int countRoomsByTypeRoom(String typeRoom) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS totalRooms FROM Rooms";
+
+        if (typeRoom != null && !typeRoom.trim().isEmpty()) {
+            sql += " WHERE typeName LIKE ?";
+        }
+
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement sttm = con.prepareStatement(sql);
+
+            if (typeRoom != null && !typeRoom.isEmpty()) {
+                sttm.setString(1, "%" + typeRoom + "%");
+            }
+
+            ResultSet rs = sttm.executeQuery();
+            if (rs != null && rs.next()) {
+                count = rs.getInt("totalRooms");
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("SQLException in countRoomsByTypeRoom: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return count;
+    }
 }
