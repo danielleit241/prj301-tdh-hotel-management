@@ -81,7 +81,6 @@ public class RoomServlet extends HttpServlet {
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
-
             } else if (action.equals("details")) {
 
                 Integer roomID = null;

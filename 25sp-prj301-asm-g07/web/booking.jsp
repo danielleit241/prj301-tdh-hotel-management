@@ -11,64 +11,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <style>
-            body {
-                background-color: #f8f9fa;
-                font-family: 'Open Sans', sans-serif;
-            }
-            .booking-container {
-                margin-top: 40px;
-            }
-            .image-section img.main-image {
-                width: 100%;
-                border-radius: 8px;
-                margin-bottom: 15px;
-            }
-            .gallery-row img {
-                width: 24%;
-                margin-right: 1%;
-                margin-bottom: 15px;
-                border-radius: 6px;
-            }
-            .details-section {
-                margin-bottom: 20px;
-            }
-            .details-section h1 {
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-            }
-            .details-section p.price {
-                color: #d9534f;
-                font-weight: bold;
-            }
-            .details-button a {
-                color: #fff;
-                text-decoration: none;
-            }
-            .details-button {
-                background-color: #007bff;
-                border: none;
-                padding: 10px 16px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .booking-form-card {
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                padding: 20px;
-            }
-            .booking-form-card h2 {
-                margin-bottom: 20px;
-                text-align: center;
-            }
-            .form-label {
-                font-weight: bold;
-            }
-            .btn-payment {
-                width: 100%;
-            }
-        </style>
     </head>
     <body>
         <%@ include file="navbar.jsp" %>
@@ -112,7 +54,7 @@
                                 ${error}
                             </div>
                         </c:if>
-                        <form action="booking" method="post">
+                        <form action="booking" method="get">
                             <!-- Booking ID (readonly) -->
                             <div class="mb-3">
                                 <label for="bookingID" class="form-label">Booking ID</label>
@@ -126,7 +68,7 @@
                             <!-- Booked By (readonly) -->
                             <div class="mb-3">
                                 <label for="bookedBy" class="form-label">Booked By</label>
-                                <input type="text" class="form-control" id="bookedBy" name="bookedBy" value="${sessionScope.user.name}" readonly>
+                                <input type="text" class="form-control" id="bookedBy" value="${sessionScope.user.name}" readonly>
                             </div>
                             <!-- Check-in Date -->
                             <div class="mb-3">
