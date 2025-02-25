@@ -49,8 +49,8 @@ public class BookingDAO {
         boolean booked = false;
         String sql = "SELECT COUNT(*) FROM bookings "
                 + "WHERE roomID = ? "
-                + "AND checkInDate < ? " // so sánh với newCheckOut
-                + "AND checkoutdate > ?";   // so sánh với newCheckIn
+                + "AND checkInDate < ? " // so sánh với newCheckOut 3-4 ->  3-9
+                + "AND checkoutdate > ?";   // so sánh với newCheckIn 3-8 -> 3-6
         try (Connection con = DBUtils.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -87,28 +87,24 @@ public class BookingDAO {
 
     public List<BookingDTO> getAllRoomBookings() {
         List<BookingDTO> list = new ArrayList<>();
-        String sql = "SELECT b.bookingID,\n"
-                + "       r.roomID,\n"
-                + "       r.roomName,\n"
-                + "       r.typeName,\n"
-                + "       r.price,\n"
-                + "       r.description,\n"
-                + "       b.phone,\n"
-                + "       u.name AS BookedBy,\n"
-                + "       b.checkInDate,\n"
-                + "       b.checkOutDate,\n"
-                + "       CASE \n"
-                + "           WHEN b.checkInDate IS NULL OR b.checkOutDate IS NULL \n"
-                + "                OR CAST(GETDATE() AS DATE) < b.checkInDate \n"
-                + "                THEN N'chưa đặt'\n"
-                + "           WHEN CAST(GETDATE() AS DATE) BETWEEN b.checkInDate AND b.checkOutDate \n"
-                + "                THEN N'đang đặt'\n"
-                + "           WHEN CAST(GETDATE() AS DATE) > b.checkOutDate \n"
-                + "                THEN N'đã đặt'\n"
-                + "       END AS status \n" // Changed to 'status'
-                + "FROM Rooms r\n"
-                + "LEFT JOIN bookings b ON r.RoomID = b.RoomID\n"
-                + "LEFT JOIN users u ON b.username = u.username;";
+        String sql = " SELECT \n "
+                + "    b.bookingID,\n "
+                + "    r.roomID,\n "
+                + "    r.roomName,\n "
+                + "    r.typeName,\n "
+                + "    r.price,\n "
+                + "    r.description,\n "
+                + "    b.phone,\n "
+                + "    u.name AS BookedBy,\n "
+                + "    b.checkInDate,\n "
+                + "    b.checkOutDate,\n "
+                + "    CASE \n"
+                + "    WHEN b.bookingID IS NOT NULL THEN N'đã đặt'\n "
+                + "    ELSE N'chưa đặt'\n"
+                + "	END AS status\n"
+                + " FROM Rooms r\n "
+                + " LEFT JOIN bookings b ON r.RoomID = b.RoomID\n "
+                + " LEFT JOIN users u ON b.username = u.username; ";
 
         try {
             Connection con = DBUtils.getConnection();

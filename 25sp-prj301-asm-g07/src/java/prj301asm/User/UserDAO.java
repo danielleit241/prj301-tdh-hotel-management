@@ -87,7 +87,6 @@ public class UserDAO {
         } catch (SQLException ex) {
             System.out.println("Error in servlet. Details:" + ex.getMessage());
             ex.printStackTrace();
-
         }
         return user;
 

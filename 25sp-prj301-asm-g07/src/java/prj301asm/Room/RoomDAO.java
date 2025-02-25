@@ -31,6 +31,8 @@ public class RoomDAO {
         } else {
             sql += " ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         }
+        
+        
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement sttm = con.prepareStatement(sql);
