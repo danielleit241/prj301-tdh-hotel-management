@@ -30,7 +30,7 @@
                             <a class="nav-link" href="#">Quản Lí Đánh Giá</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
+                            <a class="nav-link" href="../home.jsp">Liên hệ</a>
                         </li>
                     </ul>
                 </div>
