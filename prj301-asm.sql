@@ -242,6 +242,3 @@ VALUES
      N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a minimalist style.')
 ;
 
-select * from rooms
-
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, totalPrice) VALUES ('B1000004', 'hoa1', 103, '0327030024', '2025-04-02', '2025-05-04', 7000000)
