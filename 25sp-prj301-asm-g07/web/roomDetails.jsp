@@ -17,22 +17,22 @@
         <%@ include file="navbar.jsp" %>
         <div class="room-details-container">
             <div class="image-section">
-                <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}.jpg" alt="Room Image" class="main-image">
+                <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}.jpg" alt="Room Image" class="main-image">
                 <div class="gallery-row">
-                    <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_1.jpg" alt="Room Image 1">
-                    <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_2.jpg" alt="Room Image 2">
-                    <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_3.jpg" alt="Room Image 3">
-                    <img src="images/${requestScope.roomDetail.roomID}/${requestScope.roomDetail.roomID}_4.jpg" alt="Room Image 4">
+                    <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_1.jpg" alt="Room Image 1">
+                    <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_2.jpg" alt="Room Image 2">
+                    <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_3.jpg" alt="Room Image 3">
+                    <img src="images/${requestScope.room.roomID}/${requestScope.room.roomID}_4.jpg" alt="Room Image 4">
                 </div>
             </div>
             <div class="details-section">
                 <h1>Modern Single Room with Air Conditioner</h1>
                 <p>Type room: Single Room</p>
-                <p class="price">Price: <fmt:formatNumber value="${requestScope.roomDetail.price}" pattern="#,##0" /> VNĐ</p>
+                <p class="price">Price: <fmt:formatNumber value="${requestScope.room.price}" pattern="#,##0" /> VNĐ</p>
                 <p>Description: Modern single room equipped with an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine.</p>
 
                 <button class="details-button">
-                    <a href="booking?roomID=${requestScope.roomDetail.roomID}&action=booking">Book now!</a>
+                    <a href="booking?roomID=${requestScope.room.roomID}&action=booking">Book now!</a>
                 </button>
             </div>
         </div>

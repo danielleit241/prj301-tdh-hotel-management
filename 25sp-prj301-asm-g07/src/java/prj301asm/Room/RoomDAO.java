@@ -24,13 +24,11 @@ public class RoomDAO {
         int offSet = (page - 1) * pageSize;
 
         String sql = " SELECT * FROM rooms ";
-        boolean hasFilter = false;
 
-        if (typeRoom != null && !typeRoom.trim().isEmpty()) {
+        if (typeRoom != null) {
             sql += " WHERE typeName LIKE ? ";
-            hasFilter = true;
         }
-        if (sort != null && !sort.trim().isEmpty()) {
+        if (sort != null) {
             sql += " ORDER BY price " + sort + " ";
         } else {
             sql += " ORDER BY roomID ";
@@ -42,7 +40,7 @@ public class RoomDAO {
             Connection con = DBUtils.getConnection();
             PreparedStatement sttm = con.prepareStatement(sql);
             int index = 1;
-            if (hasFilter) {
+            if (typeRoom != null) {
                 sttm.setString(index++, "%" + typeRoom + "%");
             }
             sttm.setInt(index++, offSet);
@@ -185,7 +183,7 @@ public class RoomDAO {
         return getAllRoom;
     }
 
-    public int countRoomsByTypeRoom(String typeRoom) {
+    public int countRoomsByPage(String typeRoom) {
         int count = 0;
         String sql = "SELECT COUNT(*) AS totalRooms FROM Rooms";
 

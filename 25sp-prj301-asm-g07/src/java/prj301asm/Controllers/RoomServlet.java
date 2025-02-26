@@ -6,16 +6,13 @@
 package prj301asm.Controllers;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static jdk.nashorn.internal.runtime.Debug.id;
 import prj301asm.Room.RoomDAO;
 import prj301asm.Room.RoomDTO;
 import prj301asm.User.UserDTO;
@@ -44,20 +41,15 @@ public class RoomServlet extends HttpServlet {
                 if (sort == null) {
                     sort = null;
                 }
-                String pageParam = request.getParameter("page");
-                int page;
-                if (pageParam != null && !pageParam.trim().isEmpty()) {
-                    page = Integer.parseInt(pageParam);
-                } else {
-                    page = 1;
-                }
+
+                int page = Integer.parseInt(request.getParameter("page"));
 
                 RoomDAO dao = new RoomDAO();
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE, typeRoom, sort);
 
-                int totalRoomCount = dao.countRoomsByTypeRoom(typeRoom);
+                int totalRoom = dao.countRoomsByPage(typeRoom);
 
-                int totalPages = (int) Math.ceil((double) totalRoomCount / PAGE_SIZE);
+                int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
 
                 request.setAttribute("list", list);
                 request.setAttribute("currentPage", page);
@@ -79,8 +71,8 @@ public class RoomServlet extends HttpServlet {
                 if (room == null) {
                     response.sendRedirect("./roomList?page=1&action=list");
                 } else {
-                    request.setAttribute("roomDetail", room);
-                    request.getRequestDispatcher("roomDetails.jsp").forward(request, response);
+                    request.setAttribute("room", room);
+                    forwardRoom(request, response, "roomDetails.jsp");
                 }
             }
         } else if (user.getRole().equals("admin")) {
@@ -88,7 +80,7 @@ public class RoomServlet extends HttpServlet {
                 RoomDAO dao = new RoomDAO();
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
-                request.getRequestDispatcher("manageRooms.jsp").forward(request, response);
+                forwardRoom(request, response, "manageRooms.jsp");
             } else if (action.equals("details")) {
                 Integer roomID = null;
                 try {
@@ -98,9 +90,10 @@ public class RoomServlet extends HttpServlet {
                 }
                 RoomDAO dao = new RoomDAO();
                 RoomDTO room = dao.getRoomByID(roomID);
+
                 request.setAttribute("room", room);
-                RequestDispatcher rd = request.getRequestDispatcher("roomDetails.jsp");
-                rd.forward(request, response);
+                forwardRoom(request, response, "roomDetails.jsp");
+
             } else if (action.equals("edit")) {
                 Integer roomID = null;
                 try {
@@ -111,8 +104,8 @@ public class RoomServlet extends HttpServlet {
                 RoomDAO dao = new RoomDAO();
                 RoomDTO room = dao.getRoomByID(roomID);
                 request.setAttribute("room", room);
-                RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
-                rd.forward(request, response);
+                forwardRoom(request, response, "roomEdit.jsp");
+
             } else if (action.equals("update")) {
                 int roomID = Integer.parseInt(request.getParameter("roomID"));
                 String roomName = request.getParameter("roomName");
@@ -128,15 +121,19 @@ public class RoomServlet extends HttpServlet {
                 room = dao.updateRoom(roomID, roomName, typeName, price, description);
                 if (room == null) {
                     request.setAttribute("error", "Update failed. Try again");
-                    RequestDispatcher rd = request.getRequestDispatcher("roomEdit.jsp");
-                    rd.forward(request, response);
+                    forwardRoom(request, response, "roomEdit.jsp");
                 } else {
                     response.sendRedirect("./manageRooms");
                 }
 
             }
         }
+    }
 
+    private void forwardRoom(HttpServletRequest request, HttpServletResponse response, String page)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher(page);
+        rd.forward(request, response);
     }
 
     @Override

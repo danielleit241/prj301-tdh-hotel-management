@@ -20,14 +20,21 @@
     <body>
         <%@include file="/navbar.jsp"%>
         <div class="search-container"> 
-            <form action="./roomList" class="search-form">
-                <a href="?sort=asc&page=${currentPage!= null? currentPage: 1}&typeRoom=${search!= null? search: ""}">ASC</a>
-                <a href="?sort=desc&page=${currentPage!= null? currentPage: 1}&typeRoom=${search!= null? search: ""}">DESC</a>
-                <input type="hidden" name="page" value="${currentPage!= null? currentPage: 1}" />
-                <input type="text" name="typeRoom" value="${search!= null? search: ""}" class="search-input"> 
+            <form action="./roomList" class="search-form" style="gap: 50px">
+                <a href="?sort=asc&page=${currentPage != null ? currentPage : 1}&typeRoom=${search != null ? search : ''}">Price low - hight</a>
+                <a href="?sort=desc&page=${currentPage != null ? currentPage : 1}&typeRoom=${search != null ? search : ''}">Price hight - low</a>
+                <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}" />
+                <select name="typeRoom" class="search-input">
+                    <option value="" ${empty search ? 'selected' : ''}>-- Select Room Type --</option>
+                    <option value="Single Room" ${search eq 'Single Room' ? 'selected' : ''}>Single Room</option>
+                    <option value="Double Room" ${search eq 'Double Room' ? 'selected' : ''}>Double Room</option>
+                    <option value="Twin Room" ${search eq 'Twin Room' ? 'selected' : ''}>Twin Room</option>
+                    <option value="Quad Room" ${search eq 'Quad Room' ? 'selected' : ''}>Quad Room</option>
+                </select>
                 <input type="submit" value="Search" class="search-button"> 
             </form>
         </div>
+
         <div class="container">
             <c:forEach var="room" items="${list}">
                 <div class="card">

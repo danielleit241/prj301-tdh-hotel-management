@@ -33,8 +33,7 @@
                             <img src="images/${booking.roomID}/${booking.roomID}.jpg" alt="Room Image">
                         </div>
                         <div class="booking-details"> 
-                            <h3 style="font-weight: 600;">My Booking</h3>
-                            <p><span class="booking-ticket-label">Booking ID:</span> <span class="booking-ticket-value">${booking.bookingID}</span></p>
+                            <h3 style="font-weight: 600;"><span class="booking-ticket-label">Booking ID:</span> <span class="booking-ticket-value">${booking.bookingID}</span></h3>
                             <p><span class="booking-ticket-label">Room ID:</span> <span class="booking-ticket-value">${booking.roomID}</span></p>
                             <p><span class="booking-ticket-label">Check-in Date:</span> <span class="booking-ticket-value"><fmt:formatDate value="${booking.checkInDate}" pattern="yyyy-MM-dd" /></span></p>
                             <p><span class="booking-ticket-label">Check-out Date:</span> <span class="booking-ticket-value"><fmt:formatDate value="${booking.checkOutDate}" pattern="yyyy-MM-dd" /></span></p>
