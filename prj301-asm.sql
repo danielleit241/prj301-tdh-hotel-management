@@ -242,3 +242,4 @@ VALUES
      N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a minimalist style.')
 ;
 
+SELECT * FROM rooms WHERE typeName LIKE '%single%' ORDER BY price

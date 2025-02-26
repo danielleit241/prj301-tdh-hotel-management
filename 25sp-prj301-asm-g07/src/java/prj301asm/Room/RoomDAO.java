@@ -19,29 +19,34 @@ import prj301asm.utils.DBUtils;
  */
 public class RoomDAO {
 
-    public List<RoomDTO> getRoomsByPage(int page, int pageSize, String typeRoom) {
+    public List<RoomDTO> getRoomsByPage(int page, int pageSize, String typeRoom, String sort) {
         List<RoomDTO> list = new ArrayList<RoomDTO>();
         int offSet = (page - 1) * pageSize;
 
-        String sql = " SELECT * FROM Rooms ";
+        String sql = " SELECT * FROM rooms ";
+        boolean hasFilter = false;
 
-        if (typeRoom != null) {
-            sql += " WHERE typeName like ? ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
-        } else {
-            sql += " ORDER BY roomID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        if (typeRoom != null && !typeRoom.trim().isEmpty()) {
+            sql += " WHERE typeName LIKE ? ";
+            hasFilter = true;
         }
+        if (sort != null && !sort.trim().isEmpty()) {
+            sql += " ORDER BY price " + sort + " ";
+        } else {
+            sql += " ORDER BY roomID ";
+        }
+
+        sql += "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
         try {
             Connection con = DBUtils.getConnection();
             PreparedStatement sttm = con.prepareStatement(sql);
-            if (typeRoom != null) {
-                sttm.setString(1, "%" + typeRoom + "%");
-                sttm.setInt(2, offSet);
-                sttm.setInt(3, pageSize);
-            } else {
-                sttm.setInt(1, offSet);
-                sttm.setInt(2, pageSize);
+            int index = 1;
+            if (hasFilter) {
+                sttm.setString(index++, "%" + typeRoom + "%");
             }
+            sttm.setInt(index++, offSet);
+            sttm.setInt(index++, pageSize);
 
             ResultSet rs = sttm.executeQuery();
 

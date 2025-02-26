@@ -35,9 +35,14 @@ public class RoomServlet extends HttpServlet {
 
         if (user == null || user.getRole().equals("member")) {
             if (action == null || action.equals("list")) {
+
                 String typeRoom = request.getParameter("typeRoom");
+                String sort = request.getParameter("sort");
                 if (typeRoom == null) {
                     typeRoom = null;
+                }
+                if (sort == null) {
+                    sort = null;
                 }
                 String pageParam = request.getParameter("page");
                 int page;
@@ -48,7 +53,7 @@ public class RoomServlet extends HttpServlet {
                 }
 
                 RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE, typeRoom);
+                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getRoomsByPage(page, PAGE_SIZE, typeRoom, sort);
 
                 int totalRoomCount = dao.countRoomsByTypeRoom(typeRoom);
 
@@ -58,6 +63,7 @@ public class RoomServlet extends HttpServlet {
                 request.setAttribute("currentPage", page);
                 request.setAttribute("totalPages", totalPages);
                 request.setAttribute("search", typeRoom);
+                request.setAttribute("sort", sort);
 
                 request.getRequestDispatcher("roomList.jsp").forward(request, response);
             } else if (action.equals("details")) {

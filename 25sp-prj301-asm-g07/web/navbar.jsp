@@ -35,7 +35,7 @@
                             <a class="nav-link" href="home.jsp">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="roomList?page=1&action=list">OUR ROOM</a>
+                            <a class="nav-link" href="roomList?page=1&action=list&typeRoom=&sort=">OUR ROOM</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="booking?action=list">BOOKING</a>

@@ -20,9 +20,9 @@
     <body>
         <%@include file="/navbar.jsp"%>
         <div class="search-container"> 
-            <form action="./roomList" class="search-form"> 
-                <button type="submit" name="sort" value="asc">Giá từ Thấp Đến Cao</button>
-                <button type="submit" name="sort" value="desc">Giá từ Cao Đến Thấp</button>
+            <form action="./roomList" class="search-form">
+                <a href="?sort=asc&page=${currentPage!= null? currentPage: 1}&typeRoom=${search!= null? search: ""}">ASC</a>
+                <a href="?sort=desc&page=${currentPage!= null? currentPage: 1}&typeRoom=${search!= null? search: ""}">DESC</a>
                 <input type="hidden" name="page" value="${currentPage!= null? currentPage: 1}" />
                 <input type="text" name="typeRoom" value="${search!= null? search: ""}" class="search-input"> 
                 <input type="submit" value="Search" class="search-button"> 
@@ -44,18 +44,17 @@
                 </div>
             </c:forEach>
         </div>
-
         <div class="pagination">
             <c:if test="${currentPage > 1}">
-                <a href="./roomList?page=${currentPage - 1}&typeRoom=${search}" class="prev">Prev</a>
+                <a href="./roomList?page=${currentPage - 1}&typeRoom=${search}&sort=${sort}" class="prev">Prev</a>
             </c:if>
 
             <c:forEach begin="1" end="${totalPages}" var="i">
-                <a href="./roomList?page=${i}&typeRoom=${search}" <c:if test="${currentPage == i}">class="active"</c:if>>${i}</a>
+                <a href="./roomList?page=${i}&typeRoom=${search}&sort=${sort}" <c:if test="${currentPage == i}">class="active"</c:if>>${i}</a>
             </c:forEach>
 
             <c:if test="${currentPage < totalPages}">
-                <a href="./roomList?page=${currentPage + 1}&typeRoom=${search}" class="next">Next</a>
+                <a href="./roomList?page=${currentPage + 1}&typeRoom=${search}&sort=${sort}" class="next">Next</a>
             </c:if>
         </div>
 
