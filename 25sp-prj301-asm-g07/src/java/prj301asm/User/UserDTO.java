@@ -9,10 +9,33 @@ package prj301asm.User;
  * @author DUNGHUYNH
  */
 public class UserDTO {
+   private String username;
+   private String password;
+   private String name;    
+   private String role;
+
+    public UserDTO() {
+    }
+
+   
+    public UserDTO(String username, String password, String name, String role) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
+
+  
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
-    private String name;
-    private String username;
-    private String role;
+    
 
     public String getUsername() {
         return username;

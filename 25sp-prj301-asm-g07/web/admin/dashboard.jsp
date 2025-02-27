@@ -19,7 +19,7 @@
                 <div class="dashboard-buttons">
                     <a href="./manageRooms?action=manageList" class="dashboard-button">Quản lý Phòng</a>
                     <a href="./manageBookings" class="dashboard-button">Quản lý Đặt Phòng</a>
-                    <a href="./manageReviews" class="dashboard-button">Quản lý Đánh giá</a>
+                    <a href="./ManageUser" class="dashboard-button">Quản lý Người Dùng</a>
                 </div>
             </div>
         </div>

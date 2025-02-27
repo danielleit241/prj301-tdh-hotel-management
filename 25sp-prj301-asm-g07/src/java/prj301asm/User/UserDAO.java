@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import prj301asm.utils.DBUtils;
 
 /**
@@ -91,5 +93,53 @@ public class UserDAO {
         return user;
 
     }
+    
+    public List<UserDTO> getAllUser(){
+        List<UserDTO> getAllUser = new ArrayList<>();
+        String sql = " SELECT * FROM users ";
+        try{
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+               String username = rs.getString("username");
+               String password = rs.getString("password");
+               String name = rs.getString("name");
+               String role = rs.getString("role");
+               UserDTO user = new UserDTO(username, password, name, role);
+               getAllUser.add(user);
+            }
+            con.close();
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    
+        
+        return getAllUser;
+}
+    
+    public boolean delete(String username){
+        String sql = " DELETE FROM users WHERE username = ? ";
+        try{
+            
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.executeUpdate();           
+            con.close();
+            return ps.executeUpdate() >0;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+       
+        
+        return false;
+    }
+    
+     
+    
+    
 
 }
