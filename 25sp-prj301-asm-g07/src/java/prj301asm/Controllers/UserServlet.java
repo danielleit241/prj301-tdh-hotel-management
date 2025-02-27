@@ -23,7 +23,6 @@ import prj301asm.User.UserDTO;
  *
  * @author TRAN PHU THINH
  */
-@WebServlet(name = "UserServlet", urlPatterns = {"/UserServlet"})
 public class UserServlet extends HttpServlet {
 
     /**
@@ -39,44 +38,39 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           HttpSession session = request.getSession(false);
-           UserDTO user = (UserDTO) session.getAttribute("user");
-           String action = request.getParameter("action");
-           
-           if (user.getRole().equals("admin")){
-               if(action == null || action.equals("ManageUser")){
-                   UserDAO dao = new UserDAO();
-                   ArrayList<UserDTO> list = (ArrayList<UserDTO>) dao.getAllUser();
-                   request.setAttribute("list", list);
-                   RequestDispatcher rd = request.getRequestDispatcher("manageUser.jsp");
-                   rd.forward(request, response);
-                   
-               } else if(action.equals("delete")){
-               
-               
-                String username = request.getParameter("username");      
-                   
-                if(username != null && !username.isEmpty()){
-                }
-                UserDAO dao = new UserDAO();
-                if (username != null && !username.isEmpty()) {
-                    dao.delete(username);
-               
-                 }
+            HttpSession session = request.getSession(false);
+            UserDTO user = (UserDTO) session.getAttribute("user");
+            String action = request.getParameter("action");
 
-               List<UserDTO> list = dao.getAllUser();
-                
-                request.setAttribute("list", list);
-                RequestDispatcher rd = request.getRequestDispatcher("./manageUser.jsp");
-                rd.forward(request, response);
-                                           
+            if (user.getRole().equals("admin")) {
+
+                if (action == null || action.equals("ManageUser")) {
+                    UserDAO dao = new UserDAO();
+                    ArrayList<UserDTO> list = (ArrayList<UserDTO>) dao.getAllUser();
+                    request.setAttribute("list", list);
+                    RequestDispatcher rd = request.getRequestDispatcher("manageUser.jsp");
+                    rd.forward(request, response);
+
+                } else if (action.equals("delete")) {
+
+                    String username = request.getParameter("username");
+
+                    UserDAO dao = new UserDAO();
+                    if (username != null && !username.isEmpty()) {
+                        dao.delete(username);
+
+                    }
+
+                    List<UserDTO> list = dao.getAllUser();
+
+                    request.setAttribute("list", list);
+                    RequestDispatcher rd = request.getRequestDispatcher("manageUser.jsp");
+                    rd.forward(request, response);
+
+                }
+
             }
-               
-           }
-               
-                       
-            
-           
+
         }
     }
 
