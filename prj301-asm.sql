@@ -12,19 +12,35 @@ CREATE TABLE users (
     createAt DATETIME DEFAULT GETDATE()
 );
 
-CREATE TABLE roomTypes (
-    typeName NVARCHAR(50) NOT NULL PRIMARY KEY,
-    description NVARCHAR(MAX)
+-- Bảng danh mục loại phòng: lưu mã và tên loại phòng
+CREATE TABLE typeRoom (
+    typeRoomID INT PRIMARY KEY,
+    typeName NVARCHAR(100) NOT NULL  -- Ví dụ: 'Special King Room'
+);
+ALTER TABLE typeRoom 
+ADD typeDes NVARCHAR(255);
+
+
+-- Bảng chứa thông tin chi tiết của loại phòng
+CREATE TABLE typeRoomDetails (
+    typeRoomID INT PRIMARY KEY,
+    price INT NOT NULL CHECK(price > 0),
+    roomSize NVARCHAR(50) NOT NULL,            -- Ví dụ: '50 m2'
+    bedSize NVARCHAR(100) NOT NULL,            -- Ví dụ: '1 x Special King size – 1m8 x 2m'
+    maxOccupancy NVARCHAR(50) NOT NULL,        -- Ví dụ: '02 - 03 Adults'
+    viewDetail NVARCHAR(50) NOT NULL,                -- Ví dụ: 'City view'
+    bathroom NVARCHAR(200) NOT NULL,           -- Ví dụ: 'Toilet room, shower room, washbasin and bathtub'
+    smoking NVARCHAR(10) NOT NULL CHECK (smoking IN ('Yes', 'No')),
+    FOREIGN KEY (typeRoomID) REFERENCES typeRoom(typeRoomID) ON DELETE CASCADE
 );
 
+-- Bảng chứa thông tin các phòng cụ thể, chỉ lưu roomID và tham chiếu đến typeRoom
 CREATE TABLE rooms (
     roomID INT PRIMARY KEY,
-    roomName NVARCHAR(100) NOT NULL,
-    typeName NVARCHAR(50) NOT NULL,
-    price int NOT NULL CHECK (price > 0),
-    description NVARCHAR(1000),
-    FOREIGN KEY (typeName) REFERENCES roomTypes(typeName) ON DELETE CASCADE
+    typeRoomID INT NOT NULL,
+    FOREIGN KEY (typeRoomID) REFERENCES typeRoom(typeRoomID) ON DELETE CASCADE
 );
+
 
 CREATE TABLE bookings (
     bookingID VARCHAR(50) PRIMARY KEY,
@@ -61,185 +77,119 @@ CREATE TABLE feedback (
 	
 --------------------------------------------------------------------------------------------------------------------------
 
+
+-- Value Insert!
+
 insert into users(username, password, name, role) 
 	values('hoa', 'hoa', N'Hòa Lê', 'admin'),
 		('dat', 'dat', N'Đạt 09', 'admin'),
 		('thinh', 'thinh', N'Thịnh Tu', 'admin');
 
--- Insert data into table roomTypes
-INSERT INTO roomTypes (typeName, description)
+INSERT INTO typeRoom (typeRoomID, typeName, typeDes)
 VALUES 
-    (N'Single Room', N'Room designed for one person, offering basic yet modern amenities.'),
-    (N'Double Room', N'Room designed for two people, cozy and cost-effective.'),
-    (N'Twin Room', N'Room with two single beds, ideal for small families or groups of friends.'),
-    (N'Quad Room', N'Spacious room, perfect for larger families or groups of friends.');
+  (1, 'DELUXE KING', N'The Deluxe King offers modern design and superior comfort with a luxurious king bed and a stunning City view—perfect for couples seeking a refined urban experience.'),
+  (2, 'DELUXE DOUBLE', N'The Deluxe Double provides extra space and style, featuring a sophisticated layout with a serene River view that soothes and inspires relaxation.'),
+  (3, 'PREMIER KING', N'The Premier King redefines luxury with a spacious layout, a premium king-size bed, and a breathtaking Skyline view—ideal for guests who appreciate refined design and dramatic vistas.'),
+  (4, 'JUNIOR SUITE', N'The Junior Suite exudes elegance with a separate living area and modern amenities, complemented by a vibrant City view that energizes your stay.'),
+  (5, 'DELUXE ONE BEDROOM SUITE', N'The Deluxe One Bedroom Suite offers a private retreat with a separate bedroom and living area, featuring a calming River view that enhances your relaxation.'),
+  (6, 'PREMIER ONE BEDROOM SUITE', N'The Premier One Bedroom Suite blends style and functionality with upscale furnishings and an impressive Skyline view that captivates and delights.'),
+  (7, 'TWO BEDROOM SUITE', N'The Two Bedroom Suite is perfect for families or groups, offering two distinct bedrooms and ample living space with a dynamic City view.'),
+  (8, 'THD PENTHOUSE SUITE', N'The THD Penthouse Suite epitomizes luxury with expansive living spaces and an unrivaled Skyline view that captures the essence of urban sophistication.'),
+  (9, 'ONE BEDROOM SUITE', N'The One Bedroom Suite combines sophisticated design with comfort, featuring a spacious layout and a picturesque River view that offers a tranquil retreat.');
 
--- Insert data into table rooms with 50 rooms, each having a unique name and description
-INSERT INTO rooms (roomID, roomName, typeName, price, description)
+INSERT INTO typeRoomDetails (typeRoomID, price, roomSize, bedSize, maxOccupancy, viewDetail, bathroom, smoking)
 VALUES
-    -- Group 1 (5 rooms)
-    (101, N'Modern Single Room with Air Conditioner', N'Single Room', 500000,
-     N'Modern single room equipped with an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine.'),
-     
-    (102, N'Luxurious Double Room with Bathtub', N'Double Room', 700000,
-     N'Double room offering a cost-effective solution for families or couples, featuring an air conditioner, a 40-inch LED TV, and a private balcony; it has anti-slip tiled flooring and a bathroom equipped with a warm bathtub and premium bathrobe.'),
-     
-    (103, N'Comfortable Twin Room with Natural Wood Floor', N'Twin Room', 750000,
-     N'Twin room with two comfortable single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom is fitted with an efficient shower, an integrated washing machine, and a heater.'),
-     
-    (104, N'Spacious Quad Room with Large Bathtub', N'Quad Room', 1200000,
-     N'Quad room offering ample space, equipped with a powerful air conditioner, a 55-inch LED TV, and granite flooring; the bathroom features a large bathtub, a washing machine, and a heater—ideal for larger families.'),
-     
-    (105, N'Minimalist Single Room with LED TV', N'Single Room', 480000,
-     N'Minimalist single room featuring an air conditioner, a 32-inch LED TV, and refined ceramic tile flooring; the bathroom uses a convenient shower and includes a compact washing machine.'),
-     
-    -- Group 2 (5 rooms)
-    (201, N'Elegant Single Room with Wardrobe', N'Single Room', 510000,
-     N'Single room equipped with a modern air conditioner, a 32-inch LED TV, and glossy ceramic tile flooring; the bathroom has a contemporary shower and ample natural light.'),
-     
-    (202, N'Cozy Double Room with Balcony', N'Double Room', 710000,
-     N'Double room featuring an air conditioner, a 40-inch LED TV, and a charming balcony; it has anti-slip tiled flooring and a bathroom with a warm bathtub and soft bathrobe.'),
-     
-    (203, N'Modern Twin Room with Washing Machine', N'Twin Room', 760000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower and an integrated washing machine.'),
-     
-    (204, N'Contemporary Quad Room with Granite Floor', N'Quad Room', 1210000,
-     N'Quad room equipped with an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom features a large bathtub, a washing machine, and a heater.'),
-     
-    (205, N'Practical Single Room with Washing Machine', N'Single Room', 490000,
-     N'Single room featuring an air conditioner, a 32-inch LED TV, and refined ceramic tile flooring; the bathroom has a convenient shower and a compact washing machine.'),
-     
-    -- Group 3 (5 rooms)
-    (301, N'Modern Single Room with Sleek Tile Floor', N'Single Room', 520000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom is equipped with a convenient shower and plenty of natural light.'),
-     
-    (302, N'Romantic Double Room with Natural Light', N'Double Room', 720000,
-     N'Double room featuring an air conditioner, a 40-inch LED TV, and a private balcony; it has anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (303, N'Modern Twin Room with Efficient Shower', N'Twin Room', 770000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower, an integrated washing machine, and a heater.'),
-     
-    (304, N'Luxurious Quad Room with LED Entertainment', N'Quad Room', 1220000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and a heater—ideal for larger groups.'),
-     
-    (305, N'Contemporary Single Room with Large Window', N'Single Room', 500000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and refined ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine that creates a relaxing space.'),
-     
-    -- Group 4 (4 rooms)
-    (401, N'Modern Single Room with Elegant Interior', N'Single Room', 530000,
-     N'Single room featuring an air conditioner, a 32-inch LED TV, and bright ceramic tile flooring; the bathroom is fitted with a contemporary shower and a compact washing machine for optimal space utilization.'),
-     
-    (402, N'Luxurious Double Room with Warm Bathtub', N'Double Room', 730000,
-     N'Double room equipped with an air conditioner, a 40-inch LED TV, and a private balcony; it offers anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (403, N'Practical Twin Room with Heater', N'Twin Room', 780000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and cozy natural wood flooring; the modern bathroom features an efficient shower, an integrated washing machine, and a heater.'),
-     
-    (404, N'Spacious Quad Room with Wardrobe', N'Quad Room', 1230000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom is equipped with a large bathtub, a washing machine, and a heater—ideal for large families.'),
-     
-    -- Group 5 (4 rooms)
-    (501, N'Modern Single Room with Air Conditioner', N'Single Room', 540000,
-     N'Single room featuring an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom has a modern shower and a compact washing machine for a relaxing ambiance.'),
-     
-    (502, N'Cozy Double Room with Private Balcony', N'Double Room', 740000,
-     N'Double room equipped with an air conditioner, a 40-inch LED TV, and a private balcony; it features anti-slip tiled flooring and a bathroom with a warm bathtub and soft bathrobe.'),
-     
-    (503, N'Modern Twin Room with Wooden Floor', N'Twin Room', 790000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower, an integrated washing machine, and a heater.'),
-     
-    (504, N'Luxurious Quad Room with Large Bathtub', N'Quad Room', 1240000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom boasts a large bathtub, a washing machine, and a heater—perfect for larger groups.'),
-     
-    -- Group 6 (4 rooms)
-    (601, N'Contemporary Single Room with LED Display', N'Single Room', 550000,
-     N'Single room featuring an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom has an efficient shower and a compact washing machine that creates a peaceful atmosphere.'),
-     
-    (602, N'Luxurious Double Room with Bathtub', N'Double Room', 750000,
-     N'Double room equipped with an air conditioner, a 40-inch LED TV, and a refined balcony; it offers anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (603, N'Modern Twin Room with Washing Machine', N'Twin Room', 800000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom features an efficient shower, with an integrated washing machine and heater.'),
-     
-    (604, N'Spacious Quad Room with Granite Flooring', N'Quad Room', 1250000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and an integrated heater.'),
-     
-    -- Group 7 (4 rooms)
-    (701, N'Minimalist Single Room with Modern Design', N'Single Room', 560000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features an efficient shower and a compact washing machine that creates a relaxing space.'),
-     
-    (702, N'Romantic Double Room with Balcony', N'Double Room', 760000,
-     N'Double room featuring an air conditioner, a 40-inch LED TV, and a private balcony; it has anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (703, N'Practical Twin Room with Heater', N'Twin Room', 810000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower, with an integrated washing machine and heater.'),
-     
-    (704, N'Luxurious Quad Room with LED Entertainment', N'Quad Room', 1260000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom is equipped with a large bathtub, a washing machine, and a heater—ideal for larger groups.'),
-     
-    -- Group 8 (5 rooms)
-    (801, N'Modern Single Room with Elegant Interior', N'Single Room', 570000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and refined ceramic tile flooring; the bathroom features a modern shower and a compact washing machine for a relaxing ambiance.'),
-     
-    (802, N'Cozy Double Room with Private Balcony', N'Double Room', 770000,
-     N'Double room featuring an air conditioner, a 40-inch LED TV, and a private balcony; it offers anti-slip tiled flooring and a bathroom with a warm bathtub and soft bathrobe.'),
-     
-    (803, N'Modern Twin Room with Natural Wood Floor', N'Twin Room', 820000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower, an integrated washing machine, and a heater.'),
-     
-    (804, N'Spacious Quad Room with Large Bathtub', N'Quad Room', 1270000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and an integrated heater.'),
+  (1, 150, N'37 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'City view', N'Toilet room, shower room and washbasin', N'No'),
+  (2, 200, N'50 m2', N'1 x Special Double setup – 1m8 x 2m', N'02 - 03 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (3, 180, N'40 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'Skyline view', N'Toilet, shower room and washbasin', N'No'),
+  (4, 170, N'35 m2', N'2 x Queen size – 1m6 x 2m', N'02 Adults', N'City view', N'Toilet, shower room and washbasin', N'No'),
+  (5, 190, N'40 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (6, 160, N'35 m2', N'1 x Queen size – 1m6 x 2m', N'02 Adults', N'Skyline view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (7, 155, N'50 m2', N'1 x King size – 1m8 x 2m (per bedroom)', N'04 Adults', N'City view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (8, 250, N'65 m2', N'1 x Super King – 2m2 Cyrcle', N'02 Adults', N'Skyline view', N'Toilet room, shower room, washbasin and oversize bathtub', N'No'),
+  (9, 185, N'35 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No');
 
-    (805, N'Modern Single Room with Elegant Interior', N'Single Room', 500000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a modern shower and a compact washing machine in a minimalist style.'),
-     
-    -- Group 9 (5 rooms)
-    (901, N'Practical Single Room with Washing Machine', N'Single Room', 580000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom features a convenient shower, a compact washing machine, and plenty of natural light.'),
-     
-    (902, N'Luxurious Double Room with Bathtub', N'Double Room', 780000,
-     N'Double room featuring an air conditioner, a 40-inch LED TV, and a private balcony; it offers anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (903, N'Modern Twin Room with LED Display', N'Twin Room', 830000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower, with an integrated washing machine and heater.'),
-     
-    (904, N'Luxurious Quad Room with Granite Floor', N'Quad Room', 1280000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and an integrated heater—perfect for larger families.'),
-     
-    (905, N'Minimalist Single Room with Modern Design', N'Single Room', 490000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and refined ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a modern style.'),
-     
-    -- Group 10 (5 rooms)
-    (1001, N'Elegant Single Room with Large Window', N'Single Room', 590000,
-     N'Single room featuring an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom includes a modern shower, a compact washing machine, and a large window for abundant natural light.'),
-     
-    (1002, N'Romantic Double Room with Warm Bathtub', N'Double Room', 790000,
-     N'Double room with an air conditioner, a 40-inch LED TV, and a private balcony; it offers anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (1003, N'Modern Twin Room with Washing Machine', N'Twin Room', 840000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom features an efficient shower, with an integrated washing machine and heater for optimal convenience.'),
-     
-    (1004, N'Contemporary Quad Room with LED Entertainment', N'Quad Room', 1290000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and an integrated heater.'),
-     
-    (1005, N'Modern Single Room with Elegant Interior', N'Single Room', 500000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a modern shower and a compact washing machine in a minimalist style.'),
-     
-    -- Group 11 (5 rooms)
-    (1101, N'Practical Single Room with LED TV', N'Single Room', 600000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and premium ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine that creates a bright space.'),
-     
-    (1102, N'Luxurious Double Room with Bathtub', N'Double Room', 800000,
-     N'Double room featuring an air conditioner, a 40-inch LED TV, and a private balcony; it has anti-slip tiled flooring and a bathroom with a warm bathtub and premium bathrobe.'),
-     
-    (1103, N'Modern Twin Room with Natural Wood Floor', N'Twin Room', 850000,
-     N'Twin room with two single beds, an air conditioner, a 43-inch LED TV, and natural wood flooring; the modern bathroom includes an efficient shower, with an integrated washing machine and heater.'),
-     
-    (1104, N'Spacious Quad Room with Large Bathtub', N'Quad Room', 1300000,
-     N'Quad room featuring an air conditioner, a 55-inch LED TV, and granite flooring; the bathroom comes with a large bathtub, a washing machine, and an integrated heater—ideal for large families.'),
-     
-    (1105, N'Modern Single Room with Minimalist Design', N'Single Room', 510000,
-     N'Single room with an air conditioner, a 32-inch LED TV, and ceramic tile flooring; the bathroom features a convenient shower and a compact washing machine in a minimalist style.')
-;
+-- Loại phòng 1: 6 phòng (roomID 110 đến 115)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (110, 1);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (111, 1);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (112, 1);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (113, 1);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (114, 1);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (115, 1);
 
-SELECT * FROM rooms WHERE typeName LIKE '%single%' ORDER BY price
+-- Loại phòng 2: 6 phòng (roomID 116 đến 121)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (210, 2);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (211, 2);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (212, 2);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (213, 2);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (214, 2);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (215, 2);
+
+-- Loại phòng 3: 6 phòng (roomID 122 đến 127)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (310, 3);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (311, 3);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (312, 3);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (313, 3);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (314, 3);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (315, 3);
+
+-- Loại phòng 4: 6 phòng (roomID 128 đến 133)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (410, 4);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (411, 4);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (412, 4);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (413, 4);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (414, 4);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (415, 4);
+
+-- Loại phòng 5: 6 phòng (roomID 134 đến 139)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (510, 5);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (511, 5);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (512, 5);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (513, 5);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (514, 5);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (515, 5);
+
+-- Loại phòng 6: 5 phòng (roomID 140 đến 144)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (610, 6);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (611, 6);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (612, 6);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (613, 6);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (614, 6);
+
+-- Loại phòng 7: 5 phòng (roomID 145 đến 149)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (710, 7);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (712, 7);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (713, 7);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (714, 7);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (715, 7);
+
+-- Loại phòng 8: 5 phòng (roomID 150 đến 154)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (810, 8);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (811, 8);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (812, 8);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (813, 8);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (814, 8);
+
+-- Loại phòng 9: 5 phòng (roomID 155 đến 159)
+INSERT INTO rooms (roomID, typeRoomID) VALUES (910, 9);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (911, 9);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (912, 9);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (913, 9);
+INSERT INTO rooms (roomID, typeRoomID) VALUES (914, 9);
+
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
+VALUES ('B001', 'hoa', 110, '0901234567', '2025-03-01', '2025-03-05', 'confirmed', 600);
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
+VALUES ('B006', 'hoa', 111, '0901234567', '2025-03-01', '2025-03-05', 'confirmed', 600);
+
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
+VALUES ('B002', 'dat', 115, '0902345678', '2025-03-10', '2025-03-12', 'pending', 400);
+
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
+VALUES ('B003', 'thinh', 120, '0903456789', '2025-03-15', '2025-03-18', 'confirmed', 550);
+
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
+VALUES ('B004', 'hoa', 130, '0904567890', '2025-03-20', '2025-03-25', 'cancel', 0);
+
+INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
+VALUES ('B005', 'dat', 140, '0905678901', '2025-03-27', '2025-03-30', 'confirmed', 500);
