@@ -96,57 +96,74 @@ public class RoomServlet extends HttpServlet {
             }
 
         } else if (user.getRole().equals("admin")) {
-            if (action == null || action.equals("manageList")) {
+            if (action == null || action.equals("list")) {
                 RoomDAO dao = new RoomDAO();
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 forwardRoom(request, response, "manageRooms.jsp");
-        }
-//            } else if (action.equals("details")) {
-//                Integer roomID = null;
-//                try {
-//                    roomID = Integer.parseInt(request.getParameter("roomID"));
-//                } catch (NumberFormatException ex) {
-//                    log("Parameter id has wrong format.");
-//                }
-//                RoomDAO dao = new RoomDAO();
-//                RoomDTO room = dao.getRoomByID(roomID);
-//
-//                request.setAttribute("room", room);
-//                forwardRoom(request, response, "roomDetails.jsp");
-//
-//            } else if (action.equals("edit")) {
-//                Integer roomID = null;
-//                try {
-//                    roomID = Integer.parseInt(request.getParameter("roomID"));
-//                } catch (NumberFormatException ex) {
-//                    log("Parameter id has wrong format.");
-//                }
-//                RoomDAO dao = new RoomDAO();
-//                RoomDTO room = dao.getRoomByID(roomID);
-//                request.setAttribute("room", room);
-//                forwardRoom(request, response, "roomEdit.jsp");
-//
-//            } else if (action.equals("update")) {
-//                int roomID = Integer.parseInt(request.getParameter("roomID"));
-//                String roomName = request.getParameter("roomName");
-//                String typeName = request.getParameter("typeName");
-//                int price = Integer.parseInt(request.getParameter("price"));
-//                String description = request.getParameter("description");
-//                RoomDAO dao = new RoomDAO();
-//                RoomDTO room = dao.getRoomByID(roomID);
-//                room.setRoomName(roomName);
-//                room.setTypeName(typeName);
-//                room.setPrice(price);
-//                room.setDescription(description);
-//                room = dao.updateRoom(roomID, roomName, typeName, price, description);
-//                if (room == null) {
-//                    request.setAttribute("error", "Update failed. Try again");
-//                    forwardRoom(request, response, "roomEdit.jsp");
-//                } else {
-//                    response.sendRedirect("./manageRooms");
-//                }
-//
+            } else if (action.equals("details")) {
+                Integer typeRoomID = null;
+                try {
+                    typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
+                } catch (NumberFormatException ex) {
+                    log("Parameter id has wrong format.");
+                }
+                RoomDAO dao = new RoomDAO();
+                RoomDTO room = dao.getTypeDetails(typeRoomID);
+
+                request.setAttribute("room", room);
+                forwardRoom(request, response, "roomDetails.jsp");
+
+            } else if (action.equals("edit")) {
+                Integer typeRoomID = null;
+                try {
+                    typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
+                } catch (NumberFormatException ex) {
+                    log("Parameter id has wrong format.");
+                }
+                RoomDAO dao = new RoomDAO();
+                RoomDTO room = dao.getTypeDetails(typeRoomID);
+                request.setAttribute("room", room);
+                forwardRoom(request, response, "roomEdit.jsp");
+
+            } else if (action.equals("update")) {
+                try {
+                    RoomDTO room = new RoomDTO();
+                    Integer typeRoomID = null;
+                    Integer price = null;
+                    try {
+                        typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
+                        price = Integer.parseInt(request.getParameter("price"));
+                    } catch (NumberFormatException ex) {
+                        log("Parameter id has wrong format.");
+                    }
+
+                    room.setTypeRoomID(typeRoomID);
+                    room.setTypeName(request.getParameter("typeName"));
+                    room.setTypeDes(request.getParameter("typeDes"));
+                    room.setPrice(price);
+                    room.setRoomSize(request.getParameter("roomSize"));
+                    room.setBedSize(request.getParameter("bedSize"));
+                    room.setMaxOccupancy(request.getParameter("maxOccupancy"));
+                    room.setViewDetail(request.getParameter("viewDetail"));
+                    room.setBathroom(request.getParameter("bathroom"));
+                    room.setSmoking(request.getParameter("smoking"));
+
+                    RoomDAO dao = new RoomDAO();
+                    room = dao.updateRoom(room);
+
+                    if (room != null) {
+                        response.sendRedirect("manageRooms?action=details&typeRoomID="+typeRoomID+"");
+                    } else {
+                        request.setAttribute("error", "Update failed. Try again");
+                        forwardRoom(request, response, "roomEdit.jsp");
+                    }
+
+                } catch (NumberFormatException e) {
+                    request.setAttribute("error", "Invalid input. Please enter valid numbers for price and ID.");
+                    forwardRoom(request, response, "roomEdit.jsp");
+                }
+            }
         }
     }
 

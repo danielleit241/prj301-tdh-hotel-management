@@ -75,6 +75,8 @@ CREATE TABLE feedback (
     FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE
 );
 	
+SELECT * FROM typeRoom
+
 --------------------------------------------------------------------------------------------------------------------------
 
 
@@ -193,3 +195,23 @@ VALUES ('B004', 'hoa', 130, '0904567890', '2025-03-20', '2025-03-25', 'cancel', 
 
 INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
 VALUES ('B005', 'dat', 140, '0905678901', '2025-03-27', '2025-03-30', 'confirmed', 500);
+
+	SELECT
+    tr.typeRoomID,
+    tr.typeName,
+    tr.typeDes,
+    trd.price AS price,
+    trd.roomSize AS roomSize,
+    trd.bedSize AS bedSize,
+    trd.maxOccupancy AS maxOccupancy,
+    trd.viewDetail AS viewDetail,
+    trd.bathroom AS bathroom,
+    trd.smoking AS smoking
+FROM
+    typeRoom tr
+JOIN
+    typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID;
+
+	SELECT tr.typeName, tr.typeDes, trd.price, trd.roomSize, trd.bedSize, trd.maxOccupancy, trd.viewDetail, trd.viewDetail, trd.bathroom, trd.smoking FROM typeRoom tr 
+                 JOIN typeRoomDetails trd ON trd.typeRoomID = tr.typeRoomID 
+                 WHERE tr.typeRoomID = 1

@@ -111,29 +111,67 @@ public class RoomDAO {
 //        }
 //        return false;
 //    }
-//    public RoomDTO updateRoom(int roomID, String roomName, String typeName, int price, String description) {
-//        RoomDTO room = null;
-//        String sql = "UPDATE rooms SET roomName = ?, typeName = ?, price = ?, description = ? WHERE roomID = ?";
-//        try {
-//            Connection conn = DBUtils.getConnection();
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//
-//            stmt.setString(1, roomName);
-//            stmt.setString(2, typeName);
-//            stmt.setInt(3, price);
-//            stmt.setString(4, description);
-//            stmt.setInt(5, roomID);
-//
-//            if (stmt.executeUpdate() > 0) {
-//                room = new RoomDTO(roomID, roomName, typeName, price, description);
-//                return room;
-//            }
-//            conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    public RoomDTO updateRoom(RoomDTO room) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            conn.setAutoCommit(false); 
+
+            String sql = "UPDATE typeRoomDetails "
+                    + "SET price = ?, roomSize = ?, bedSize = ?, maxOccupancy = ?, viewDetail = ?, bathroom = ?, smoking = ? "
+                    + "WHERE typeRoomID = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, room.getPrice());
+            ps.setString(2, room.getRoomSize());
+            ps.setString(3, room.getBedSize());
+            ps.setString(4, room.getMaxOccupancy());
+            ps.setString(5, room.getViewDetail());
+            ps.setString(6, room.getBathroom());
+            ps.setString(7, room.getSmoking());
+            ps.setInt(8, room.getTypeRoomID());
+
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated > 0) {
+
+                sql = "UPDATE typeRoom SET typeName = ?, typeDes = ? WHERE typeRoomID = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, room.getTypeName());
+                ps.setString(2, room.getTypeDes());
+                ps.setInt(3, room.getTypeRoomID());
+                ps.executeUpdate();
+
+                conn.commit();
+                return room; 
+            } else {
+                conn.rollback(); 
+            }
+
+        } catch (SQLException e) {
+            try {
+                if (conn != null) {
+                    conn.rollback(); 
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null; // Trả về null nếu cập nhật thất bại
+    }
 //
 //    public boolean deleteRoom(String roomID) {
 //        String sql = "DELETE FROM rooms WHERE roomID = ?";
@@ -151,34 +189,47 @@ public class RoomDAO {
 //        return false;
 //    }
 //
+
     public RoomDTO getTypeDetails(int typeRoomID) {
         RoomDTO typeRoom = null;
 
-        String sql = "SELECT tr.typeName, tr.typeDes, trd.* FROM typeRoom tr "
-                + " JOIN typeRoomDetails trd ON trd.typeRoomID = tr.typeRoomID "
-                + " WHERE tr.typeRoomID = ? ";
-        try {
-            Connection con = DBUtils.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, typeRoomID);
-            ResultSet rs = stmt.executeQuery();
+        String sql = "SELECT "
+                + "    tr.typeRoomID, "
+                + "    tr.typeName, "
+                + "    tr.typeDes, "
+                + "    trd.price, "
+                + "    trd.roomSize, "
+                + "    trd.bedSize, "
+                + "    trd.maxOccupancy, "
+                + "    trd.viewDetail, "
+                + "    trd.bathroom, "
+                + "    trd.smoking "
+                + "FROM "
+                + "    typeRoom tr "
+                + "JOIN "
+                + "    typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID "
+                + "WHERE "
+                + "    tr.typeRoomID = ?;";
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            if (rs != null && rs.next()) {
-                typeRoom = new RoomDTO();
-                typeRoom.setTypeRoomID(rs.getInt("typeRoomID"));
-                typeRoom.setTypeName(rs.getString("typeName"));
-                typeRoom.setTypeDes(rs.getString("typeDes"));
-                typeRoom.setPrice(rs.getInt("price"));
-                typeRoom.setRoomSize(rs.getString("roomSize"));
-                typeRoom.setBedSize(rs.getString("bedSize"));
-                typeRoom.setMaxOccupancy(rs.getString("maxOccupancy"));
-                typeRoom.setViewDetail(rs.getString("viewDetail"));
-                typeRoom.setBathroom(rs.getString("bathroom"));
-                typeRoom.setSmoking(rs.getString("smoking"));
+            stmt.setInt(1, typeRoomID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    typeRoom = new RoomDTO();
+                    typeRoom.setTypeRoomID(rs.getInt("typeRoomID"));
+                    typeRoom.setTypeName(rs.getString("typeName"));
+                    typeRoom.setTypeDes(rs.getString("typeDes"));
+                    typeRoom.setPrice(rs.getInt("price"));
+                    typeRoom.setRoomSize(rs.getString("roomSize"));
+                    typeRoom.setBedSize(rs.getString("bedSize"));
+                    typeRoom.setMaxOccupancy(rs.getString("maxOccupancy"));
+                    typeRoom.setViewDetail(rs.getString("viewDetail"));
+                    typeRoom.setBathroom(rs.getString("bathroom"));
+                    typeRoom.setSmoking(rs.getString("smoking"));
+                }
             }
-            con.close();
         } catch (SQLException e) {
-            System.out.println(e);
             e.printStackTrace();
         }
         return typeRoom;
@@ -186,9 +237,21 @@ public class RoomDAO {
 
     public List<RoomDTO> getAllRoom() {
         List<RoomDTO> list = new ArrayList<>();
-        String sql = "select r.roomID, tr.typeName, trd.*, tr.typeDes from rooms r JOIN typeRoom tr "
-                + "ON r.typeRoomID = tr.typeRoomID "
-                + "JOIN typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID ";
+        String sql = " 	SELECT\n"
+                + "    tr.typeRoomID,\n"
+                + "    tr.typeName,\n"
+                + "    tr.typeDes,\n"
+                + "    trd.price AS price,\n"
+                + "    trd.roomSize AS roomSize,\n"
+                + "    trd.bedSize AS bedSize,\n"
+                + "    trd.maxOccupancy AS maxOccupancy,\n"
+                + "    trd.viewDetail AS viewDetail,\n"
+                + "    trd.bathroom AS bathroom,\n"
+                + "    trd.smoking AS smoking\n"
+                + "FROM\n"
+                + "    typeRoom tr\n"
+                + "JOIN\n"
+                + "    typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID; ";
         try {
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -197,7 +260,7 @@ public class RoomDAO {
             if (rs != null) {
                 while (rs.next()) {
                     RoomDTO room = new RoomDTO();
-                    room.setRoomID(rs.getInt("roomID"));
+                    room.setTypeRoomID(rs.getInt("typeRoomID"));
                     room.setTypeName(rs.getString("typeName"));
                     room.setTypeDes(rs.getString("typeDes"));
                     room.setPrice(rs.getInt("price"));

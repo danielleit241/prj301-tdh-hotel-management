@@ -14,23 +14,23 @@
     <table class="admin-manage-rooms">
         <thead>
             <tr>
-                <th>Room ID</th>
-                <th>Loại phòng</th>
-                <th>Giá</th>
-                <th>Room Size</th>
+                <th>TypeRoomID</th>
+                <th>Type Name</th>
+                <th>Price</th>
+                <th>Size</th>
                 <th>Bed Size</th>
                 <th>Max Occupancy</th>
                 <th>View Detail</th>
                 <th>Bathroom</th>
                 <th>Smoking</th>
-                <th>Mô tả</th>
-                <th>Hành động</th>
+                <th>Discription</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="room" items="${list}">
                 <tr>
-                    <td><c:out value="${room.roomID}"/></td>
+                    <td><c:out value="${room.typeRoomID}"/></td>
                     <td><c:out value="${room.typeName}"/></td>
                     <td><c:out value="${room.price}"/></td>
                     <td><c:out value="${room.roomSize}"/></td>
@@ -41,7 +41,7 @@
                     <td><c:out value="${room.smoking}"/></td>
                     <td class="description"><c:out value="${room.typeDes}"/></td>
                     <td class="actions">
-                        <a href="manageRooms?roomID=${room.roomID}&action=details" class="custom-edit-button">Sửa</a>
+                        <a href="?action=details&typeRoomID=${room.typeRoomID}" class="custom-edit-button">Edit</a>
                     </td>
                 </tr>
             </c:forEach>

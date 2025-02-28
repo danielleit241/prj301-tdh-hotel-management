@@ -12,12 +12,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <%@include file="./adminNavbar.jsp"%>
+        <%@include file="adminNavbar.jsp"%>
         <div class="container mt-5">
             <div class="container admin-dashboard">
                 <h2>Quản trị viên - Bảng điều khiển</h2>
                 <div class="dashboard-buttons">
-                    <a href="./manageRooms?action=manageList" class="dashboard-button">Quản lý Phòng</a>
+                    <a href="./manageRooms?action=list" class="dashboard-button">Quản lý Phòng</a>
                     <a href="./manageBookings" class="dashboard-button">Quản lý Đặt Phòng</a>
                     <a href="./ManageUser" class="dashboard-button">Quản lý Người Dùng</a>
                 </div>
