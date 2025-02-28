@@ -119,9 +119,7 @@ public class BookingServlet extends HttpServlet {
                     } else {
                         forwardToBooking(request, response, bookingID, typeRoomDetails, "Booking Fail");
                     }
-
                 }
-
             }
         }
     }

@@ -21,10 +21,31 @@
             <form action="./roomList" class="search-form" style="gap: 50px">
                 <input type="date" name="dateIn" value="${dateIn}">
                 <input type="date" name="dateOut" value="${dateOut}">
-                <input type="text" name="keyword" placeholder="Search..." value="${keyword}">
+<!--                <input type="text" name="type" placeholder="Search..." value="${type}">-->
+                
+                <select name="type">
+                    <option value="">${type == null ? "Room Type" : type}</option>
+                    <option value="DELUXE KING" ${typeName == 'DELUXE KING' ? 'selected' : ''}>DELUXE KING</option>
+                    <option value="DELUXE DOUBLE" ${typeName == 'DELUXE DOUBLE' ? 'selected' : ''}>DELUXE DOUBLE</option>
+                    <option value="PREMIER KING" ${typeName == 'PREMIER KING' ? 'selected' : ''}>PREMIER KING</option>
+                    <option value="JUNIOR SUITE" ${typeName == 'JUNIOR SUITE' ? 'selected' : ''}>JUNIOR SUITE</option>
+                    <option value="DELUXE ONE BEDROOM SUITE" ${typeName == 'DELUXE ONE BEDROOM SUITE' ? 'selected' : ''}>DELUXE ONE BEDROOM SUITE</option>
+                    <option value="PREMIER ONE BEDROOM SUITE" ${typeName == 'PREMIER ONE BEDROOM SUITE' ? 'selected' : ''}>PREMIER ONE BEDROOM SUITE</option>
+                    <option value="TWO BEDROOM SUITE" ${typeName == 'TWO BEDROOM SUITE' ? 'selected' : ''}>TWO BEDROOM SUITE</option>
+                    <option value="THD PENTHOUSE SUITE" ${typeName == 'THD PENTHOUSE SUITE' ? 'selected' : ''}>THD PENTHOUSE SUITE</option>
+                    <option value="ONE BEDROOM SUITE" ${typeName == 'ONE BEDROOM SUITE' ? 'selected' : ''}>ONE BEDROOM SUITE</option>
+                </select>
+
+                <select name="view">
+                    <option value="">${view == null ? "View Details" : view}</option>
+                    <option value="City view" ${viewDetail == 'City view' ? 'selected' : ''}>City view</option>
+                    <option value="River view" ${viewDetail == 'River view' ? 'selected' : ''}>River view</option>
+                    <option value="Skyline view" ${viewDetail == 'Skyline view' ? 'selected' : ''}>Skyline view</option>
+                </select>
+
                 <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}" />
                 <input type="hidden" name="action" value="list" />
-                <input type="submit" value="Search" class="search-button"> 
+                <input type="submit" value="Search" class="search-button">
             </form>
         </div>
 
@@ -63,16 +84,16 @@
 
         <div class="pagination">
             <c:if test="${currentPage > 1}">
-                <a href="./roomList?page=${currentPage - 1}&keyword=${keyword}&dateIn=${dateIn}&dateOut=${dateOut}" class="prev">Prev</a>
+                <a href="./roomList?page=${currentPage - 1}&type=${type}&view=${view}&dateIn=${dateIn}&dateOut=${dateOut}" class="prev">Prev</a>
             </c:if>
 
             <c:forEach begin="1" end="${totalPages}" var="i">
-                <a href="./roomList?page=${i}&keyword=${keyword}&dateIn=${dateIn}&dateOut=${dateOut}" 
+                <a href="./roomList?page=${i}&type=${type}&view=${view}&dateIn=${dateIn}&dateOut=${dateOut}" 
                    <c:if test="${currentPage == i}">class="active"</c:if>>${i}</a>
             </c:forEach>
 
             <c:if test="${currentPage < totalPages}">
-                <a href="./roomList?page=${currentPage + 1}&keyword=${keyword}&dateIn=${dateIn}&dateOut=${dateOut}" class="next">Next</a>
+                <a href="./roomList?page=${currentPage + 1}&type=${type}&view=${view}&dateIn=${dateIn}&dateOut=${dateOut}" class="next">Next</a>
             </c:if>
         </div>
 

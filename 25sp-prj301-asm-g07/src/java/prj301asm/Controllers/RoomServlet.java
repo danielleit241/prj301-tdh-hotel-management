@@ -33,7 +33,8 @@ public class RoomServlet extends HttpServlet {
 
         if (user == null || user.getRole().equals("member")) {
             if (action == null || action.equals("list")) {
-                String keyword = request.getParameter("keyword");
+                String type = request.getParameter("type");
+                String view = request.getParameter("view");
                 String dateInStr = request.getParameter("dateIn");
                 String dateOutStr = request.getParameter("dateOut");
                 String pageStr = request.getParameter("page");
@@ -58,15 +59,17 @@ public class RoomServlet extends HttpServlet {
                 }
 
                 RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, sqlDateIn, sqlDateOut);
+                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging2(page, PAGE_SIZE, type, view, sqlDateIn, sqlDateOut);
 
-                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut);
+                int totalRoom = dao.countRoomsByAllSearch(sqlDateIn, sqlDateOut, type, view);
+
                 int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
 
                 request.setAttribute("list", list);
                 request.setAttribute("currentPage", page);
                 request.setAttribute("totalPages", totalPages);
-                request.setAttribute("keyword", keyword);
+                request.setAttribute("type", type);
+                request.setAttribute("view", view);
                 request.setAttribute("dateIn", dateInStr);
                 request.setAttribute("dateOut", dateOutStr);
 
@@ -153,7 +156,7 @@ public class RoomServlet extends HttpServlet {
                     room = dao.updateRoom(room);
 
                     if (room != null) {
-                        response.sendRedirect("manageRooms?action=details&typeRoomID="+typeRoomID+"");
+                        response.sendRedirect("manageRooms?action=details&typeRoomID=" + typeRoomID + "");
                     } else {
                         request.setAttribute("error", "Update failed. Try again");
                         forwardRoom(request, response, "roomEdit.jsp");

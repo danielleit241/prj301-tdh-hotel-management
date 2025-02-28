@@ -21,7 +21,7 @@
                 <div class="col-md-7">
                     <div class="image-section">
                         <img src="images/${typeRoomDetails.typeRoomID}/${typeRoomDetails.typeRoomID}.jpg" alt="Room Image" class="main-image">
-                        <div class="row">
+<!--                        <div class="row">
                             <div class="col-3 mb-3">
                                 <img src="images/${typeRoomDetails.typeRoomID}/${typeRoomDetails.typeRoomID}_1.jpg" alt="Room Image 1" class="img-fluid rounded">
                             </div>
@@ -34,7 +34,7 @@
                             <div class="col-3 mb-3">
                                 <img src="images/${typeRoomDetails.typeRoomID}/${typeRoomDetails.typeRoomID}_4.jpg" alt="Room Image 4" class="img-fluid rounded">
                             </div>
-                        </div>
+                        </div>-->
 
                     </div>
                     <div class="details-section">

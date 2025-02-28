@@ -212,6 +212,12 @@ FROM
 JOIN
     typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID;
 
-	SELECT tr.typeName, tr.typeDes, trd.price, trd.roomSize, trd.bedSize, trd.maxOccupancy, trd.viewDetail, trd.viewDetail, trd.bathroom, trd.smoking FROM typeRoom tr 
+	SELECT tr.typeName, tr.typeDes, trd.price, trd.roomSize, trd.bedSize, trd.maxOccupancy, trd.viewDetail, trd.bathroom, trd.smoking FROM typeRoom tr 
                  JOIN typeRoomDetails trd ON trd.typeRoomID = tr.typeRoomID 
                  WHERE tr.typeRoomID = 1
+
+				 SELECT * FROM typeRoomDetails
+
+				 SELECT COUNT(*) AS roomCount
+            FROM typeRoom tr JOIN typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID 
+            WHERE tr.typeName LIKE '%DELUXE%' OR trd.viewDetail = '%City%'
