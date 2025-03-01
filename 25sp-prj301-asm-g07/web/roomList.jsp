@@ -21,7 +21,7 @@
             <form action="./roomList" class="search-form" style="gap: 50px">
                 <input type="date" name="dateIn" value="${dateIn}">
                 <input type="date" name="dateOut" value="${dateOut}">
-<!--                <input type="text" name="type" placeholder="Search..." value="${type}">-->
+                <input type="text" name="keyword" placeholder="Search..." value="${keyword}">
                 
                 <select name="type">
                     <option value="">${type == null ? "Room Type" : type}</option>

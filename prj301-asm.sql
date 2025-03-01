@@ -221,3 +221,18 @@ JOIN
 				 SELECT COUNT(*) AS roomCount
             FROM typeRoom tr JOIN typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID 
             WHERE tr.typeName LIKE '%DELUXE%' OR trd.viewDetail = '%City%'
+
+
+SELECT COUNT(DISTINCT tr.typeRoomID) AS countType
+FROM rooms r
+JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID
+JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM bookings b
+    WHERE b.roomID = r.roomID
+    AND b.status IN ('confirmed', 'pending')
+    AND '2024-03-10' <= b.checkOutDate  -- Thay thế '2024-03-10' bằng dateIn
+    AND '2024-03-15' >= b.checkInDate -- Thay thế '2024-03-15' bằng dateOut
+)
+AND (tr.typeName LIKE '%DELUXE%' OR trd.viewDetail LIKE '%City%'); -- Thay thế '%DELUXE%' và '%City%' bằng keyword bạn muốn tìm kiếm

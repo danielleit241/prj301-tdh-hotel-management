@@ -129,11 +129,11 @@ public class RoomDAO {
 
             int parameterIndex = 3;
             if (type != null && !type.trim().isEmpty()) {
-                ps.setString(parameterIndex++, "%" + type + "%");
+                ps.setString(parameterIndex++, type);
             }
 
             if (view != null && !view.trim().isEmpty()) {
-                ps.setString(parameterIndex++, "%" + view + "%");
+                ps.setString(parameterIndex++,  view);
             }
 
             ps.setInt(parameterIndex++, offset);
