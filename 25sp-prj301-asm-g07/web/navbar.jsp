@@ -58,7 +58,7 @@
                             <span class="nav-link">Hello: ${sessionScope.user.name} | <a href="login?action=logout" class="logout-link">Log Out</a></span>
                         </c:when>
                         <c:otherwise>
-                            <span class="nav-link"><a href="login.jsp">Log In</a> | <a href="signup.jsp">Sign Up</a></span>
+                            <span class="nav-link"><a href="login.jsp">Log In</a> | <a href="login?action=signup">Sign Up</a></span>
                         </c:otherwise>
                     </c:choose>
                 </div>

@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quản lý Người Dùng</title>
-        
+
     </head>
     <body>
         <%@include file="adminNavbar.jsp" %>
@@ -24,33 +24,31 @@
                     <th>Password</th>
                     <th>Name</th>
                     <th>Role</th>
-                    
-                    
+
                 </tr>
             </thead>
             <tbody>
-               <% 
+                <%
                     List<UserDTO> list = (List<UserDTO>) request.getAttribute("list");
                     if (list != null && !list.isEmpty()) {
-                     for (UserDTO user : list) { 
-                     pageContext.setAttribute("user", user);
-
+                        for (UserDTO user : list) {
+                            pageContext.setAttribute("user", user);
                 %>
-               <tr>
-                   <td><%= user.getUsername() %></td>
-                   <td><%= user.getPassword() %></td>
-                   <td><%= user.getName() %></td>
-                   <td><%= user.getRole() %></td>
-                   <td><a href="ManageUser?action=delete&username=${user.username}" 
-                        onclick="return confirm('Are you sure you want to delete this student?');">Xóa</a></td>
+                <tr>
+                    <td><%= user.getUsername()%></td>
+                    <td><%= user.getPassword()%></td>
+                    <td><%= user.getName()%></td>
+                    <td><%= user.getRole()%></td>
+                    <td><a href="ManageUser?action=delete&username=${user.username}" 
+                           onclick="return confirm('Are you sure you want to delete this student?');">Xóa</a></td>
                 </tr>
-                 <% 
+                <%
                         }
-                    } 
+                    }
                 %>
             </tbody>
         </table>
-        
+
     </body>
 </html>
 
@@ -58,4 +56,3 @@
 
 
 
-  

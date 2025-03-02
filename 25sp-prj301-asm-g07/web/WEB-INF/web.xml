@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!--LoginServlet-->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>prj301asm.Controllers.LoginServlet</servlet-class>
@@ -10,15 +11,7 @@
         <url-pattern>/admin/login</url-pattern>
     </servlet-mapping>
     
-    <servlet>
-        <servlet-name>SignupServlet</servlet-name>
-        <servlet-class>prj301asm.Controllers.SignupServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SignupServlet</servlet-name>
-        <url-pattern>/signup</url-pattern>
-    </servlet-mapping>
-    
+    <!--BookingServlet-->
     <servlet>
         <servlet-name>BookingServlet</servlet-name>
         <servlet-class>prj301asm.Controllers.BookingServlet</servlet-class>
@@ -29,6 +22,7 @@
         <url-pattern>/admin/manageBookings</url-pattern>
     </servlet-mapping>
     
+    <!--RoomServlet-->
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
         <servlet-class>prj301asm.Controllers.RoomServlet</servlet-class>
@@ -62,7 +56,6 @@
         <url-pattern>/booking</url-pattern>
         <url-pattern>/payment</url-pattern>
     </filter-mapping>
-    
     <session-config>
         <session-timeout>
             30

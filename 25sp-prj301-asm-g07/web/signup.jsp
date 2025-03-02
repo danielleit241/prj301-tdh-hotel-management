@@ -24,7 +24,7 @@
                     String success = (String) request.getAttribute("success");
                     String fail = (String) request.getAttribute("fail");
                 %>
-                <form action="./signup" method="post">
+                <form action="./login" method="get">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" id="name" required>
@@ -51,7 +51,9 @@
                         <%= errorPassword%>
                     </div>
                     <% } %>
+                    <input type="hidden" name="action" value="${nextAction}">
                     <button type="submit" class="btn btn-primary">Sign Up</button>
+                    
                     <% if (success != null) {%>
                     <div class="alert alert-success mt-3" role="alert">
                         <%= success%>

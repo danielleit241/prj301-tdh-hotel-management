@@ -33,7 +33,7 @@
                     </div>
                     <%}%>
                     <div class="signup-link">
-                        Don't have an account? <a href="signup.jsp">Sign up here.</a>
+                        Don't have an account? <a href="login?action=signup">Sign up here.</a>
                     </div>
                 </form>
             </div>
