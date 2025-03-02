@@ -24,23 +24,23 @@
                 <input type="text" name="keyword" placeholder="Search..." value="${keyword}">
                 
                 <select name="type">
-                    <option value="">${type == null ? "Room Type" : type}</option>
-                    <option value="DELUXE KING" ${typeName == 'DELUXE KING' ? 'selected' : ''}>DELUXE KING</option>
-                    <option value="DELUXE DOUBLE" ${typeName == 'DELUXE DOUBLE' ? 'selected' : ''}>DELUXE DOUBLE</option>
-                    <option value="PREMIER KING" ${typeName == 'PREMIER KING' ? 'selected' : ''}>PREMIER KING</option>
-                    <option value="JUNIOR SUITE" ${typeName == 'JUNIOR SUITE' ? 'selected' : ''}>JUNIOR SUITE</option>
-                    <option value="DELUXE ONE BEDROOM SUITE" ${typeName == 'DELUXE ONE BEDROOM SUITE' ? 'selected' : ''}>DELUXE ONE BEDROOM SUITE</option>
-                    <option value="PREMIER ONE BEDROOM SUITE" ${typeName == 'PREMIER ONE BEDROOM SUITE' ? 'selected' : ''}>PREMIER ONE BEDROOM SUITE</option>
-                    <option value="TWO BEDROOM SUITE" ${typeName == 'TWO BEDROOM SUITE' ? 'selected' : ''}>TWO BEDROOM SUITE</option>
-                    <option value="THD PENTHOUSE SUITE" ${typeName == 'THD PENTHOUSE SUITE' ? 'selected' : ''}>THD PENTHOUSE SUITE</option>
-                    <option value="ONE BEDROOM SUITE" ${typeName == 'ONE BEDROOM SUITE' ? 'selected' : ''}>ONE BEDROOM SUITE</option>
+                    <option value="">Room Type</option>
+                    <option value="DELUXE KING" ${type == 'DELUXE KING' ? 'selected' : ''}>DELUXE KING</option>
+                    <option value="DELUXE DOUBLE" ${type == 'DELUXE DOUBLE' ? 'selected' : ''}>DELUXE DOUBLE</option>
+                    <option value="PREMIER KING" ${type == 'PREMIER KING' ? 'selected' : ''}>PREMIER KING</option>
+                    <option value="JUNIOR SUITE" ${type == 'JUNIOR SUITE' ? 'selected' : ''}>JUNIOR SUITE</option>
+                    <option value="DELUXE ONE BEDROOM SUITE" ${type == 'DELUXE ONE BEDROOM SUITE' ? 'selected' : ''}>DELUXE ONE BEDROOM SUITE</option>
+                    <option value="PREMIER ONE BEDROOM SUITE" ${type == 'PREMIER ONE BEDROOM SUITE' ? 'selected' : ''}>PREMIER ONE BEDROOM SUITE</option>
+                    <option value="TWO BEDROOM SUITE" ${type == 'TWO BEDROOM SUITE' ? 'selected' : ''}>TWO BEDROOM SUITE</option>
+                    <option value="THD PENTHOUSE SUITE" ${type == 'THD PENTHOUSE SUITE' ? 'selected' : ''}>THD PENTHOUSE SUITE</option>
+                    <option value="ONE BEDROOM SUITE" ${type == 'ONE BEDROOM SUITE' ? 'selected' : ''}>ONE BEDROOM SUITE</option>
                 </select>
 
                 <select name="view">
-                    <option value="">${view == null ? "View Details" : view}</option>
-                    <option value="City view" ${viewDetail == 'City view' ? 'selected' : ''}>City view</option>
-                    <option value="River view" ${viewDetail == 'River view' ? 'selected' : ''}>River view</option>
-                    <option value="Skyline view" ${viewDetail == 'Skyline view' ? 'selected' : ''}>Skyline view</option>
+                    <option value="">View Details</option>
+                    <option value="City view" ${view == 'City view' ? 'selected' : ''}>City view</option>
+                    <option value="River view" ${view == 'River view' ? 'selected' : ''}>River view</option>
+                    <option value="Skyline view" ${view == 'Skyline view' ? 'selected' : ''}>Skyline view</option>
                 </select>
 
                 <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}" />
