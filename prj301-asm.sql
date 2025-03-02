@@ -196,34 +196,8 @@ VALUES ('B004', 'hoa', 130, '0904567890', '2025-03-20', '2025-03-25', 'cancel', 
 INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
 VALUES ('B005', 'dat', 140, '0905678901', '2025-03-27', '2025-03-30', 'confirmed', 500);
 
-	SELECT
-    tr.typeRoomID,
-    tr.typeName,
-    tr.typeDes,
-    trd.price AS price,
-    trd.roomSize AS roomSize,
-    trd.bedSize AS bedSize,
-    trd.maxOccupancy AS maxOccupancy,
-    trd.viewDetail AS viewDetail,
-    trd.bathroom AS bathroom,
-    trd.smoking AS smoking
-FROM
-    typeRoom tr
-JOIN
-    typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID;
 
-	SELECT tr.typeName, tr.typeDes, trd.price, trd.roomSize, trd.bedSize, trd.maxOccupancy, trd.viewDetail, trd.bathroom, trd.smoking FROM typeRoom tr 
-                 JOIN typeRoomDetails trd ON trd.typeRoomID = tr.typeRoomID 
-                 WHERE tr.typeRoomID = 1
-
-				 SELECT * FROM typeRoomDetails
-
-				 SELECT COUNT(*) AS roomCount
-            FROM typeRoom tr JOIN typeRoomDetails trd ON tr.typeRoomID = trd.typeRoomID 
-            WHERE tr.typeName LIKE '%DELUXE%' OR trd.viewDetail = '%City%'
-
-
-SELECT COUNT(DISTINCT tr.typeRoomID) AS countType
+SELECT DISTINCT tr.typeName, tr.typeDes, trd.*
 FROM rooms r
 JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID
 JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID
@@ -232,7 +206,12 @@ WHERE NOT EXISTS (
     FROM bookings b
     WHERE b.roomID = r.roomID
     AND b.status IN ('confirmed', 'pending')
-    AND '2024-03-10' <= b.checkOutDate  -- Thay thế '2024-03-10' bằng dateIn
-    AND '2024-03-15' >= b.checkInDate -- Thay thế '2024-03-15' bằng dateOut
+    AND ('2025-03-02' <= b.checkOutDate)  -- Ngày bắt đầu tìm kiếm
+    AND ('2025-03-03' >= b.checkInDate)
 )
-AND (tr.typeName LIKE '%DELUXE%' OR trd.viewDetail LIKE '%City%'); -- Thay thế '%DELUXE%' và '%City%' bằng keyword bạn muốn tìm kiếm
+AND (tr.typeDes LIKE null )
+AND (tr.typeName = null )
+AND (trd.viewDetail = null )
+ORDER BY trd.typeRoomID
+OFFSET 1 ROWS
+FETCH NEXT 3 ROWS ONLY;

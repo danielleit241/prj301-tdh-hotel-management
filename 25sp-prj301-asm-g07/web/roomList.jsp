@@ -13,6 +13,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <script>
+            function resetForm() {
+                window.location.href = "./roomList?action=list";
+            }
+        </script>
     </head>
     <body>
         <%@include file="/navbar.jsp"%>
@@ -21,8 +26,8 @@
             <form action="./roomList" class="search-form" style="gap: 50px">
                 <input type="date" name="dateIn" value="${dateIn}">
                 <input type="date" name="dateOut" value="${dateOut}">
-                <input type="text" name="keyword" placeholder="Search..." value="${keyword}">
-                
+                <input type="text" name="keyword" placeholder="Search..."  value="${keyword}">
+
                 <select name="type">
                     <option value="">Room Type</option>
                     <option value="DELUXE KING" ${type == 'DELUXE KING' ? 'selected' : ''}>DELUXE KING</option>
@@ -44,14 +49,16 @@
                 </select>
 
                 <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}" />
-                <input type="hidden" name="action" value="list" />
+                <input type="hidden" name="action" value="list"/>
                 <input type="submit" value="Search" class="search-button">
+
+                <button type="button" onclick="resetForm()" class="reset-button">Reset</button> 
             </form>
         </div>
 
-        <div class="container">
+        <div class="room-list-container">
             <c:forEach var="room" items="${list}">
-                <div class="card">
+                <div class="room-card">
                     <img src="images/${room.typeRoomID}/${room.typeRoomID}.jpg" alt="Room Image">
                     <div class="card-content">
                         <h5>${room.typeName}</h5>
@@ -79,21 +86,20 @@
                     </form>
                 </div>
             </c:forEach>
-
         </div>
 
         <div class="pagination">
             <c:if test="${currentPage > 1}">
-                <a href="./roomList?page=${currentPage - 1}&type=${type}&view=${view}&dateIn=${dateIn}&dateOut=${dateOut}" class="prev">Prev</a>
+                <a href="./roomList?page=${currentPage - 1}&dateIn=${dateIn}&dateOut=${dateOut}&keyword=${keyword}&type=${type}&view=${view}" class="prev">Prev</a>
             </c:if>
 
             <c:forEach begin="1" end="${totalPages}" var="i">
-                <a href="./roomList?page=${i}&type=${type}&view=${view}&dateIn=${dateIn}&dateOut=${dateOut}" 
+                <a href="./roomList?page=${i}&dateIn=${dateIn}&dateOut=${dateOut}&keyword=${keyword}&type=${type}&view=${view}" 
                    <c:if test="${currentPage == i}">class="active"</c:if>>${i}</a>
             </c:forEach>
 
             <c:if test="${currentPage < totalPages}">
-                <a href="./roomList?page=${currentPage + 1}&type=${type}&view=${view}&dateIn=${dateIn}&dateOut=${dateOut}" class="next">Next</a>
+                <a href="./roomList?page=${currentPage + 1}&dateIn=${dateIn}&dateOut=${dateOut}&keyword=${keyword}&type=${type}&view=${view}" class="next">Next</a>
             </c:if>
         </div>
 

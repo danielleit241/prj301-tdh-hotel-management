@@ -35,6 +35,7 @@ public class RoomServlet extends HttpServlet {
             if (action == null || action.equals("list")) {
                 String type = request.getParameter("type");
                 String view = request.getParameter("view");
+                String keyword = request.getParameter("keyword");
                 String dateInStr = request.getParameter("dateIn");
                 String dateOutStr = request.getParameter("dateOut");
                 String pageStr = request.getParameter("page");
@@ -59,9 +60,9 @@ public class RoomServlet extends HttpServlet {
                 }
 
                 RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging2(page, PAGE_SIZE, type, view, sqlDateIn, sqlDateOut);
+                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging2(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
 
-                int totalRoom = dao.countRoomsByAllSearch(sqlDateIn, sqlDateOut, type, view);
+                int totalRoom = dao.countRoomsByAllSearch(sqlDateIn, sqlDateOut,keyword, type, view);
 
                 int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
 
@@ -70,6 +71,7 @@ public class RoomServlet extends HttpServlet {
                 request.setAttribute("totalPages", totalPages);
                 request.setAttribute("type", type);
                 request.setAttribute("view", view);
+                request.setAttribute("keyword", keyword);
                 request.setAttribute("dateIn", dateInStr);
                 request.setAttribute("dateOut", dateOutStr);
 

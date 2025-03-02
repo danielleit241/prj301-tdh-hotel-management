@@ -92,7 +92,7 @@ public class RoomDAO {
         return list;
     }
 
-    public List<RoomDTO> getListPaging2(int page, int pageSize, String type, String view, Date desiredCheckIn, Date desiredCheckOut) {
+    public List<RoomDTO> getListPaging2(int page, int pageSize, String keyword, String type, String view, Date desiredCheckIn, Date desiredCheckOut) {
         List<RoomDTO> list = new ArrayList<>();
         int offset = (page - 1) * pageSize;
 
@@ -109,12 +109,16 @@ public class RoomDAO {
                 + "    AND (? >= b.checkInDate) "
                 + ") ";
 
+        if (keyword != null) {
+            sql += " AND tr.typeDes LIKE ? ";
+        }
+
         if (type != null && !type.trim().isEmpty()) {
-            sql += "AND tr.typeName = ? ";
+            sql += " AND tr.typeName = ? ";
         }
 
         if (view != null && !view.trim().isEmpty()) {
-            sql += "AND trd.viewDetail = ? ";
+            sql += " AND trd.viewDetail = ? ";
         }
 
         sql += "ORDER BY trd.typeRoomID "
@@ -128,12 +132,16 @@ public class RoomDAO {
             ps.setDate(2, desiredCheckOut);
 
             int parameterIndex = 3;
+            if (keyword != null) {
+                ps.setString(parameterIndex++, "%" + keyword + "%");
+            }
+
             if (type != null && !type.trim().isEmpty()) {
                 ps.setString(parameterIndex++, type);
             }
 
             if (view != null && !view.trim().isEmpty()) {
-                ps.setString(parameterIndex++,  view);
+                ps.setString(parameterIndex++, view);
             }
 
             ps.setInt(parameterIndex++, offset);
@@ -161,25 +169,63 @@ public class RoomDAO {
 
         return list;
     }
-    //    public boolean addRoom(int roomID, String roomName, String typeName, int price, String description) {
-    //        String sql = "INSERT INTO rooms (roomID, roomName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
-    //        try {
-    //            Connection con = DBUtils.getConnection();
-    //            PreparedStatement stmt = con.prepareStatement(sql);
-    //            stmt.setInt(1, roomID);
-    //            stmt.setString(2, roomName);
-    //            stmt.setString(3, typeName);
-    //            stmt.setInt(4, price);
-    //            stmt.setString(5, description);
-    //            if (stmt.executeUpdate() > 0) {
-    //                return true;
-    //            }
-    //            con.close();
-    //        } catch (SQLException e) {
-    //            System.out.println(e);
-    //        }
-    //        return false;
-    //    }
+
+    public int countRoomsByAllSearch(Date dateIn, Date dateOut, String keyword, String type, String view) {
+        String sql = "SELECT COUNT(DISTINCT tr.typeRoomID) AS countType "
+                + "FROM rooms r "
+                + "JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID "
+                + "JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID "
+                + "WHERE NOT EXISTS ( "
+                + "    SELECT 1 "
+                + "    FROM bookings b "
+                + "    WHERE b.roomID = r.roomID "
+                + "    AND b.status IN ('confirmed', 'pending') "
+                + "    AND (? <= b.checkOutDate) "
+                + "    AND (? >= b.checkInDate) "
+                + ") ";
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql += " AND tr.typeDes LIKE ? ";
+        }
+
+        if (type != null && !type.trim().isEmpty()) {
+            sql += " AND tr.typeName = ? ";
+        }
+
+        if (view != null && !view.trim().isEmpty()) {
+            sql += " AND trd.viewDetail = ? ";
+        }
+
+        int count = 0;
+        try (Connection conn = DBUtils.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setDate(1, dateIn);
+            stmt.setDate(2, dateOut);
+
+            int parameterIndex = 3;
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                stmt.setString(parameterIndex++, "%" + keyword + "%");
+            }
+
+            if (type != null && !type.trim().isEmpty()) {
+                stmt.setString(parameterIndex++, type);
+            }
+
+            if (view != null && !view.trim().isEmpty()) {
+                stmt.setString(parameterIndex++, view);
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("countType");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException in countRooms: " + e.getMessage());
+        }
+        return count;
+    }
 
     public RoomDTO updateRoom(RoomDTO room) {
         Connection conn = null;
@@ -242,23 +288,6 @@ public class RoomDAO {
 
         return null; // Trả về null nếu cập nhật thất bại
     }
-//
-//    public boolean deleteRoom(String roomID) {
-//        String sql = "DELETE FROM rooms WHERE roomID = ?";
-//        try {
-//            Connection conn = DBUtils.getConnection();
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, roomID);
-//            if (stmt.executeUpdate() > 0) {
-//                return true;
-//            }
-//            conn.close();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return false;
-//    }
-//
 
     public RoomDTO getTypeDetails(int typeRoomID) {
         RoomDTO typeRoom = null;
@@ -351,84 +380,70 @@ public class RoomDAO {
         }
         return list;
     }
+//    public int countRooms(Date dateIn, Date dateOut) {
+//        String sql = "SELECT COUNT(DISTINCT tr.typeRoomID) AS countType "
+//                + "FROM rooms r "
+//                + "JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID "
+//                + "JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID "
+//                + "WHERE NOT EXISTS ( "
+//                + "      SELECT 1 "
+//                + "      FROM bookings b "
+//                + "      WHERE b.roomID = r.roomID "
+//                + "        AND b.status IN ('confirmed', 'pending') "
+//                + "        AND (? <= b.checkOutDate) "
+//                + "        AND (? >= b.checkInDate) "
+//                + ") ";
+//        int count = 0;
+//        try {
+//            Connection con = DBUtils.getConnection();
+//            PreparedStatement sttm = con.prepareStatement(sql);
+//            sttm.setDate(1, dateIn);
+//            sttm.setDate(2, dateOut);
+//            ResultSet rs = sttm.executeQuery();
+//            if (rs != null && rs.next()) {
+//                count = rs.getInt("countType");
+//            }
+//            con.close();
+//        } catch (SQLException e) {
+//            System.out.println("SQLException in countRoomsByTypeRoom: " + e.getMessage());
+//        }
+//        return count;
+//    }
 
-    public int countRooms(Date dateIn, Date dateOut) {
-        String sql = "SELECT COUNT(DISTINCT tr.typeRoomID) AS countType "
-                + "FROM rooms r "
-                + "JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID "
-                + "JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID "
-                + "WHERE NOT EXISTS ( "
-                + "      SELECT 1 "
-                + "      FROM bookings b "
-                + "      WHERE b.roomID = r.roomID "
-                + "        AND b.status IN ('confirmed', 'pending') "
-                + "        AND (? <= b.checkOutDate) "
-                + "        AND (? >= b.checkInDate) "
-                + ") ";
-        int count = 0;
-        try {
-            Connection con = DBUtils.getConnection();
-            PreparedStatement sttm = con.prepareStatement(sql);
-            sttm.setDate(1, dateIn);
-            sttm.setDate(2, dateOut);
-            ResultSet rs = sttm.executeQuery();
-            if (rs != null && rs.next()) {
-                count = rs.getInt("countType");
-            }
-            con.close();
-        } catch (SQLException e) {
-            System.out.println("SQLException in countRoomsByTypeRoom: " + e.getMessage());
-        }
-        return count;
-    }
-
-    public int countRoomsByAllSearch(Date dateIn, Date dateOut, String type, String view) {
-        String sql = "SELECT COUNT(DISTINCT tr.typeRoomID) AS countType "
-                + "FROM rooms r "
-                + "JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID "
-                + "JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID "
-                + "WHERE NOT EXISTS ( "
-                + "    SELECT 1 "
-                + "    FROM bookings b "
-                + "    WHERE b.roomID = r.roomID "
-                + "    AND b.status IN ('confirmed', 'pending') "
-                + "    AND (? <= b.checkOutDate) "
-                + "    AND (? >= b.checkInDate) "
-                + ") ";
-
-        if (type != null && !type.trim().isEmpty()) {
-            sql += "AND tr.typeName = ? ";
-        }
-
-        if (view != null && !view.trim().isEmpty()) {
-            sql += "AND trd.viewDetail = ? ";
-        }
-
-        int count = 0;
-        try (Connection conn = DBUtils.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setDate(1, dateIn);
-            stmt.setDate(2, dateOut);
-
-            int parameterIndex = 3;
-            if (type != null && !type.trim().isEmpty()) {
-                stmt.setString(parameterIndex++, type);
-            }
-
-            if (view != null && !view.trim().isEmpty()) {
-                stmt.setString(parameterIndex++, view);
-            }
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    count = rs.getInt("countType");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQLException in countRooms: " + e.getMessage());
-        }
-        return count;
-    }
-
+    //    public boolean addRoom(int roomID, String roomName, String typeName, int price, String description) {
+    //        String sql = "INSERT INTO rooms (roomID, roomName, typeName, price, description) VALUES (?, ?, ?, ?, ?)";
+    //        try {
+    //            Connection con = DBUtils.getConnection();
+    //            PreparedStatement stmt = con.prepareStatement(sql);
+    //            stmt.setInt(1, roomID);
+    //            stmt.setString(2, roomName);
+    //            stmt.setString(3, typeName);
+    //            stmt.setInt(4, price);
+    //            stmt.setString(5, description);
+    //            if (stmt.executeUpdate() > 0) {
+    //                return true;
+    //            }
+    //            con.close();
+    //        } catch (SQLException e) {
+    //            System.out.println(e);
+    //        }
+    //        return false;
+    //    }
+//
+//    public boolean deleteRoom(String roomID) {
+//        String sql = "DELETE FROM rooms WHERE roomID = ?";
+//        try {
+//            Connection conn = DBUtils.getConnection();
+//            PreparedStatement stmt = conn.prepareStatement(sql);
+//            stmt.setString(1, roomID);
+//            if (stmt.executeUpdate() > 0) {
+//                return true;
+//            }
+//            conn.close();
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return false;
+//    }
+//
 }
