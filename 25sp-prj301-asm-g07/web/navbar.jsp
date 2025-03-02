@@ -22,7 +22,11 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
-                <a class="navbar-brand" href="home.jsp">THD-Hotel</a>
+                <div>
+                    <a class="navbar-brand" href="home.jsp">
+                        <img src="images/hotel2.svg" alt="THD-Hotel Logo" height="80"> 
+                    </a>
+                </div>
                 <div class="navbar-nav">
                     <ul class="navbar-nav me-auto">
                         <c:choose>

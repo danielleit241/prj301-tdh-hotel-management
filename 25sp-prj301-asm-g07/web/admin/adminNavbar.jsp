@@ -14,7 +14,9 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
-                <a class="navbar-brand" href="#">THD-Hotel</a>
+                <a class="navbar-brand" href="dashboard.jsp">
+                     <img src="images/hotel1.svg" alt="THD-Hotel Logo" height="100"> 
+                </a>
                 <div class="navbar-nav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">

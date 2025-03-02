@@ -20,77 +20,77 @@ import prj301asm.utils.DBUtils;
  */
 public class RoomDAO {
 
-    public List<RoomDTO> getListPaging(int page, int pageSize, String keyword, Date desiredCheckIn, Date desiredCheckOut) {
-        List<RoomDTO> list = new ArrayList<>();
-        int offset = (page - 1) * pageSize;
-
-        String sql = "SELECT DISTINCT tr.typeName, tr.typeDes, trd.* "
-                + "FROM rooms r "
-                + "JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID "
-                + "JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID "
-                + "WHERE NOT EXISTS ( "
-                + "    SELECT 1 "
-                + "    FROM bookings b "
-                + "    WHERE b.roomID = r.roomID "
-                + "      AND b.status IN ('confirmed', 'pending') "
-                + "      AND (? <= b.checkOutDate) "
-                + "      AND (? >= b.checkInDate) "
-                + ") ";
-
-        if (keyword != null) {
-            sql += "AND ( "
-                    + "    tr.typeName LIKE ? "
-                    + " OR trd.bedSize LIKE ? "
-                    + " OR trd.maxOccupancy LIKE ? "
-                    + " OR trd.viewDetail LIKE ? "
-                    + " OR trd.bathroom LIKE ? "
-                    + ") ";
-        }
-
-        sql += "ORDER BY trd.typeRoomID "
-                + "OFFSET ? ROWS "
-                + "FETCH NEXT ? ROWS ONLY;";
-
-        try (Connection conn = DBUtils.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setDate(1, desiredCheckIn);
-            ps.setDate(2, desiredCheckOut);
-
-            if (keyword != null) {
-                String pattern = "%" + keyword + "%";
-                for (int i = 3; i <= 7; i++) {
-                    ps.setString(i, pattern);
-                }
-                ps.setInt(8, offset);
-                ps.setInt(9, pageSize);
-            } else {
-                ps.setInt(3, offset);
-                ps.setInt(4, pageSize);
-            }
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    RoomDTO room = new RoomDTO();
-                    room.setTypeRoomID(rs.getInt("typeRoomID"));
-                    room.setTypeName(rs.getString("typeName"));
-                    room.setTypeDes(rs.getString("typeDes"));
-                    room.setPrice(rs.getInt("price"));
-                    room.setRoomSize(rs.getString("roomSize"));
-                    room.setBedSize(rs.getString("bedSize"));
-                    room.setMaxOccupancy(rs.getString("maxOccupancy"));
-                    room.setViewDetail(rs.getString("viewDetail"));
-                    room.setBathroom(rs.getString("bathroom"));
-                    room.setSmoking(rs.getString("smoking"));
-                    list.add(room);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
+//    public List<RoomDTO> getListPaging(int page, int pageSize, String keyword, Date desiredCheckIn, Date desiredCheckOut) {
+//        List<RoomDTO> list = new ArrayList<>();
+//        int offset = (page - 1) * pageSize;
+//
+//        String sql = "SELECT DISTINCT tr.typeName, tr.typeDes, trd.* "
+//                + "FROM rooms r "
+//                + "JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID "
+//                + "JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID "
+//                + "WHERE NOT EXISTS ( "
+//                + "    SELECT 1 "
+//                + "    FROM bookings b "
+//                + "    WHERE b.roomID = r.roomID "
+//                + "      AND b.status IN ('confirmed', 'pending') "
+//                + "      AND (? <= b.checkOutDate) "
+//                + "      AND (? >= b.checkInDate) "
+//                + ") ";
+//
+//        if (keyword != null) {
+//            sql += "AND ( "
+//                    + "    tr.typeName LIKE ? "
+//                    + " OR trd.bedSize LIKE ? "
+//                    + " OR trd.maxOccupancy LIKE ? "
+//                    + " OR trd.viewDetail LIKE ? "
+//                    + " OR trd.bathroom LIKE ? "
+//                    + ") ";
+//        }
+//
+//        sql += "ORDER BY trd.typeRoomID "
+//                + "OFFSET ? ROWS "
+//                + "FETCH NEXT ? ROWS ONLY;";
+//
+//        try (Connection conn = DBUtils.getConnection();
+//                PreparedStatement ps = conn.prepareStatement(sql)) {
+//
+//            ps.setDate(1, desiredCheckIn);
+//            ps.setDate(2, desiredCheckOut);
+//
+//            if (keyword != null) {
+//                String pattern = "%" + keyword + "%";
+//                for (int i = 3; i <= 7; i++) {
+//                    ps.setString(i, pattern);
+//                }
+//                ps.setInt(8, offset);
+//                ps.setInt(9, pageSize);
+//            } else {
+//                ps.setInt(3, offset);
+//                ps.setInt(4, pageSize);
+//            }
+//
+//            try (ResultSet rs = ps.executeQuery()) {
+//                while (rs.next()) {
+//                    RoomDTO room = new RoomDTO();
+//                    room.setTypeRoomID(rs.getInt("typeRoomID"));
+//                    room.setTypeName(rs.getString("typeName"));
+//                    room.setTypeDes(rs.getString("typeDes"));
+//                    room.setPrice(rs.getInt("price"));
+//                    room.setRoomSize(rs.getString("roomSize"));
+//                    room.setBedSize(rs.getString("bedSize"));
+//                    room.setMaxOccupancy(rs.getString("maxOccupancy"));
+//                    room.setViewDetail(rs.getString("viewDetail"));
+//                    room.setBathroom(rs.getString("bathroom"));
+//                    room.setSmoking(rs.getString("smoking"));
+//                    list.add(room);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return list;
+//    }
 
     public List<RoomDTO> getListPaging2(int page, int pageSize, String keyword, String type, String view, Date desiredCheckIn, Date desiredCheckOut) {
         List<RoomDTO> list = new ArrayList<>();

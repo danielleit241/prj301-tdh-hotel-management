@@ -13,6 +13,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <!--icon cây chổi-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=refresh" />
         <script>
             function resetForm() {
                 window.location.href = "./roomList?action=list";
@@ -21,11 +23,13 @@
     </head>
     <body>
         <%@include file="/navbar.jsp"%>
-
-        <div class="search-container"> 
-            <form action="./roomList" class="search-form" style="gap: 50px">
+        <div class="search-container">
+            <div class="date-selection">
                 <input type="date" name="dateIn" value="${dateIn}">
                 <input type="date" name="dateOut" value="${dateOut}">
+            </div>
+
+            <form action="./roomList" class="search-form">
                 <input type="text" name="keyword" placeholder="Search..."  value="${keyword}">
 
                 <select name="type">
@@ -40,7 +44,6 @@
                     <option value="THD PENTHOUSE SUITE" ${type == 'THD PENTHOUSE SUITE' ? 'selected' : ''}>THD PENTHOUSE SUITE</option>
                     <option value="ONE BEDROOM SUITE" ${type == 'ONE BEDROOM SUITE' ? 'selected' : ''}>ONE BEDROOM SUITE</option>
                 </select>
-
                 <select name="view">
                     <option value="">View Details</option>
                     <option value="City view" ${view == 'City view' ? 'selected' : ''}>City view</option>
@@ -52,7 +55,11 @@
                 <input type="hidden" name="action" value="list"/>
                 <input type="submit" value="Search" class="search-button">
 
-                <button type="button" onclick="resetForm()" class="reset-button">Reset</button> 
+                <button type="button" onclick="resetForm()" class="reset-button">
+                    <span class="material-symbols-outlined">
+                        refresh
+                    </span>
+                </button>
             </form>
         </div>
 
