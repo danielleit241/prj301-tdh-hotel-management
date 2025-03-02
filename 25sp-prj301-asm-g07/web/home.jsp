@@ -29,8 +29,8 @@
                         <img class="first-slide" src="images/banner1.jpg" alt="First slide">
                         <div class="container">
                             <div class="carousel-caption relative">
-                                <h1>The Best Hotel</h1>
-                                <a href="Javascript:void(0)">Read More</a>
+                                <h1 style="font-family: 'Open Sans', sans-serif; font-size: 70px; font-weight: 600;" >The Best Hotel</h1>
+                                <a href="Javascript:void(0)" style="font-family: 'Open Sans', sans-serif; font-weight: 600;">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -41,21 +41,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="book_room">
-                                <h1>Book a Room Online</h1>
+                                <h1 style="font-family: 'Open Sans', sans-serif; font-size: 35px; font-weight: 600; text-align: center">Book a Room Online</h1>
                                 <form class="book_now">
                                     <div class="row">
                                         <div class="col-md-12" class="arr-depa">
-                                            <span>Arrival: </span>
+                                            <span style="font-family: 'Open Sans', sans-serif;">Arrival: </span>
                                             <input class="online_book" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
                                             <img class="date_cua" src="images/date.png" alt="Date">
                                         </div>
                                         <div class="col-md-12">
-                                            <span>Departure: </span>
+                                            <span style="font-family: 'Open Sans', sans-serif;">Departure: </span>
                                             <input class="online_book1" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
                                             <img class="date_cua" src="images/date.png" alt="Date">
                                         </div>  
                                         <div class="col-md-12">
-                                            <a class="book_btn" href="roomList?page=1">BOOK NOW</a>
+                                            <a class="book_btn" href="roomList?page=1" style="font-family: 'Open Sans', sans-serif; font-weight: 600;">BOOK NOW</a>
                                         </div>
                                     </div>
                                 </form>
@@ -68,16 +68,16 @@
         <div id="about" class="about">
             <div class="container-fluid">
                 <div class="row d_flex">
-                    <div class="col-md-7">
+                    <div class="col-md-7" style="padding: 0px;">
                         <div class="about_img">
-                            <figure><img src="images/about.png" alt="#"/></figure>
+                            <figure><img src="images/about.png" alt="#" style="width: 90%"/></figure>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="titlepage">
-                            <h2>About Us</h2>
+                            <h2 style="font-family: 'Open Sans', sans-serif; font-weight: 600; text-align: left">About Us</h2>
                             <p>The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
-                            <a class="read_more" href="Javascript:void(0)"> Read More</a>
+                            <a class="read_more" href="Javascript:void(0)" style="font-family: 'Open Sans', sans-serif; font-weight: 600; text-decoration: none; color: #CB1A3C"> Read More</a>
                         </div>
                     </div>
                 </div>

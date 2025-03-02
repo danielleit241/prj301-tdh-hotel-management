@@ -86,7 +86,7 @@
 
 /*home*/
 h2{
-    padding: 20px 158px;
+    padding: 20px 0px;
 }
 
 /*login*/
@@ -312,7 +312,7 @@ body {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 36%;
+    width: 37%;
     margin-right: 95px;
 }
 
