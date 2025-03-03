@@ -213,7 +213,9 @@ body {
 }
 /*member/roomList.jsp*/
 
-/* CSS cho danh sách phòng */
+
+/* CSS cho danh sách phòng
+
 .room-list-container {
     display: flex;
     flex-wrap: wrap;
@@ -222,7 +224,7 @@ body {
     gap: 20px;
 }
 
-.room-card { /* Class mới cho mỗi ô phòng */
+.room-card {  Class mới cho mỗi ô phòng 
     width: calc(33.33% - 20px);
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -243,7 +245,7 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-.room-card .card-content { /* Lồng class card-content vào room-card */
+.room-card .card-content {  Lồng class card-content vào room-card 
     padding: 20px;
 }
 
@@ -259,13 +261,13 @@ body {
     color: #333;
 }
 
-.room-card .price { /* Lồng class price vào room-card */
+.room-card .price {  Lồng class price vào room-card 
     font-weight: bold;
     color: #f00;
     margin-top: 15px;
 }
 
-.room-card form input[type="submit"] { /* Lồng form vào room-card */
+.room-card form input[type="submit"] {  Lồng form vào room-card 
     background-color: #E10F34;
     color: white;
     padding: 10px 20px;
@@ -278,7 +280,7 @@ body {
 
 .room-card form input[type="submit"]:hover {
     background-color: #CB1A3C;
-}
+}*/
 
 /* CSS cho form tìm kiếm */
 .search-container {
