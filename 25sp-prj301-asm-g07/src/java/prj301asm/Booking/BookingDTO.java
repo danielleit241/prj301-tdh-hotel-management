@@ -26,7 +26,7 @@ public class BookingDTO {
 
     public BookingDTO() {
     }
-    
+
     public BookingDTO(String bookingID, int roomID, int typeRoomID, String username, String phone, Date checkInDate, Date checkOutDate, int totalPrice) {
         this.bookingID = bookingID;
         this.roomID = roomID;
@@ -36,6 +36,18 @@ public class BookingDTO {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
+    }
+
+    public BookingDTO(String bookingID, int roomID, int typeRoomID, String username, String phone, Date checkInDate, Date checkOutDate, int totalPrice, String status) {
+        this.bookingID = bookingID;
+        this.roomID = roomID;
+        this.typeRoomID = typeRoomID;
+        this.username = username;
+        this.phone = phone;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalPrice = totalPrice;
+        this.status = status;
     }
 
     public String getBookingID() {

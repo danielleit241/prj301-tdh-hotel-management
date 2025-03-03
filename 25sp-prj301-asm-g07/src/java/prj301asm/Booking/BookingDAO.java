@@ -37,6 +37,7 @@ public class BookingDAO {
                     booking.setCheckInDate(rs.getDate("checkInDate"));
                     booking.setCheckOutDate(rs.getDate("checkOutDate"));
                     booking.setTotalPrice(rs.getInt("totalPrice"));
+                    booking.setStatus(rs.getString("status"));
                     userBooked.add(booking);
                 }
             }

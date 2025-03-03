@@ -38,6 +38,7 @@
                             <p><span class="booking-ticket-label">Check-in Date:</span> <span class="booking-ticket-value"><fmt:formatDate value="${booking.checkInDate}" pattern="yyyy-MM-dd" /></span></p>
                             <p><span class="booking-ticket-label">Check-out Date:</span> <span class="booking-ticket-value"><fmt:formatDate value="${booking.checkOutDate}" pattern="yyyy-MM-dd" /></span></p>
                             <p><span class="booking-ticket-label" style="color: #E10F34">Total Price:</span> <span class="booking-ticket-value" style="color: #E10F34"><fmt:formatNumber value="${booking.totalPrice}" pattern="#,##0"/> VNĐ</span></p>
+                            <p><span class="booking-ticket-label">Status:</span> <span class="booking-ticket-value">${booking.status}</span></p>
                         </div>
                     </div>
                 </c:forEach>
