@@ -97,24 +97,21 @@ public class BookingDAO {
 
     public List<BookingDTO> getAllRoomBookings() {
         List<BookingDTO> list = new ArrayList<>();
-        String sql = " SELECT \n "
-                + "    b.bookingID,\n "
-                + "    r.roomID,\n "
-                + "    r.roomName,\n "
-                + "    r.typeName,\n "
-                + "    b.totalPrice,\n "
-                + "    r.description,\n "
-                + "    b.phone,\n "
-                + "    u.name AS BookedBy,\n "
-                + "    b.checkInDate,\n "
-                + "    b.checkOutDate,\n "
+        String sql = " SELECT\n"
+                + "    b.bookingID,\n"
+                + "	b.username AS BookedBy,\n"
+                + "    b.roomID,\n"
+                + "    b.typeRoomID,\n"
+                + "    b.totalPrice,\n"
+                + "    b.phone,\n"
+                + "    b.checkInDate,\n"
+                + "    b.checkOutDate,\n"
                 + "    CASE \n"
-                + "    WHEN b.bookingID IS NOT NULL THEN N'đang đặt (chưa thanh toán)'\n "
-                + "    ELSE N'chưa đặt'\n"
-                + "	END AS status\n"
-                + " FROM Rooms r\n "
-                + " LEFT JOIN bookings b ON r.RoomID = b.RoomID\n "
-                + " LEFT JOIN users u ON b.username = u.username; ";
+                + "        WHEN b.status = 'pending' THEN N'đang đặt (chưa thanh toán)' "
+                + "        WHEN b.status = 'confirmed' THEN N'đã xác nhận' "
+                + "        ELSE N'chưa đặt' "
+                + "    END AS status "
+                + "FROM bookings b; ";
 
         try {
             Connection con = DBUtils.getConnection();
@@ -126,7 +123,7 @@ public class BookingDAO {
 
                     roomBooking.setBookingID(rs.getString("bookingID"));
                     roomBooking.setRoomID(rs.getInt("roomID"));
-                    roomBooking.setUsername("username");
+                    roomBooking.setUsername(rs.getString("BookedBy"));
                     roomBooking.setTypeRoomID(rs.getInt("typeRoomID"));
                     roomBooking.setTotalPrice(rs.getInt("totalPrice"));
                     roomBooking.setPhone(rs.getString("phone"));

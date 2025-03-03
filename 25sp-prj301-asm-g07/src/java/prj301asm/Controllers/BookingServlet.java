@@ -113,7 +113,7 @@ public class BookingServlet extends HttpServlet {
                     BookingDTO booking = new BookingDTO(bookingID, roomID, typeRoomID, user.getUsername(), phone, dateIn, dateOut, totalPrice);
                     boolean isAdded = bookingDao.addBooking(booking);
                     if (isAdded) {
-                        request.setAttribute("bookingID", bookingID);
+                        request.setAttribute("booking", booking);
                         request.getRequestDispatcher("payment.jsp").forward(request, response);
                     } else {
                         forwardToBooking(request, response, bookingID, typeRoomDetails, "Booking Fail");

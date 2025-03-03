@@ -23,7 +23,7 @@
                     <tr>
                         <th>Booking ID</th>
                         <th>Room ID</th>
-                        <th>Type Room</th>
+                        <th>Type Room ID</th>
                         <th>Check In Date</th>
                         <th>Check Out Date</th>
                         <th>Phone</th>
@@ -36,7 +36,7 @@
                         <tr>
                             <td><c:out value="${room.getBookingID()}"/></td>
                             <td><c:out value="${room.getRoomID()}"/></td>
-                            <td><c:out value="${room.getTypeName()}"/></td>
+                            <td><c:out value="${room.getTypeRoomID()}"/></td>
                             <td><c:out value="${room.getCheckInDate()}"/></td>
                             <td><c:out value="${room.getCheckOutDate()}"/></td>
                             <td><c:out value="${room.getPhone()}"/></td>

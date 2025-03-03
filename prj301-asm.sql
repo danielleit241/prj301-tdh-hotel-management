@@ -162,26 +162,3 @@ INSERT INTO rooms (roomID, typeRoomID) VALUES (911, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (912, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (913, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (914, 9);
-
-
-SELECT
-    b.bookingID,
-    r.roomID,
-    tr.typeRoomID AS TypeID,
-    b.totalPrice,
-    b.phone,
-    u.username AS BookedBy,
-    b.checkInDate,
-    b.checkOutDate,
-	CASE 
-        WHEN b.status = 'pending' THEN N'đang đặt (chưa thanh toán)'
-        WHEN b.status = 'confirmed' THEN N'đã xác nhận'
-        ELSE N'chưa đặt'
-    END AS status
-FROM rooms r
-LEFT JOIN bookings b ON r.roomID = b.roomID
-LEFT JOIN users u ON b.username = u.username
-LEFT JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID;
-
-select * from bookings
-
