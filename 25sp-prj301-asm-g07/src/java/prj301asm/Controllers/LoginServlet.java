@@ -21,7 +21,7 @@ import prj301asm.User.UserDTO;
  *
  * @author hoade
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+
 public class LoginServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

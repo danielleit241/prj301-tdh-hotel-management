@@ -60,9 +60,9 @@ public class RoomServlet extends HttpServlet {
                 }
 
                 RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging2(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
+                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
 
-                int totalRoom = dao.countRoomsByAllSearch(sqlDateIn, sqlDateOut,keyword, type, view);
+                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut,keyword, type, view);
 
                 int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
 

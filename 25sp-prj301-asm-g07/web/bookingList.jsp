@@ -30,7 +30,7 @@
                 <c:forEach var="booking" items="${bookingList}">
                     <div class="booking-ticket"> 
                         <div class="booking-image-container"> 
-                            <img src="images/${booking.roomID}/${booking.roomID}.jpg" alt="Room Image">
+                            <img src="images/${booking.typeRoomID}/${booking.typeRoomID}.jpg" alt="Room Image">
                         </div>
                         <div class="booking-details"> 
                             <h3 style="font-weight: 600;"><span class="booking-ticket-label">Booking ID:</span> <span class="booking-ticket-value">${booking.bookingID}</span></h3>

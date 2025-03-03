@@ -15,23 +15,15 @@ CREATE TABLE users (
 -- Bảng danh mục loại phòng: lưu mã và tên loại phòng
 CREATE TABLE typeRoom (
     typeRoomID INT PRIMARY KEY,
-    typeName NVARCHAR(100) NOT NULL  -- Ví dụ: 'Special King Room'
-);
-ALTER TABLE typeRoom 
-ADD typeDes NVARCHAR(255);
-
-
--- Bảng chứa thông tin chi tiết của loại phòng
-CREATE TABLE typeRoomDetails (
-    typeRoomID INT PRIMARY KEY,
-    price INT NOT NULL CHECK(price > 0),
+    typeName NVARCHAR(100) NOT NULL,  -- Ví dụ: 'Special King Room'
+	typeDes NVARCHAR(255),
+	price INT NOT NULL CHECK(price > 0),
     roomSize NVARCHAR(50) NOT NULL,            -- Ví dụ: '50 m2'
     bedSize NVARCHAR(100) NOT NULL,            -- Ví dụ: '1 x Special King size – 1m8 x 2m'
     maxOccupancy NVARCHAR(50) NOT NULL,        -- Ví dụ: '02 - 03 Adults'
     viewDetail NVARCHAR(50) NOT NULL,                -- Ví dụ: 'City view'
     bathroom NVARCHAR(200) NOT NULL,           -- Ví dụ: 'Toilet room, shower room, washbasin and bathtub'
     smoking NVARCHAR(10) NOT NULL CHECK (smoking IN ('Yes', 'No')),
-    FOREIGN KEY (typeRoomID) REFERENCES typeRoom(typeRoomID) ON DELETE CASCADE
 );
 
 -- Bảng chứa thông tin các phòng cụ thể, chỉ lưu roomID và tham chiếu đến typeRoom
@@ -45,6 +37,7 @@ CREATE TABLE rooms (
 CREATE TABLE bookings (
     bookingID VARCHAR(50) PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
+	typeRoomID INT NOT NULL,
     roomID INT NOT NULL,
     phone VARCHAR(11) NOT NULL,
     checkInDate DATE NOT NULL,
@@ -53,8 +46,10 @@ CREATE TABLE bookings (
     totalPrice int NOT NULL CHECK (totalPrice >= 0),
     createAt DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
-    FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE
+    FOREIGN KEY (roomID) REFERENCES rooms(roomID) ON DELETE CASCADE,
+	FOREIGN KEY (typeRoomID) REFERENCES typeRoom(typeRoomID)
 );
+
 CREATE TABLE payments (
     paymentID VARCHAR(50) PRIMARY KEY,
     bookingID VARCHAR(50) NOT NULL,
@@ -87,29 +82,18 @@ insert into users(username, password, name, role)
 		('dat', 'dat', N'Đạt 09', 'admin'),
 		('thinh', 'thinh', N'Thịnh Tu', 'admin');
 
-INSERT INTO typeRoom (typeRoomID, typeName, typeDes)
+INSERT INTO typeRoom (typeRoomID, typeName, typeDes, price, roomSize, bedSize, maxOccupancy, viewDetail, bathroom, smoking)
 VALUES 
-  (1, 'DELUXE KING', N'The Deluxe King offers modern design and superior comfort with a luxurious king bed and a stunning City view—perfect for couples seeking a refined urban experience.'),
-  (2, 'DELUXE DOUBLE', N'The Deluxe Double provides extra space and style, featuring a sophisticated layout with a serene River view that soothes and inspires relaxation.'),
-  (3, 'PREMIER KING', N'The Premier King redefines luxury with a spacious layout, a premium king-size bed, and a breathtaking Skyline view—ideal for guests who appreciate refined design and dramatic vistas.'),
-  (4, 'JUNIOR SUITE', N'The Junior Suite exudes elegance with a separate living area and modern amenities, complemented by a vibrant City view that energizes your stay.'),
-  (5, 'DELUXE ONE BEDROOM SUITE', N'The Deluxe One Bedroom Suite offers a private retreat with a separate bedroom and living area, featuring a calming River view that enhances your relaxation.'),
-  (6, 'PREMIER ONE BEDROOM SUITE', N'The Premier One Bedroom Suite blends style and functionality with upscale furnishings and an impressive Skyline view that captivates and delights.'),
-  (7, 'TWO BEDROOM SUITE', N'The Two Bedroom Suite is perfect for families or groups, offering two distinct bedrooms and ample living space with a dynamic City view.'),
-  (8, 'THD PENTHOUSE SUITE', N'The THD Penthouse Suite epitomizes luxury with expansive living spaces and an unrivaled Skyline view that captures the essence of urban sophistication.'),
-  (9, 'ONE BEDROOM SUITE', N'The One Bedroom Suite combines sophisticated design with comfort, featuring a spacious layout and a picturesque River view that offers a tranquil retreat.');
+  (1, 'DELUXE KING', N'The Deluxe King offers modern design and superior comfort with a luxurious king bed and a stunning City view—perfect for couples seeking a refined urban experience.', 500000, N'37 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'City view', N'Toilet room, shower room and washbasin', N'No'),
+  (2, 'DELUXE DOUBLE', N'The Deluxe Double provides extra space and style, featuring a sophisticated layout with a serene River view that soothes and inspires relaxation.', 1500000, N'50 m2', N'1 x Special Double setup – 1m8 x 2m', N'02 - 03 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (3, 'PREMIER KING', N'The Premier King redefines luxury with a spacious layout, a premium king-size bed, and a breathtaking Skyline view—ideal for guests who appreciate refined design and dramatic vistas.', 1000000, N'40 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'Skyline view', N'Toilet, shower room and washbasin', N'No'),
+  (4, 'JUNIOR SUITE', N'The Junior Suite exudes elegance with a separate living area and modern amenities, complemented by a vibrant City view that energizes your stay.', 800000, N'35 m2', N'2 x Queen size – 1m6 x 2m', N'02 Adults', N'City view', N'Toilet, shower room and washbasin', N'No'),
+  (5, 'DELUXE ONE BEDROOM SUITE', N'The Deluxe One Bedroom Suite offers a private retreat with a separate bedroom and living area, featuring a calming River view that enhances your relaxation.', 1000000, N'40 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (6, 'PREMIER ONE BEDROOM SUITE', N'The Premier One Bedroom Suite blends style and functionality with upscale furnishings and an impressive Skyline view that captivates and delights.', 800000, N'35 m2', N'1 x Queen size – 1m6 x 2m', N'02 Adults', N'Skyline view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (7, 'TWO BEDROOM SUITE', N'The Two Bedroom Suite is perfect for families or groups, offering two distinct bedrooms and ample living space with a dynamic City view.', 1500000, N'50 m2', N'1 x King size – 1m8 x 2m (per bedroom)', N'04 Adults', N'City view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
+  (8, 'THD PENTHOUSE SUITE', N'The THD Penthouse Suite epitomizes luxury with expansive living spaces and an unrivaled Skyline view that captures the essence of urban sophistication.', 2000000, N'65 m2', N'1 x Super King – 2m2 Cyrcle', N'02 Adults', N'Skyline view', N'Toilet room, shower room, washbasin and oversize bathtub', N'No'),
+  (9, 'ONE BEDROOM SUITE', N'The One Bedroom Suite combines sophisticated design with comfort, featuring a spacious layout and a picturesque River view that offers a tranquil retreat.', 800000, N'35 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No');
 
-INSERT INTO typeRoomDetails (typeRoomID, price, roomSize, bedSize, maxOccupancy, viewDetail, bathroom, smoking)
-VALUES
-  (1, 150, N'37 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'City view', N'Toilet room, shower room and washbasin', N'No'),
-  (2, 200, N'50 m2', N'1 x Special Double setup – 1m8 x 2m', N'02 - 03 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
-  (3, 180, N'40 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'Skyline view', N'Toilet, shower room and washbasin', N'No'),
-  (4, 170, N'35 m2', N'2 x Queen size – 1m6 x 2m', N'02 Adults', N'City view', N'Toilet, shower room and washbasin', N'No'),
-  (5, 190, N'40 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
-  (6, 160, N'35 m2', N'1 x Queen size – 1m6 x 2m', N'02 Adults', N'Skyline view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
-  (7, 155, N'50 m2', N'1 x King size – 1m8 x 2m (per bedroom)', N'04 Adults', N'City view', N'Toilet room, shower room, washbasin and bathtub', N'No'),
-  (8, 250, N'65 m2', N'1 x Super King – 2m2 Cyrcle', N'02 Adults', N'Skyline view', N'Toilet room, shower room, washbasin and oversize bathtub', N'No'),
-  (9, 185, N'35 m2', N'1 x King size – 1m8 x 2m', N'02 Adults', N'River view', N'Toilet room, shower room, washbasin and bathtub', N'No');
 
 -- Loại phòng 1: 6 phòng (roomID 110 đến 115)
 INSERT INTO rooms (roomID, typeRoomID) VALUES (110, 1);
@@ -179,39 +163,25 @@ INSERT INTO rooms (roomID, typeRoomID) VALUES (912, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (913, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (914, 9);
 
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
-VALUES ('B001', 'hoa', 110, '0901234567', '2025-03-01', '2025-03-05', 'confirmed', 600);
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
-VALUES ('B006', 'hoa', 111, '0901234567', '2025-03-01', '2025-03-05', 'confirmed', 600);
 
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
-VALUES ('B002', 'dat', 115, '0902345678', '2025-03-10', '2025-03-12', 'pending', 400);
-
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
-VALUES ('B003', 'thinh', 120, '0903456789', '2025-03-15', '2025-03-18', 'confirmed', 550);
-
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
-VALUES ('B004', 'hoa', 130, '0904567890', '2025-03-20', '2025-03-25', 'cancel', 0);
-
-INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, status, totalPrice)
-VALUES ('B005', 'dat', 140, '0905678901', '2025-03-27', '2025-03-30', 'confirmed', 500);
-
-
-SELECT DISTINCT tr.typeName, tr.typeDes, trd.*
+SELECT
+    b.bookingID,
+    r.roomID,
+    tr.typeRoomID AS TypeID,
+    b.totalPrice,
+    b.phone,
+    u.username AS BookedBy,
+    b.checkInDate,
+    b.checkOutDate,
+	CASE 
+        WHEN b.status = 'pending' THEN N'đang đặt (chưa thanh toán)'
+        WHEN b.status = 'confirmed' THEN N'đã xác nhận'
+        ELSE N'chưa đặt'
+    END AS status
 FROM rooms r
-JOIN typeRoomDetails trd ON r.typeRoomID = trd.typeRoomID
-JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM bookings b
-    WHERE b.roomID = r.roomID
-    AND b.status IN ('confirmed', 'pending')
-    AND ('2025-03-02' <= b.checkOutDate)  -- Ngày bắt đầu tìm kiếm
-    AND ('2025-03-03' >= b.checkInDate)
-)
-AND (tr.typeDes LIKE null )
-AND (tr.typeName = null )
-AND (trd.viewDetail = null )
-ORDER BY trd.typeRoomID
-OFFSET 1 ROWS
-FETCH NEXT 3 ROWS ONLY;
+LEFT JOIN bookings b ON r.roomID = b.roomID
+LEFT JOIN users u ON b.username = u.username
+LEFT JOIN typeRoom tr ON r.typeRoomID = tr.typeRoomID;
+
+select * from bookings
+

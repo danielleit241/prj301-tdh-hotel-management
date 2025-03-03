@@ -33,6 +33,7 @@ public class BookingDAO {
                     booking.setBookingID(rs.getString("bookingID"));
                     booking.setUsername(rs.getString("username"));
                     booking.setRoomID(rs.getInt("roomID"));
+                    booking.setTypeRoomID(rs.getInt("typeRoomID"));
                     booking.setCheckInDate(rs.getDate("checkInDate"));
                     booking.setCheckOutDate(rs.getDate("checkOutDate"));
                     booking.setTotalPrice(rs.getInt("totalPrice"));
@@ -125,15 +126,13 @@ public class BookingDAO {
 
                     roomBooking.setBookingID(rs.getString("bookingID"));
                     roomBooking.setRoomID(rs.getInt("roomID"));
-                    roomBooking.setRoomName(rs.getString("roomName"));
-                    roomBooking.setTypeName(rs.getString("typeName"));
+                    roomBooking.setUsername("username");
+                    roomBooking.setTypeRoomID(rs.getInt("typeRoomID"));
                     roomBooking.setTotalPrice(rs.getInt("totalPrice"));
-                    roomBooking.setDescription(rs.getString("description"));
                     roomBooking.setPhone(rs.getString("phone"));
-                    roomBooking.setBookedBy(rs.getString("BookedBy"));
                     roomBooking.setCheckInDate(rs.getDate("checkInDate"));
                     roomBooking.setCheckOutDate(rs.getDate("checkOutDate"));
-                    roomBooking.setStatus(rs.getString("status")); // Now matches the query
+                    roomBooking.setStatus(rs.getString("status"));
 
                     list.add(roomBooking);
                 }
@@ -147,16 +146,17 @@ public class BookingDAO {
     }
 
     public boolean addBooking(BookingDTO booking) {
-        String sql = "INSERT INTO bookings (bookingID, username, roomID, phone, checkInDate, checkOutDate, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bookings (bookingID, username, roomID, typeRoomID, phone, checkInDate, checkOutDate, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBUtils.getConnection();) {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, booking.getBookingID());
             stmt.setString(2, booking.getUsername());
             stmt.setInt(3, booking.getRoomID());
-            stmt.setString(4, booking.getPhone());
-            stmt.setDate(5, booking.getCheckInDate());
-            stmt.setDate(6, booking.getCheckOutDate());
-            stmt.setInt(7, booking.getTotalPrice());
+            stmt.setInt(4, booking.getTypeRoomID());
+            stmt.setString(5, booking.getPhone());
+            stmt.setDate(6, booking.getCheckInDate());
+            stmt.setDate(7, booking.getCheckOutDate());
+            stmt.setInt(8, booking.getTotalPrice());
             if (stmt.executeUpdate() > 0) {
                 return true;
             }
@@ -168,8 +168,6 @@ public class BookingDAO {
     }
 
     public boolean updateBooking(String bookingID, String phone, Date checkInDate, Date checkOutDate, String status, int totalPrice) {
-//        long days = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24);
-//        double totalPrice = days * price;
         try {
             Connection conn = DBUtils.getConnection();
             String updateSql = " UPDATE bookings SET phone = ?, checkInDate = ?, checkOutDate = ?, status = ?, totalPrice = ? WHERE bookingID = ? ";
