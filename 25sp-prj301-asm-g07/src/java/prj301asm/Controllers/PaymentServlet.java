@@ -46,9 +46,9 @@ public class PaymentServlet extends HttpServlet {
                 String paymentID = generatePaymentID();
                 paymentDAO.createPayment(paymentID, bookingID, method);
 
+                
                 ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDAO.getAllRoomBookings();
                 request.setAttribute("roomBookings", list);
-                request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
                 request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
             }
 
