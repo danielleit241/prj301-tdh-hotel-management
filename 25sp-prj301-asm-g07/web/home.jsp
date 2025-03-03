@@ -14,6 +14,17 @@
         <link rel="icon" href="images/fevicon.png" type="image/gif" />
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+        <!--footer-->
+        <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        
+      
+
+    
+
+
+
     </head>
     <body class="main-layout">
         <%@include file="/navbar.jsp"%>
@@ -83,3 +94,6 @@
                 </div>
             </div>
         </div>
+        <%@include file="footer.jsp" %>
+    </body>
+</html>

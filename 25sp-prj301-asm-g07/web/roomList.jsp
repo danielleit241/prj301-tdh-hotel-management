@@ -15,6 +15,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <!--icon cây chổi-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=refresh" />
+        
+        <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <script>
             function resetForm() {
                 window.location.href = "./roomList?action=list";
@@ -109,6 +113,8 @@
                 <a href="./roomList?page=${currentPage + 1}&dateIn=${dateIn}&dateOut=${dateOut}&keyword=${keyword}&type=${type}&view=${view}" class="next">Next</a>
             </c:if>
         </div>
+                
+                <%@include file="footer.jsp" %>
 
     </body>
 
