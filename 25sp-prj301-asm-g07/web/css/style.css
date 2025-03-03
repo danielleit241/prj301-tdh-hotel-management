@@ -347,59 +347,6 @@ body {
     width: 170px; /* Đặt chiều rộng cố định */
 }
 
-
-
-/* CSS cho danh sách phòng */
-.room-list-container { /* Sử dụng class riêng */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start; /* Sửa ở đây */
-    gap: 20px; /* Thêm khoảng cách giữa các card */
-}
-
-.card {
-    width: calc(33.33% - 20px);
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease; /* Thêm hiệu ứng hover */
-}
-
-.card:hover {
-    transform: translateY(-5px); /* Hiệu ứng hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm đổ bóng khi hover */
-}
-
-.card img {
-    width: 100%;
-    height: 250px; /* Tăng chiều cao ảnh */
-    object-fit: cover;
-    border-bottom: 1px solid #eee; /* Thêm đường viền dưới ảnh */
-}
-
-.card-content {
-    padding: 20px; /* Tăng padding */
-}
-
-.card-content p {
-    margin-top: 10px; /* Giảm margin-top */
-    line-height: 1.6;
-}
-
-.card h5 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: #333;
-}
-
-.price {
-    font-weight: bold;
-    color: #f00;
-    margin-top: 15px;
-}
-
 /* CSS cho nút BookNow */
 .card form input[type="submit"] {
     background-color: #E10F34;
