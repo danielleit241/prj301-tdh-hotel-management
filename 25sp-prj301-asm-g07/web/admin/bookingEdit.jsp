@@ -42,7 +42,7 @@
             </select><br><br>
             
             <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" value="${booking.phone}"><br><br>
+            <input type="text" id="phone" name="phone" value="${booking.phone}" required><br><br>
 
             <label for="totalPrice">Total Price:</label>
             <input type="text" id="totalPrice" name="totalPrice" value="${booking.totalPrice}"><br><br>
