@@ -23,15 +23,6 @@ import prj301asm.Booking.BookingDTO;
  */
 public class PaymentServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -47,7 +38,7 @@ public class PaymentServlet extends HttpServlet {
                 paymentDAO.createPayment(paymentID, bookingID, method);
 
                 
-                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDAO.getAllRoomBookings();
+                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDAO.getAdminBooking();
                 request.setAttribute("roomBookings", list);
                 request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
             }

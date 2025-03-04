@@ -26,34 +26,51 @@ import prj301asm.User.UserDTO;
  */
 public class BookingServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        /* TODO output your page here. You may use following sample code. */
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
+        String action = request.getParameter("action");
 
         if (user.getRole().equals("admin")) {
-            BookingDAO dao = new BookingDAO();
-            ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAllRoomBookings();
-            request.setAttribute("roomBookings", list);
-            request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
+            if (action == null || action.equals("list")) {
+                BookingDAO dao = new BookingDAO();
+                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAdminBooking();
+                request.setAttribute("roomBookings", list);
+                request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
+            } else if (action.equals("edit")) {
+                String bookingID = request.getParameter("bookingID");
+                BookingDAO dao = new BookingDAO();
+                BookingDTO booking = dao.load(bookingID);
+                ArrayList<RoomDTO> availableRooms = (ArrayList<RoomDTO>) dao.findAllAvailableRoom(booking.getTypeRoomID(), booking.getCheckInDate(), booking.getCheckOutDate());
+
+                request.setAttribute("booking", booking);
+                request.setAttribute("availableRooms", availableRooms);
+                request.setAttribute("nextAction", "update");
+                request.getRequestDispatcher("bookingEdit.jsp").forward(request, response);
+            } else if (action.equals("update")) {
+                String bookingID = request.getParameter("bookingID");
+                String roomIDStr = request.getParameter("roomID");
+                String phone = request.getParameter("phone");
+                String status = request.getParameter("status");
+
+                BookingDAO dao = new BookingDAO();
+                if (roomIDStr != null) {
+                    int roomID = Integer.parseInt(roomIDStr);
+                    if (dao.updateBooking(bookingID, phone, status, roomID)) {
+                        ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAdminBooking();
+                        request.setAttribute("roomBookings", list);
+                        request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
+                    }
+                }
+
+            }
         } else if (user.getRole().equals("member")) {
-            String action = request.getParameter("action");
             BookingDAO bookingDao = new BookingDAO();
             RoomDAO roomDao = new RoomDAO();
             if (action.equals("list")) {
-                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getListUserBooking(user.getUsername());
+                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getUserBooking(user.getUsername());
                 request.setAttribute("bookingList", list);
                 request.getRequestDispatcher("bookingList.jsp").forward(request, response);
             } else if (action.equals("booking")) {
@@ -113,7 +130,7 @@ public class BookingServlet extends HttpServlet {
                     BookingDTO booking = new BookingDTO(bookingID, roomID, typeRoomID, user.getUsername(), phone, dateIn, dateOut, totalPrice);
                     boolean isAdded = bookingDao.addBooking(booking);
                     if (isAdded) {
-                        ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getListUserBooking(user.getUsername());
+                        ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getUserBooking(user.getUsername());
                         request.setAttribute("bookingList", list);
                         request.getRequestDispatcher("bookingList.jsp").forward(request, response);
                     } else {

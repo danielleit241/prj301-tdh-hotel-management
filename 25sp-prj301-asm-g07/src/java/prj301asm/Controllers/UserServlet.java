@@ -43,7 +43,7 @@ public class UserServlet extends HttpServlet {
                     UserDAO dao = new UserDAO();
                     ArrayList<UserDTO> list = (ArrayList<UserDTO>) dao.getAllUser();
                     request.setAttribute("list", list);
-                    RequestDispatcher rd = request.getRequestDispatcher("manageUser.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("manageUsers.jsp");
                     rd.forward(request, response);
                 } else if (action.equals("delete")) {
                     String username = request.getParameter("username");
@@ -53,7 +53,7 @@ public class UserServlet extends HttpServlet {
                     }
                     List<UserDTO> list = dao.getAllUser();
                     request.setAttribute("list", list);
-                    RequestDispatcher rd = request.getRequestDispatcher("manageUser.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("manageUsers.jsp");
                     rd.forward(request, response);
                 }
             }
