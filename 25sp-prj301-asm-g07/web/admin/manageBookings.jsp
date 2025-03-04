@@ -22,6 +22,7 @@
                 <thead>
                     <tr>
                         <th>Booking ID</th>
+                        <th>Username</th>
                         <th>Room ID</th>
                         <th>Type Room ID</th>
                         <th>Check In Date</th>
@@ -32,26 +33,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="room" items="${roomBookings}">
+
+                    <c:forEach var="booking" items="${roomBookings}">
                         <tr>
-                            <td><c:out value="${room.getBookingID()}"/></td>
-                            <td><c:out value="${room.getRoomID()}"/></td>
-                            <td><c:out value="${room.getTypeRoomID()}"/></td>
-                            <td><c:out value="${room.getCheckInDate()}"/></td>
-                            <td><c:out value="${room.getCheckOutDate()}"/></td>
-                            <td><c:out value="${room.getPhone()}"/></td>
+                            <td><c:out value="${booking.getBookingID()}"/></td>
+                            <td><c:out value="${booking.getUsername()}"/></td>
+                            <td><c:out value="${booking.getRoomID()}"/></td>
+                            <td><c:out value="${booking.getTypeRoomID()}"/></td>
+                            <td><c:out value="${booking.getCheckInDate()}"/></td>
+                            <td><c:out value="${booking.getCheckOutDate()}"/></td>
+                            <td><c:out value="${booking.getPhone()}"/></td>
                             <td>
-                                <fmt:formatNumber value="${room.getTotalPrice()}" pattern="#,##0 VNĐ" />
+                                <fmt:formatNumber value="${booking.getTotalPrice()}" pattern="#,##0 VNĐ" />
                             </td>     
                             <td class="room-status" 
                                 <c:choose>
-                                    <c:when test="${room.getStatus() == 'chưa đặt'}">style="color: red;"</c:when>
-                                    <c:when test="${room.getStatus() == 'đã đặt'}">style="color: green;"</c:when>
-                                    <c:when test="${room.getStatus() == 'đang đặt (chưa thanh toán)'}">style="color: #F8B701;"</c:when>
+                                    <c:when test="${booking.getStatus() == 'chưa đặt'}">style="color: red;"</c:when>
+                                    <c:when test="${booking.getStatus() == 'đã xác nhận'}">style="color: green;"</c:when>
+                                    <c:when test="${booking.getStatus() == 'đang đặt (chưa thanh toán)'}">style="color: #F8B701;"</c:when>
                                     <c:otherwise>style="color: black;"</c:otherwise>
                                 </c:choose>
                                 > 
-                                <c:out value="${room.getStatus()}"/>
+                                <c:out value="${booking.getStatus()}"/>
+                                <c:if test="${booking.getStatus() == 'đang đặt (chưa thanh toán)'}">
+                                    <form action="payment">
+                                        <input type="hidden" name="bookingID" value="${booking.getBookingID()}">
+                                        <input type="hidden" name="method" value="COD">
+                                        <input type="hidden" name="action" value="confirmed">
+                                        <input type="submit" value="Xác nhận">
+                                    </form>
+                                </c:if>
+                            </td>
+                            <td>
+                                
                             </td>
                         </tr>
                     </c:forEach>

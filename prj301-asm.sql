@@ -50,11 +50,11 @@ CREATE TABLE bookings (
 	FOREIGN KEY (typeRoomID) REFERENCES typeRoom(typeRoomID)
 );
 
+
 CREATE TABLE payments (
     paymentID VARCHAR(50) PRIMARY KEY,
     bookingID VARCHAR(50) NOT NULL,
     paymentMethod VARCHAR(10) NOT NULL,  
-    paymentStatus VARCHAR(10) DEFAULT 'pending' CHECK (paymentStatus IN ('paid', 'failed', 'pending')),
     createdAt DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (bookingID) REFERENCES bookings(bookingID) ON DELETE CASCADE
 );

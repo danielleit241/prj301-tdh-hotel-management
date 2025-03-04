@@ -37,6 +37,7 @@ public class BookingDAO {
                     booking.setCheckInDate(rs.getDate("checkInDate"));
                     booking.setCheckOutDate(rs.getDate("checkOutDate"));
                     booking.setTotalPrice(rs.getInt("totalPrice"));
+                    booking.setStatus(rs.getString("status"));
                     userBooked.add(booking);
                 }
             }
@@ -140,6 +141,23 @@ public class BookingDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public boolean confirmedBooking(String bookingID) {
+        String sql = " update bookings set status = ? where bookingID = ? ";
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "confirmed");
+            ps.setString(2, bookingID);
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean addBooking(BookingDTO booking) {

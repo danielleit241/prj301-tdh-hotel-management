@@ -42,6 +42,15 @@
         <url-pattern>/admin/ManageUser</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>prj301asm.Controllers.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/admin/payment</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>

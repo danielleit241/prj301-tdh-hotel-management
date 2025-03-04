@@ -42,7 +42,7 @@ public class BookingServlet extends HttpServlet {
         /* TODO output your page here. You may use following sample code. */
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
-        
+
         if (user.getRole().equals("admin")) {
             BookingDAO dao = new BookingDAO();
             ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAllRoomBookings();
@@ -60,22 +60,22 @@ public class BookingServlet extends HttpServlet {
                 int typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
                 String dateInStr = request.getParameter("dateIn");
                 String dateOutStr = request.getParameter("dateOut");
-                
+
                 Date dateIn = null, dateOut = null;
-                
+
                 if ((dateInStr != null && !dateInStr.trim().isEmpty())
                         || (dateOutStr != null && !dateOutStr.trim().isEmpty())) {
                     dateIn = Date.valueOf(dateInStr);
                     dateOut = Date.valueOf(dateOutStr);
                 }
-                
+
                 RoomDTO typeRoomDetails = roomDao.getTypeDetails(typeRoomID);
-                
+
                 Integer roomID = bookingDao.findAvailableRoomID(typeRoomID, dateIn, dateOut);
                 if (roomID != null) {
                     request.setAttribute("roomID", roomID);
                 }
-                
+
                 request.setAttribute("bookingID", generateBookingID());
                 request.setAttribute("typeRoomDetails", typeRoomDetails);
                 request.setAttribute("dateIn", dateInStr);
@@ -87,20 +87,20 @@ public class BookingServlet extends HttpServlet {
                 String bookingID = request.getParameter("bookingID");
                 String phone = request.getParameter("phone");
                 int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
-                
+
                 String dateInStr = request.getParameter("dateIn");
                 String dateOutStr = request.getParameter("dateOut");
-                
+
                 Date dateIn = null, dateOut = null;
-                
+
                 if ((dateInStr != null && !dateInStr.trim().isEmpty())
                         || (dateOutStr != null && !dateOutStr.trim().isEmpty())) {
                     dateIn = Date.valueOf(dateInStr);
                     dateOut = Date.valueOf(dateOutStr);
                 }
-                
+
                 RoomDTO typeRoomDetails = roomDao.getTypeDetails(typeRoomID);
-                
+
                 if (dateIn == null || dateOut == null || dateIn.compareTo(dateOut) >= 0) {
                     forwardToBooking(request, response, bookingID, typeRoomDetails,
                             "Error Date: Check-in must be before Check-out.");
@@ -113,8 +113,9 @@ public class BookingServlet extends HttpServlet {
                     BookingDTO booking = new BookingDTO(bookingID, roomID, typeRoomID, user.getUsername(), phone, dateIn, dateOut, totalPrice);
                     boolean isAdded = bookingDao.addBooking(booking);
                     if (isAdded) {
-                        request.setAttribute("booking", booking);
-                        request.getRequestDispatcher("payment.jsp").forward(request, response);
+                        ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getListUserBooking(user.getUsername());
+                        request.setAttribute("bookingList", list);
+                        request.getRequestDispatcher("bookingList.jsp").forward(request, response);
                     } else {
                         forwardToBooking(request, response, bookingID, typeRoomDetails, "Booking Fail");
                     }
@@ -122,7 +123,7 @@ public class BookingServlet extends HttpServlet {
             }
         }
     }
-    
+
     private void forwardToBooking(HttpServletRequest request, HttpServletResponse response,
             String bookingID, RoomDTO typeRoomDetails, String errorMessage) throws ServletException, IOException {
         request.setAttribute("bookingID", bookingID);
@@ -130,7 +131,7 @@ public class BookingServlet extends HttpServlet {
         request.setAttribute("error", errorMessage);
         request.getRequestDispatcher("booking.jsp").forward(request, response);
     }
-    
+
     private String generateBookingID() {
         String uniqueID = null;
         int nextNumber = 000001;
@@ -162,7 +163,7 @@ public class BookingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**

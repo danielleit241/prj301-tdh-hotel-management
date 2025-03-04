@@ -14,6 +14,7 @@
         <link rel="icon" href="images/fevicon.png" type="image/gif" />
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
         <!--footer-->
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
@@ -24,6 +25,14 @@
     
 
 
+
+
+        <script>
+            var video = document.getElementById('myVideo');
+            video.addEventListener('play', function () {
+                video.removeAttribute('controls');
+            });
+        </script>
 
     </head>
     <body class="main-layout">
@@ -37,7 +46,13 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="first-slide" src="images/banner1.jpg" alt="First slide">
+                        <!--<img class="first-slide" src="images/banner1.jpg" alt="First slide">-->
+                        <div style="position: relative;">
+                            <video autoplay muted controls>
+                                <source src="images/intro.mp4" type="video/mp4">
+                            </video>
+                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: transparent;"></div>
+                        </div>
                         <div class="container">
                             <div class="carousel-caption relative">
                                 <h1 style="font-family: 'Open Sans', sans-serif; font-size: 70px; font-weight: 600;" >The Best Hotel</h1>
@@ -46,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
             <div class="booking_ocline">
                 <div class="container">
                     <div class="row">
