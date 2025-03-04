@@ -45,7 +45,7 @@
                             <a class="nav-link" href="booking?action=list">BOOKING</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.jsp" target="_blank">CONTACT</a>
+                            <a class="nav-link" href="contact.jsp">CONTACT</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">ABOUT </a>

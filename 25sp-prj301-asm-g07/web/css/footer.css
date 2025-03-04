@@ -8209,12 +8209,10 @@ textarea.form-control {
     margin-bottom: 0; }
 
 footer {
-    padding: 7em 0; }
+    padding: 5em 0; }
 
 .footer-04 {
     background: #272727;
-    padding-bottom: 0; 
-    margin-top: 15px;
 }
 .footer-04 .border-top {
     border-color: #1a1a1a !important;

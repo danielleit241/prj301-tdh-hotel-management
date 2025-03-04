@@ -25,10 +25,10 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        
-      
 
-    
+
+
+
 
 
 
@@ -56,50 +56,12 @@
                             <video autoplay muted loop>
                                 <source src="images/intro.mp4" type="video/mp4">
                             </video>
+                            <img class="" src="images/home3.svg" alt="Date" style="width: 65% ;position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;"> 
+                        </div>
 
-                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: transparent;"></div>
-                        </div>
-                        <div class="container">
-                            <div class="carousel-caption relative">
-                                <h1 style="font-family: 'Open Sans', sans-serif; font-size: 70px; font-weight: 600;" >The Best Hotel</h1>
-                                <a href="Javascript:void(0)" style="font-family: 'Open Sans', sans-serif; font-weight: 600;">Read More</a>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            
-            <div class="booking_ocline">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="book_room">
-                                <h1 style="font-family: 'Open Sans', sans-serif; font-size: 35px; font-weight: 600; text-align: center">Book a Room Online</h1>
-                                <form class="book_now">
-                                    <div class="row">
-                                        <div class="col-md-12 arr-depa">
-                                            <span style="font-family: 'Open Sans', sans-serif;">Arrival: </span>
-                                            <input class="online_book" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
-                                            <img class="date_cua" src="images/date.png" alt="Date">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span style="font-family: 'Open Sans', sans-serif;">Departure: </span>
-                                            <input class="online_book1" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
-                                            <img class="date_cua" src="images/date.png" alt="Date">
-                                        </div>  
-                                        <div class="col-md-12">
-                                            <a class="book_btn" href="roomList?page=1" style="font-family: 'Open Sans', sans-serif; font-weight: 600;">BOOK NOW</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                </div
 
-                            <img class="" src="images/home3.svg" alt="Date" style="width: 70% ;position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;"> 
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
         </section>
         <div id="about" class="about">
             <div class="container-fluid">
