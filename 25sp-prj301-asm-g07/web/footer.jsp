@@ -42,9 +42,9 @@
                 </form>
                 <h2 class="footer-heading mt-5">Follow us</h2>
                 <ul class="ftco-footer-social p-0">
-                    <li class="ftco-animate"><a href="https://www.facebook.com/ngo.thanh.at.47212" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                    <li class="ftco-animate"><a href="https://www.facebook.com/phuonghoa241" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                    <li class="ftco-animate"><a href="https://www.facebook.com/thnh.kevin/" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li class="ftco-animate"><a href="https://www.facebook.com/ngo.thanh.at.47212" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li class="ftco-animate"><a href="https://www.facebook.com/phuonghoa241" title="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="ftco-animate"><a href="https://www.facebook.com/thnh.kevin/" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
                 </ul>
 
             </div>
@@ -62,7 +62,7 @@
                 <div class="col-md-6 col-lg-4 text-md-right">
                     <p class="mb-0 list-unstyled">
                         <a class="mr-md-3" href="#">About Us</a>
-                        <a class="mr-md-3" href="#">Contact</a>
+                        <a class="mr-md-3" href="contact.jsp" target="_blank">Contact</a>
                         <a class="mr-md-3" href="#">Privacy Policy</a>
                     </p>
                 </div>
