@@ -26,6 +26,11 @@ public class RoomDTO {
 
     public RoomDTO() {
     }
+
+    public RoomDTO(int roomID) {
+        this.roomID = roomID;
+    }
+    
     
     public RoomDTO(int typeRoomID, String typeDes, int price, String typeName, String roomSize, String bedSize, String maxOccupancy, String viewDetail, String bathroom, String smoking) {
         this.typeRoomID = typeRoomID;

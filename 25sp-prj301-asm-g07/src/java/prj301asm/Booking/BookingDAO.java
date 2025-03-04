@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import prj301asm.Room.RoomDTO;
 import prj301asm.utils.DBUtils;
 
 /**
@@ -20,7 +21,7 @@ import prj301asm.utils.DBUtils;
  */
 public class BookingDAO {
 
-    public List<BookingDTO> getListUserBooking(String username) {
+    public List<BookingDTO> getUserBooking(String username) {
         List<BookingDTO> userBooked = new ArrayList<>();
         String sql = "SELECT * FROM bookings WHERE username = ?";
         try (Connection con = DBUtils.getConnection();
@@ -80,6 +81,39 @@ public class BookingDAO {
         return roomIDExist;
     }
 
+    public List<RoomDTO> findAllAvailableRoom(int typeRoomID, Date dateIn, Date dateOut) {
+        List<RoomDTO> list = new ArrayList<RoomDTO>();
+        String sql = "SELECT r.roomID "
+                + "FROM rooms r INNER JOIN typeRoom t "
+                + "	ON t.typeRoomID = r.typeRoomID "
+                + "WHERE r.typeRoomID = ? "
+                + "AND r.roomID NOT IN ( "
+                + "    SELECT DISTINCT b.roomID "
+                + "    FROM bookings b "
+                + "    WHERE NOT( "
+                + "        b.checkOutDate <= ? "
+                + "        OR b.checkInDate >= ? "
+                + "    )"
+                + ") ORDER BY r.roomID ";
+        try (Connection con = DBUtils.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, typeRoomID);
+            ps.setDate(2, dateIn);
+            ps.setDate(3, dateOut);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new RoomDTO(rs.getInt("roomID")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public String getMaxBookingId() {
         String sql = "SELECT MAX(bookingID) as maxID FROM bookings";
         String maxBookingID = null;
@@ -96,7 +130,7 @@ public class BookingDAO {
         return maxBookingID;
     }
 
-    public List<BookingDTO> getAllRoomBookings() {
+    public List<BookingDTO> getAdminBooking() {
         List<BookingDTO> list = new ArrayList<>();
         String sql = " SELECT\n"
                 + "    b.bookingID,\n"
@@ -160,6 +194,40 @@ public class BookingDAO {
         return false;
     }
 
+    public BookingDTO load(String bookingID) {
+        String sql = " select b.bookingID,\n"
+                + "    b.username AS BookedBy,\n"
+                + "    b.roomID,\n"
+                + "    b.typeRoomID,\n"
+                + "    b.totalPrice,\n"
+                + "    b.phone,\n"
+                + "    b.checkInDate,\n"
+                + "    b.checkOutDate,"
+                + "    b.status from bookings b where b.bookingID = ? ";
+        BookingDTO booking = null;
+        try {
+            Connection con = DBUtils.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, bookingID);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                booking = new BookingDTO();
+                booking.setBookingID(rs.getString("bookingID"));
+                booking.setUsername(rs.getString("BookedBy"));
+                booking.setRoomID(rs.getInt("roomID"));
+                booking.setTypeRoomID(rs.getInt("typeRoomID"));
+                booking.setCheckInDate(rs.getDate("checkInDate"));
+                booking.setCheckOutDate(rs.getDate("checkOutDate"));
+                booking.setTotalPrice(rs.getInt("totalPrice"));
+                booking.setPhone(rs.getString("phone"));
+                booking.setStatus(rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return booking;
+    }
+
     public boolean addBooking(BookingDTO booking) {
         String sql = "INSERT INTO bookings (bookingID, username, roomID, typeRoomID, phone, checkInDate, checkOutDate, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBUtils.getConnection();) {
@@ -182,17 +250,15 @@ public class BookingDAO {
         return false;
     }
 
-    public boolean updateBooking(String bookingID, String phone, Date checkInDate, Date checkOutDate, String status, int totalPrice) {
+    public boolean updateBooking(String bookingID, String phone, String status, int roomID) {
         try {
             Connection conn = DBUtils.getConnection();
-            String updateSql = " UPDATE bookings SET phone = ?, checkInDate = ?, checkOutDate = ?, status = ?, totalPrice = ? WHERE bookingID = ? ";
+            String updateSql = " UPDATE bookings SET phone = ?, status = ?, roomID = ? WHERE bookingID = ? ";
             PreparedStatement updateStmt = conn.prepareStatement(updateSql);
             updateStmt.setString(1, phone);
-            updateStmt.setDate(2, checkInDate);
-            updateStmt.setDate(3, checkOutDate);
-            updateStmt.setString(4, status);
-            updateStmt.setInt(5, totalPrice);
-            updateStmt.setString(6, bookingID);
+            updateStmt.setString(2, status);
+            updateStmt.setInt(3, roomID);
+            updateStmt.setString(4, bookingID);
             if (updateStmt.executeUpdate() > 0) {
                 return true;
             }

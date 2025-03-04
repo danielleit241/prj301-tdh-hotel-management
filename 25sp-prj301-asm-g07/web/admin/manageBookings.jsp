@@ -30,6 +30,7 @@
                         <th>Phone</th>
                         <th>Total Price</th>
                         <th>Status</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +66,11 @@
                                 </c:if>
                             </td>
                             <td>
-                                
+                                <form action="manageBookings">
+                                    <input type="hidden" name="bookingID" value="${booking.getBookingID()}">
+                                    <input type="hidden" name="action" value="edit">
+                                    <input type="submit" value="Edit">
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
