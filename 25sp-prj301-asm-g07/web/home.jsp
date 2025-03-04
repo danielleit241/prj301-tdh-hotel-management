@@ -13,6 +13,12 @@
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="icon" href="images/fevicon.png" type="image/gif" />
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <!--font family-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Condiment&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
         <script>
             var video = document.getElementById('myVideo');
@@ -32,50 +38,16 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <!--<img class="first-slide" src="images/banner1.jpg" alt="First slide">-->
-                        <div style="position: relative;">
-                            <video autoplay muted controls>
+                        <div style="position: relative; height: 900px;"> 
+                            <video autoplay muted loop>
                                 <source src="images/intro.mp4" type="video/mp4">
                             </video>
-                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: transparent;"></div>
-                        </div
-                        <div class="container">
-                            <div class="carousel-caption relative">
-                                <h1 style="font-family: 'Open Sans', sans-serif; font-size: 70px; font-weight: 600;" >The Best Hotel</h1>
-                                <a href="Javascript:void(0)" style="font-family: 'Open Sans', sans-serif; font-weight: 600;">Read More</a>
-                            </div>
+                            <img class="" src="images/home3.svg" alt="Date" style="width: 70% ;position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;"> 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="booking_ocline">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="book_room">
-                                <h1 style="font-family: 'Open Sans', sans-serif; font-size: 35px; font-weight: 600; text-align: center">Book a Room Online</h1>
-                                <form class="book_now">
-                                    <div class="row">
-                                        <div class="col-md-12" class="arr-depa">
-                                            <span style="font-family: 'Open Sans', sans-serif;">Arrival: </span>
-                                            <input class="online_book" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
-                                            <img class="date_cua" src="images/date.png" alt="Date">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span style="font-family: 'Open Sans', sans-serif;">Departure: </span>
-                                            <input class="online_book1" placeholder="dd/mm/yyyy" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="dd/mm/yyyy">
-                                            <img class="date_cua" src="images/date.png" alt="Date">
-                                        </div>  
-                                        <div class="col-md-12">
-                                            <a class="book_btn" href="roomList?page=1" style="font-family: 'Open Sans', sans-serif; font-weight: 600;">BOOK NOW</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </section>
         <div id="about" class="about">
             <div class="container-fluid">

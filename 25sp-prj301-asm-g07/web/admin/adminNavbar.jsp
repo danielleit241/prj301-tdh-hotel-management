@@ -29,10 +29,10 @@
                             <a class="nav-link" href="./manageBookings">Quản Lí Đặt phòng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Quản Lí Đánh Giá</a>
+                            <a class="nav-link" href="./ManageUser?action=ManageUser">Quản Lí Người Dùng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../home.jsp">Liên hệ</a>
+                            <a class="nav-link" href="manageReviews.jsp">Đánh Giá</a>
                         </li>
                     </ul>
                 </div>
