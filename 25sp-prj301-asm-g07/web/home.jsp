@@ -25,14 +25,6 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-
-
-
-
-
-
         <script>
             var video = document.getElementById('myVideo');
             video.addEventListener('play', function () {
@@ -68,14 +60,14 @@
                 <div class="row d_flex">
                     <div class="col-md-7" style="padding: 0px;">
                         <div class="about_img">
-                            <figure><img src="images/about.png" alt="#" style="width: 90%"/></figure>
+                            <figure><img src="images/about.png" alt="#" style="width: 100%"/></figure>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="titlepage">
-                            <h2 style="font-family: 'Open Sans', sans-serif; font-weight: 600; text-align: left">About Us</h2>
+                            <h2 style="">About Us</h2>
                             <p>The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
-                            <a class="read_more" href="Javascript:void(0)" style="font-family: 'Open Sans', sans-serif; font-weight: 600; text-decoration: none; color: #CB1A3C"> Read More</a>
+                            <a class="read_more" href="Javascript:void(0)"> Read More</a>
                         </div>
                     </div>
                 </div>

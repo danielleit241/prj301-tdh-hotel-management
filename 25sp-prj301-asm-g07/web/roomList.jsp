@@ -17,9 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
         <link rel="stylesheet" href="css/style.css"/>
-
         <!-- Bootstrap CSS -->
         <link 
             rel="stylesheet" 
@@ -88,11 +86,8 @@
                     <!-- Ảnh phòng -->
                     <div class="col-md-4">
                         <!-- img-fluid: co giãn theo cột, h-100 + object-fit-cover: cho ảnh full cột -->
-                        <img 
-                            src="images/${room.typeRoomID}/${room.typeRoomID}.jpg" 
-                            alt="Room Image" 
-                            style="width: 100%; height: 300px; margin: 20px auto"
-                            />
+                        <img class="roomList-main-image"
+                            src="images/${room.typeRoomID}/${room.typeRoomID}.jpg" alt="Room Image" />
                     </div>
 
                     <!-- Thông tin phòng -->
@@ -109,7 +104,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </h3>
-                            <span class="fw-bold text-danger" style="font-size: 22px">
+                            <span class="fw-bold text-danger">
                                 $<fmt:formatNumber value="${room.price}" pattern="#,##0"/> /NIGHT
                             </span>
                         </div>
@@ -118,7 +113,7 @@
                         <div class="mb-3">
                             <h5 class="mb-1">${room.typeDes}</h5>
                         </div>
-                        <div class="row row-cols-2 g-2 text-center" style="width: 45%">
+                        <div class="row row-cols-2 g-2 text-center">
                             <!-- 1. City View -->
                             <div class="col d-flex flex-column">
                                 <i class="bi bi-buildings fs-2"></i>
@@ -180,7 +175,7 @@
             </c:if>
         </div>
                 
-                <%@include file="footer.jsp" %>
+        <%@include file="footer.jsp" %>
 
     </body>
 </html>
