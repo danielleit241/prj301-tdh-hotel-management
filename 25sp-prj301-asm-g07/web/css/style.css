@@ -857,3 +857,46 @@ body {
     display: inline-block;
 }
 
+/*manageUser.jsp*/
+.user-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-header {
+    background-color: #333333;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.user-row:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.user-data {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.user-action {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.user-delete-link {
+    color: red;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid red;
+    border-radius: 3px;
+}
+
+.user-delete-link:hover {
+    background-color: #ffe6e6;
+}
