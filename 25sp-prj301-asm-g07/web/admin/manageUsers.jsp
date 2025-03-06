@@ -44,23 +44,6 @@
         }
     </style>
     </head>
-    <body>
-        <%@include file="adminNavbar.jsp" %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Action</th>
-
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Quản lý Người Dùng</title>
-        <link rel="stylesheet" href="css/style.css" />
-    </head>
-    <body>
         <%@include file="adminNavbar.jsp" %>
         <table class="user-table"> <%-- Thêm class cho table --%>
             <thead>
@@ -91,18 +74,7 @@
                            onclick="return confirm('Are you sure you want to delete this user?');">
                         <i class="fas fa-trash-alt"></i> Xóa</a></td>
 
-                <tr class="user-row"> <%-- Thêm class cho row --%>
-                    <td class="user-data"><%= user.getUsername()%></td> <%-- Thêm class cho data --%>
-                    <td class="user-data"><%= user.getPassword()%></td> <%-- Thêm class cho data --%>
-                    <td class="user-data"><%= user.getName()%></td> <%-- Thêm class cho data --%>
-                    <td class="user-data"><%= user.getRole()%></td> <%-- Thêm class cho data --%>
-                    <td class="user-action"> <%-- Thêm class cho action --%>
-                        <a href="ManageUser?action=delete&username=${user.username}"
-                           onclick="return confirm('Are you sure you want to delete this student?');"
-                           class="user-delete-link"> <%-- Thêm class cho link --%>
-                            Xóa
-                        </a>
-                    </td>
+                
 
                 </tr>
                 <%
