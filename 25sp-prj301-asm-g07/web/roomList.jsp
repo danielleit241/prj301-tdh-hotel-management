@@ -13,7 +13,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">    
         <!--icon cây chổi-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=refresh" />
-        
+
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -87,7 +87,7 @@
                     <div class="col-md-4">
                         <!-- img-fluid: co giãn theo cột, h-100 + object-fit-cover: cho ảnh full cột -->
                         <img class="roomList-main-image"
-                            src="images/${room.typeRoomID}/${room.typeRoomID}.jpg" alt="Room Image" />
+                             src="images/${room.typeRoomID}/${room.typeRoomID}.jpg" alt="Room Image" />
                     </div>
 
                     <!-- Thông tin phòng -->
@@ -146,7 +146,7 @@
                                 <input type="hidden" name="typeRoomID" value="${room.typeRoomID}" />
                                 <input type="hidden" name="dateIn" value="${dateIn}" />
                                 <input type="hidden" name="dateOut" value="${dateOut}" />
-                                <input type="hidden" name="action" value="details" />
+                                <input type="hidden" name="action" value="mdetails" />
                                 <button type="submit" class="btn btn-warning fw-bold">
                                     VIEW OFFERS
                                 </button>
@@ -174,7 +174,7 @@
                 <a href="./roomList?page=${currentPage + 1}&dateIn=${dateIn}&dateOut=${dateOut}&keyword=${keyword}&type=${type}&view=${view}" class="next">Next</a>
             </c:if>
         </div>
-                
+
         <%@include file="footer.jsp" %>
 
     </body>

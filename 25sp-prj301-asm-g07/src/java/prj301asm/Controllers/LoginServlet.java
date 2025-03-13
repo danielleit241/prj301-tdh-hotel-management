@@ -21,7 +21,6 @@ import prj301asm.User.UserDTO;
  *
  * @author hoade
  */
-
 public class LoginServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,11 +34,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);
             if (user != null) {
                 session.setAttribute("user", user);
-                if (user.getRole().equals("member")) {
-                    response.sendRedirect("home.jsp");
-                } else if (user.getRole().equals("admin")) {
-                    response.sendRedirect("admin/dashboard.jsp");
-                }
+                response.sendRedirect("home.jsp");
             } else {
                 forwardToLoginJSP(request, response, "Username or Password is not correct!");
             }
@@ -57,21 +52,18 @@ public class LoginServlet extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             String passwordConfirm = request.getParameter("passwordConfirm");
-
             if (!username.matches("^[a-zA-Z0-9]+$")) {
                 request.setAttribute("errorUsername", "Username cannot contain spaces or special characters.");
                 RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
                 rd.forward(request, response);
                 return;
             }
-
             if (password == null || passwordConfirm == null || !password.equals(passwordConfirm)) {
                 request.setAttribute("errorPassword", "Passwords do not match");
                 RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
                 rd.forward(request, response);
                 return;
             }
-
             UserDAO dao = new UserDAO();
             UserDTO checkUser = dao.checkUsername(username);
             if (checkUser != null) {
@@ -80,7 +72,6 @@ public class LoginServlet extends HttpServlet {
                 rd.forward(request, response);
                 return;
             }
-
             boolean createAccount = dao.createAccount(username, password, name);
             if (createAccount) {
                 request.setAttribute("success", "Account created successfully");

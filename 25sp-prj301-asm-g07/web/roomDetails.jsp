@@ -47,25 +47,18 @@
                 <p>Description: ${requestScope.room.typeDes}</p>
 
                 <div class="row row-cols-2 g-2 text-center">
-                    <!-- 1. City View -->
                     <div class="col d-flex flex-column">
                         <i class="bi bi-buildings fs-2"></i>
                         <p class="mt-2 mb-0">${room.viewDetail}</p>
                     </div>
-
-                    <!-- 4. Complimentary Nespresso -->
                     <div class="col d-flex flex-column">
                         <i class="bi bi-cup-hot fs-2"></i>
                         <p class="mt-2 mb-0">Complimentary Nespresso</p>
                     </div>
-
-                    <!-- 5. 400 sq.ft -->
                     <div class="col d-flex flex-column">
                         <i class="bi bi-rulers fs-2"></i>
                         <p class="mt-2 mb-0">${room.roomSize}</p>
                     </div>
-
-                    <!-- 6. Complimentary Wifi -->
                     <div class="col d-flex flex-column">
                         <i class="bi bi-wifi fs-2"></i>
                         <p class="mt-2 mb-0">Complimentary Wifi</p>
@@ -76,7 +69,7 @@
                     <input type="hidden" name="typeRoomID" value="${requestScope.room.typeRoomID}">
                     <input type="hidden" name="dateIn" value="${requestScope.dateIn}">
                     <input type="hidden" name="dateOut" value="${requestScope.dateOut}">
-                    <input type="hidden" name="action" value="booking">
+                    <input type="hidden" name="action" value="mbooking">
                     <input type="submit" value="Book now">
                 </form>
 

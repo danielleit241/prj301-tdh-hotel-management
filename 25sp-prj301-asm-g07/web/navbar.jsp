@@ -19,7 +19,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-    <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
                 <div>
@@ -29,20 +28,14 @@
                 </div>
                 <div class="navbar-nav">
                     <ul class="navbar-nav me-auto">
-                        <c:choose>
-                            <c:when test="${empty sessionScope.user}">
-                            </c:when>
-                            <c:otherwise>
-                            </c:otherwise>
-                        </c:choose>
                         <li class="nav-item">
                             <a class="nav-link" href="home.jsp">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="roomList?page=1">OUR ROOM</a>
+                            <a class="nav-link" href="roomList?page=1&action=mlist">OUR ROOM</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="booking?action=list">BOOKING</a>
+                            <a class="nav-link" href="booking?action=mlist">BOOKING</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.jsp">CONTACT</a>
@@ -54,16 +47,21 @@
                 </div>
                 <div class="navbar-nav">
                     <c:choose>
-                        <c:when test="${not empty sessionScope.user}">
-                            <span class="nav-link">Hello: ${sessionScope.user.name} | <a href="login?action=logout" class="logout-link">Log Out</a></span>
+                        <c:when test="${sessionScope.user.role == 'member'}">
+                            <span class="nav-link">${sessionScope.user.name} | <a href="login?action=logout" class="logout-link">Log Out</a></span>
                         </c:when>
-                        <c:otherwise>
+                        <c:when test="${sessionScope.user.role == 'admin'}">
+                            <span class="nav-link">
+                                <a href="./admin/dashboard.jsp">Admin: ${sessionScope.user.name}</a>
+                                | <a href="login?action=logout" class="logout-link">Log Out</a></span>
+                            </c:when>
+                            <c:otherwise>
                             <span class="nav-link"><a href="login.jsp">Log In</a> | <a href="login?action=signup">Sign Up</a></span>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </div>
-            
+
         </nav>
     </body>
 </html>

@@ -34,14 +34,14 @@ public class BookingServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (user.getRole().equals("admin")) {
+            BookingDAO dao = new BookingDAO();
             if (action == null || action.equals("list")) {
-                BookingDAO dao = new BookingDAO();
+                ;
                 ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getAdminBooking();
                 request.setAttribute("roomBookings", list);
                 request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
             } else if (action.equals("edit")) {
                 String bookingID = request.getParameter("bookingID");
-                BookingDAO dao = new BookingDAO();
                 BookingDTO booking = dao.load(bookingID);
                 ArrayList<RoomDTO> availableRooms = (ArrayList<RoomDTO>) dao.findAllAvailableRoom(booking.getTypeRoomID(), booking.getCheckInDate(), booking.getCheckOutDate());
 
@@ -54,8 +54,6 @@ public class BookingServlet extends HttpServlet {
                 String roomIDStr = request.getParameter("roomID");
                 String phone = request.getParameter("phone");
                 String status = request.getParameter("status");
-
-                BookingDAO dao = new BookingDAO();
                 if (roomIDStr != null) {
                     int roomID = Integer.parseInt(roomIDStr);
                     if (dao.updateBooking(bookingID, phone, status, roomID)) {
@@ -64,16 +62,45 @@ public class BookingServlet extends HttpServlet {
                         request.getRequestDispatcher("manageBookings.jsp").forward(request, response);
                     }
                 }
+            } else if (action.equals("mlist")) {
+                ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) dao.getUserBooking(user.getUsername());
+                request.setAttribute("bookingList", list);
+                request.getRequestDispatcher("bookingList.jsp").forward(request, response);
+            } else if (action.equals("mbooking")) {
+                int typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
+                String dateInStr = request.getParameter("dateIn");
+                String dateOutStr = request.getParameter("dateOut");
 
+                Date dateIn = null, dateOut = null;
+
+                if ((dateInStr != null && !dateInStr.trim().isEmpty())
+                        || (dateOutStr != null && !dateOutStr.trim().isEmpty())) {
+                    dateIn = Date.valueOf(dateInStr);
+                    dateOut = Date.valueOf(dateOutStr);
+                }
+                RoomDAO roomDao = new RoomDAO();
+                RoomDTO typeRoomDetails = roomDao.getTypeDetails(typeRoomID);
+
+                Integer roomID = dao.findAvailableRoomID(typeRoomID, dateIn, dateOut);
+                if (roomID != null) {
+                    request.setAttribute("roomID", roomID);
+                }
+
+                request.setAttribute("bookingID", generateBookingID());
+                request.setAttribute("typeRoomDetails", typeRoomDetails);
+                request.setAttribute("dateIn", dateInStr);
+                request.setAttribute("dateOut", dateOutStr);
+                request.setAttribute("nextAction", "createBooking");
+                request.getRequestDispatcher("booking.jsp").forward(request, response);
             }
         } else if (user.getRole().equals("member")) {
             BookingDAO bookingDao = new BookingDAO();
             RoomDAO roomDao = new RoomDAO();
-            if (action.equals("list")) {
+            if (action.equals("mlist")) {
                 ArrayList<BookingDTO> list = (ArrayList<BookingDTO>) bookingDao.getUserBooking(user.getUsername());
                 request.setAttribute("bookingList", list);
                 request.getRequestDispatcher("bookingList.jsp").forward(request, response);
-            } else if (action.equals("booking")) {
+            } else if (action.equals("mbooking")) {
                 int typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
                 String dateInStr = request.getParameter("dateIn");
                 String dateOutStr = request.getParameter("dateOut");

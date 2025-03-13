@@ -32,7 +32,7 @@ public class RoomServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (user == null || user.getRole().equals("member")) {
-            if (action == null || action.equals("list")) {
+            if (action == null || action.equals("mlist")) {
                 String type = request.getParameter("type");
                 String view = request.getParameter("view");
                 String keyword = request.getParameter("keyword");
@@ -62,7 +62,7 @@ public class RoomServlet extends HttpServlet {
                 RoomDAO dao = new RoomDAO();
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
 
-                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut,keyword, type, view);
+                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut, keyword, type, view);
 
                 int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
 
@@ -76,7 +76,7 @@ public class RoomServlet extends HttpServlet {
                 request.setAttribute("dateOut", dateOutStr);
 
                 request.getRequestDispatcher("roomList.jsp").forward(request, response);
-            } else if (action.equals("details")) {
+            } else if (action.equals("mdetails")) {
                 String typeRoomIDStr = request.getParameter("typeRoomID");
                 String dateIn = request.getParameter("dateIn");
                 String dateOut = request.getParameter("dateOut");
@@ -101,12 +101,12 @@ public class RoomServlet extends HttpServlet {
             }
 
         } else if (user.getRole().equals("admin")) {
-            if (action == null || action.equals("list")) {
+            if (action == null || action.equals("adminlist")) {
                 RoomDAO dao = new RoomDAO();
                 ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
                 request.setAttribute("list", list);
                 forwardRoom(request, response, "manageRooms.jsp");
-            } else if (action.equals("details")) {
+            } else if (action.equals("mdetails")) {
                 Integer typeRoomID = null;
                 try {
                     typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
@@ -168,6 +168,63 @@ public class RoomServlet extends HttpServlet {
                     request.setAttribute("error", "Invalid input. Please enter valid numbers for price and ID.");
                     forwardRoom(request, response, "roomEdit.jsp");
                 }
+            } else if (action.equals("mlist")) {
+                String type = request.getParameter("type");
+                String view = request.getParameter("view");
+                String keyword = request.getParameter("keyword");
+                String dateInStr = request.getParameter("dateIn");
+                String dateOutStr = request.getParameter("dateOut");
+                String pageStr = request.getParameter("page");
+
+                Date sqlDateIn = null, sqlDateOut = null;
+
+                if ((dateInStr != null && !dateInStr.trim().isEmpty())
+                        || (dateOutStr != null && !dateOutStr.trim().isEmpty())) {
+                    sqlDateIn = Date.valueOf(dateInStr);
+                    sqlDateOut = Date.valueOf(dateOutStr);
+                } else {
+                    //Back to client time today-tomorrow
+                    dateInStr = java.time.LocalDate.now().toString();
+                    dateOutStr = java.time.LocalDate.now().plusDays(1).toString();
+                }
+
+                int page;
+                if (pageStr != null) {
+                    page = Integer.parseInt(pageStr);
+                } else {
+                    page = 1;
+                }
+
+                RoomDAO dao = new RoomDAO();
+                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
+
+                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut, keyword, type, view);
+
+                int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
+
+                request.setAttribute("list", list);
+                request.setAttribute("currentPage", page);
+                request.setAttribute("totalPages", totalPages);
+                request.setAttribute("type", type);
+                request.setAttribute("view", view);
+                request.setAttribute("keyword", keyword);
+                request.setAttribute("dateIn", dateInStr);
+                request.setAttribute("dateOut", dateOutStr);
+
+                request.getRequestDispatcher("roomList.jsp").forward(request, response);
+            } else if (action.equals("mdetails")) {
+                Integer typeRoomID = null;
+                try {
+                    typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
+                } catch (NumberFormatException ex) {
+                    log("Parameter id has wrong format.");
+                }
+                RoomDAO dao = new RoomDAO();
+                RoomDTO room = dao.getTypeDetails(typeRoomID);
+
+                request.setAttribute("room", room);
+                forwardRoom(request, response, "roomDetails.jsp");
+
             }
         }
     }
