@@ -66,7 +66,7 @@
                 </select>
 
                 <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}" />
-                <input type="hidden" name="action" value="list"/>
+                <input type="hidden" name="action" value="mlist"/>
                 <input type="submit" value="Search" class="search-button">
 
                 <button type="button" onclick="resetForm()" class="reset-button">

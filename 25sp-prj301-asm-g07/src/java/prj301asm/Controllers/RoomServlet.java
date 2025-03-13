@@ -31,208 +31,135 @@ public class RoomServlet extends HttpServlet {
         UserDTO user = (UserDTO) session.getAttribute("user");
         String action = request.getParameter("action");
 
-        if (user == null || user.getRole().equals("member")) {
-            if (action == null || action.equals("mlist")) {
-                String type = request.getParameter("type");
-                String view = request.getParameter("view");
-                String keyword = request.getParameter("keyword");
-                String dateInStr = request.getParameter("dateIn");
-                String dateOutStr = request.getParameter("dateOut");
-                String pageStr = request.getParameter("page");
-
-                Date sqlDateIn = null, sqlDateOut = null;
-
-                if ((dateInStr != null && !dateInStr.trim().isEmpty())
-                        || (dateOutStr != null && !dateOutStr.trim().isEmpty())) {
-                    sqlDateIn = Date.valueOf(dateInStr);
-                    sqlDateOut = Date.valueOf(dateOutStr);
-                } else {
-                    //Back to client time today-tomorrow
-                    dateInStr = java.time.LocalDate.now().toString();
-                    dateOutStr = java.time.LocalDate.now().plusDays(1).toString();
-                }
-
-                int page;
-                if (pageStr != null) {
-                    page = Integer.parseInt(pageStr);
-                } else {
-                    page = 1;
-                }
-
-                RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
-
-                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut, keyword, type, view);
-
-                int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
-
-                request.setAttribute("list", list);
-                request.setAttribute("currentPage", page);
-                request.setAttribute("totalPages", totalPages);
-                request.setAttribute("type", type);
-                request.setAttribute("view", view);
-                request.setAttribute("keyword", keyword);
-                request.setAttribute("dateIn", dateInStr);
-                request.setAttribute("dateOut", dateOutStr);
-
-                request.getRequestDispatcher("roomList.jsp").forward(request, response);
-            } else if (action.equals("mdetails")) {
-                String typeRoomIDStr = request.getParameter("typeRoomID");
-                String dateIn = request.getParameter("dateIn");
-                String dateOut = request.getParameter("dateOut");
-
-                if (typeRoomIDStr == null || typeRoomIDStr.trim().isEmpty()) {
-                    response.sendRedirect("./roomList?page=1&keyword=&dateIn=&dateOut=");
-                    return;
-                }
-                int typeRoomID = Integer.parseInt(typeRoomIDStr);
-
-                RoomDAO dao = new RoomDAO();
-                RoomDTO room = dao.getTypeDetails(typeRoomID);
-
-                if (room == null) {
-                    response.sendRedirect("./roomList?page=1&keyword=&dateIn=&dateOut=");
-                    return;
-                }
-                request.setAttribute("dateIn", dateIn);
-                request.setAttribute("dateOut", dateOut);
-                request.setAttribute("room", room);
-                forwardRoom(request, response, "./roomDetails.jsp");
-            }
-
-        } else if (user.getRole().equals("admin")) {
-            if (action == null || action.equals("adminlist")) {
-                RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getAllRoom();
-                request.setAttribute("list", list);
-                forwardRoom(request, response, "manageRooms.jsp");
-            } else if (action.equals("mdetails")) {
-                Integer typeRoomID = null;
-                try {
-                    typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
-                } catch (NumberFormatException ex) {
-                    log("Parameter id has wrong format.");
-                }
-                RoomDAO dao = new RoomDAO();
-                RoomDTO room = dao.getTypeDetails(typeRoomID);
-
-                request.setAttribute("room", room);
-                forwardRoom(request, response, "roomDetails.jsp");
-
-            } else if (action.equals("edit")) {
-                Integer typeRoomID = null;
-                try {
-                    typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
-                } catch (NumberFormatException ex) {
-                    log("Parameter id has wrong format.");
-                }
-                RoomDAO dao = new RoomDAO();
-                RoomDTO room = dao.getTypeDetails(typeRoomID);
-                request.setAttribute("room", room);
-                forwardRoom(request, response, "roomEdit.jsp");
-
-            } else if (action.equals("update")) {
-                try {
-                    RoomDTO room = new RoomDTO();
-                    Integer typeRoomID = null;
-                    Integer price = null;
-                    try {
-                        typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
-                        price = Integer.parseInt(request.getParameter("price"));
-                    } catch (NumberFormatException ex) {
-                        log("Parameter id has wrong format.");
-                    }
-
-                    room.setTypeRoomID(typeRoomID);
-                    room.setTypeName(request.getParameter("typeName"));
-                    room.setTypeDes(request.getParameter("typeDes"));
-                    room.setPrice(price);
-                    room.setRoomSize(request.getParameter("roomSize"));
-                    room.setBedSize(request.getParameter("bedSize"));
-                    room.setMaxOccupancy(request.getParameter("maxOccupancy"));
-                    room.setViewDetail(request.getParameter("viewDetail"));
-                    room.setBathroom(request.getParameter("bathroom"));
-                    room.setSmoking(request.getParameter("smoking"));
-
-                    RoomDAO dao = new RoomDAO();
-                    room = dao.updateRoom(room);
-
-                    if (room != null) {
-                        response.sendRedirect("manageRooms?action=details&typeRoomID=" + typeRoomID + "");
-                    } else {
-                        request.setAttribute("error", "Update failed. Try again");
-                        forwardRoom(request, response, "roomEdit.jsp");
-                    }
-
-                } catch (NumberFormatException e) {
-                    request.setAttribute("error", "Invalid input. Please enter valid numbers for price and ID.");
-                    forwardRoom(request, response, "roomEdit.jsp");
-                }
-            } else if (action.equals("mlist")) {
-                String type = request.getParameter("type");
-                String view = request.getParameter("view");
-                String keyword = request.getParameter("keyword");
-                String dateInStr = request.getParameter("dateIn");
-                String dateOutStr = request.getParameter("dateOut");
-                String pageStr = request.getParameter("page");
-
-                Date sqlDateIn = null, sqlDateOut = null;
-
-                if ((dateInStr != null && !dateInStr.trim().isEmpty())
-                        || (dateOutStr != null && !dateOutStr.trim().isEmpty())) {
-                    sqlDateIn = Date.valueOf(dateInStr);
-                    sqlDateOut = Date.valueOf(dateOutStr);
-                } else {
-                    //Back to client time today-tomorrow
-                    dateInStr = java.time.LocalDate.now().toString();
-                    dateOutStr = java.time.LocalDate.now().plusDays(1).toString();
-                }
-
-                int page;
-                if (pageStr != null) {
-                    page = Integer.parseInt(pageStr);
-                } else {
-                    page = 1;
-                }
-
-                RoomDAO dao = new RoomDAO();
-                ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
-
-                int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut, keyword, type, view);
-
-                int totalPages = (int) Math.ceil((double) totalRoom / PAGE_SIZE);
-
-                request.setAttribute("list", list);
-                request.setAttribute("currentPage", page);
-                request.setAttribute("totalPages", totalPages);
-                request.setAttribute("type", type);
-                request.setAttribute("view", view);
-                request.setAttribute("keyword", keyword);
-                request.setAttribute("dateIn", dateInStr);
-                request.setAttribute("dateOut", dateOutStr);
-
-                request.getRequestDispatcher("roomList.jsp").forward(request, response);
-            } else if (action.equals("mdetails")) {
-                Integer typeRoomID = null;
-                try {
-                    typeRoomID = Integer.parseInt(request.getParameter("typeRoomID"));
-                } catch (NumberFormatException ex) {
-                    log("Parameter id has wrong format.");
-                }
-                RoomDAO dao = new RoomDAO();
-                RoomDTO room = dao.getTypeDetails(typeRoomID);
-
-                request.setAttribute("room", room);
-                forwardRoom(request, response, "roomDetails.jsp");
-
-            }
+        if (user.getRole().equals("admin")) {
+            handleAdminActions(request, response, action);
+        } else {
+            handleMemberActions(request, response, action);
         }
     }
 
-    private void forwardRoom(HttpServletRequest request, HttpServletResponse response, String page)
-            throws ServletException, IOException {
+    private void handleMemberActions(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
+        if (action == null || action.equals("mlist")) {
+            listRooms(request, response);
+        } else if ("mdetails".equals(action)) {
+            showRoomDetails(request, response);
+        }
+    }
+
+    private void handleAdminActions(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
+        if (action == null || action.equals("adminlist")) {
+            RoomDAO dao = new RoomDAO();
+            request.setAttribute("list", dao.getAllRoom());
+            forward(request, response, "manageRooms.jsp");
+        } else if ("edit".equals(action)) {
+            editRoom(request, response);
+        } else if ("update".equals(action)) {
+            updateRoom(request, response);
+        } else {
+            handleMemberActions(request, response, action);
+        }
+    }
+
+    private void listRooms(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String type = request.getParameter("type");
+        String view = request.getParameter("view");
+        String keyword = request.getParameter("keyword");
+
+        Date sqlDateIn = parseDate(request.getParameter("dateIn"), java.time.LocalDate.now().toString());
+        Date sqlDateOut = parseDate(request.getParameter("dateOut"), java.time.LocalDate.now().plusDays(1).toString());
+
+        int page = parseInteger(request.getParameter("page"), 1);
+
+        RoomDAO dao = new RoomDAO();
+        ArrayList<RoomDTO> list = (ArrayList<RoomDTO>) dao.getListPaging(page, PAGE_SIZE, keyword, type, view, sqlDateIn, sqlDateOut);
+        int totalRoom = dao.countRooms(sqlDateIn, sqlDateOut, keyword, type, view);
+
+        request.setAttribute("list", list);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", (int) Math.ceil((double) totalRoom / PAGE_SIZE));
+        request.setAttribute("type", type);
+        request.setAttribute("view", view);
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("dateIn", sqlDateIn.toString());
+        request.setAttribute("dateOut", sqlDateOut.toString());
+
+        forward(request, response, "roomList.jsp");
+    }
+
+    private void showRoomDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int typeRoomID = parseInteger(request.getParameter("typeRoomID"), -1);
+        if (typeRoomID == -1) {
+            response.sendRedirect("./roomList?page=1&keyword=&dateIn=&dateOut=");
+            return;
+        }
+
+        RoomDAO dao = new RoomDAO();
+        RoomDTO room = dao.getTypeDetails(typeRoomID);
+        if (room == null) {
+            response.sendRedirect("./roomList?page=1&keyword=&dateIn=&dateOut=");
+            return;
+        }
+
+        request.setAttribute("room", room);
+        request.setAttribute("dateIn", request.getParameter("dateIn"));
+        request.setAttribute("dateOut", request.getParameter("dateOut"));
+        forward(request, response, "roomDetails.jsp");
+    }
+
+    private void editRoom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int typeRoomID = parseInteger(request.getParameter("typeRoomID"), -1);
+        if (typeRoomID == -1) {
+            response.sendRedirect("manageRooms.jsp");
+            return;
+        }
+
+        RoomDAO dao = new RoomDAO();
+        request.setAttribute("room", dao.getTypeDetails(typeRoomID));
+        forward(request, response, "roomEdit.jsp");
+    }
+
+    private void updateRoom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            RoomDTO room = new RoomDTO();
+            room.setTypeRoomID(parseInteger(request.getParameter("typeRoomID"), -1));
+            room.setTypeName(request.getParameter("typeName"));
+            room.setTypeDes(request.getParameter("typeDes"));
+            room.setPrice(parseInteger(request.getParameter("price"), 0));
+            room.setRoomSize(request.getParameter("roomSize"));
+            room.setBedSize(request.getParameter("bedSize"));
+            room.setMaxOccupancy(request.getParameter("maxOccupancy"));
+            room.setViewDetail(request.getParameter("viewDetail"));
+            room.setBathroom(request.getParameter("bathroom"));
+            room.setSmoking(request.getParameter("smoking"));
+
+            RoomDAO dao = new RoomDAO();
+            if (dao.updateRoom(room) != null) {
+                response.sendRedirect("manageRooms?action=details&typeRoomID=" + room.getTypeRoomID());
+            } else {
+                request.setAttribute("error", "Update failed. Try again");
+                forward(request, response, "roomEdit.jsp");
+            }
+        } catch (Exception e) {
+            request.setAttribute("error", "Invalid input. Please check your values.");
+            forward(request, response, "roomEdit.jsp");
+        }
+    }
+
+    private void forward(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher(page);
         rd.forward(request, response);
+    }
+
+    private int parseInteger(String value, int defaultValue) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    private Date parseDate(String value, String defaultValue) {
+        return (value != null && !value.trim().isEmpty()) ? Date.valueOf(value) : Date.valueOf(defaultValue);
     }
 
     @Override
