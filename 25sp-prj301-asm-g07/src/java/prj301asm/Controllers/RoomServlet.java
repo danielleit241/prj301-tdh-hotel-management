@@ -51,6 +51,8 @@ public class RoomServlet extends HttpServlet {
             RoomDAO dao = new RoomDAO();
             request.setAttribute("list", dao.getAllRoom());
             forward(request, response, "manageRooms.jsp");
+        } else if ("details".equals(action)) {
+            showRoomDetails(request, response);
         } else if ("edit".equals(action)) {
             editRoom(request, response);
         } else if ("update".equals(action)) {

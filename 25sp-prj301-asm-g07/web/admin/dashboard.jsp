@@ -18,7 +18,7 @@
                 <h2>Quản trị viên - Bảng điều khiển</h2>
                 <div class="dashboard-buttons">
                     <a href="./manageRooms?action=adminlist" class="dashboard-button">Quản lý Phòng</a>
-                    <a href="./manageBookings" class="dashboard-button">Quản lý Đặt Phòng</a>
+                    <a href="./manageBookings?action=adminlist" class="dashboard-button">Quản lý Đặt Phòng</a>
                     <a href="./ManageUser?action=ManageUser" class="dashboard-button">Quản lý Người Dùng</a>
                 </div>
             </div>

@@ -47,7 +47,7 @@ public class BookingServlet extends HttpServlet {
         BookingDAO dao = new BookingDAO();
 
         switch (action) {
-            case "list":
+            case "adminlist":
                 request.setAttribute("roomBookings", dao.getAdminBooking());
                 forward(request, response, "manageBookings.jsp");
                 break;
