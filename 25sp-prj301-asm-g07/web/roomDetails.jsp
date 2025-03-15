@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <form action="booking" method="post">
+                <form action="booking" method="get">
                     <input type="hidden" name="typeRoomID" value="${requestScope.room.typeRoomID}">
                     <input type="hidden" name="dateIn" value="${requestScope.dateIn}">
                     <input type="hidden" name="dateOut" value="${requestScope.dateOut}">

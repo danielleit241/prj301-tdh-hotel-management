@@ -31,10 +31,10 @@ public class RoomServlet extends HttpServlet {
         UserDTO user = (UserDTO) session.getAttribute("user");
         String action = request.getParameter("action");
 
-        if (user.getRole().equals("admin")) {
-            handleAdminActions(request, response, action);
-        } else {
+        if (user == null || user.getRole().equals("member")) {
             handleMemberActions(request, response, action);
+        } else if(user.getRole().equals("admin")) {
+            handleAdminActions(request, response, action);
         }
     }
 

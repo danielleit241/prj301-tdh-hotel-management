@@ -26,7 +26,7 @@
                             <a class="nav-link" href="./manageRooms">Danh sách phòng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./manageBookings">Quản Lí Đặt phòng</a>
+                            <a class="nav-link" href="./manageBookings?action=adminlist">Quản Lí Đặt phòng</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./ManageUser?action=ManageUser">Quản Lí Người Dùng</a>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="navbar-nav">
                     <span class="nav-link">
-                        Hello: ${sessionScope.user.name} |
+                        Admin: ${sessionScope.user.name} |
                         <a href="../login?action=logout" class="logout-link">Đăng xuất</a>
                     </span>
                 </div>

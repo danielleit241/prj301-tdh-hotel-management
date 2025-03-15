@@ -31,48 +31,42 @@ public class BookingServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
-
+        String username = user.getUsername();
         String action = request.getParameter("action");
 
         if ("admin".equals(user.getRole())) {
-            handleAdminActions(request, response, action);
+            handleAdminActions(request, response, action, username);
         } else if ("member".equals(user.getRole())) {
-            handleMemberActions(request, response, action, user.getUsername());
+            handleMemberActions(request, response, action, username);
         }
     }
 
-    private void handleAdminActions(HttpServletRequest request, HttpServletResponse response, String action)
+    private void handleAdminActions(HttpServletRequest request, HttpServletResponse response, String action, String username)
             throws ServletException, IOException {
-
-        BookingDAO dao = new BookingDAO();
-
+        BookingDAO bDao = new BookingDAO();
+        RoomDAO rDao = new RoomDAO();
         switch (action) {
             case "adminlist":
-                request.setAttribute("roomBookings", dao.getAdminBooking());
+                request.setAttribute("roomBookings", bDao.getAdminBooking());
                 forward(request, response, "manageBookings.jsp");
                 break;
-
             case "edit":
-                String bookingID = request.getParameter("bookingID");
-                BookingDTO booking = dao.load(bookingID);
-                ArrayList<RoomDTO> availableRooms = (ArrayList<RoomDTO>) dao.findAllAvailableRoom(booking.getTypeRoomID(),
-                        booking.getCheckInDate(), booking.getCheckOutDate());
-
-                request.setAttribute("booking", booking);
-                request.setAttribute("availableRooms", availableRooms);
-                request.setAttribute("nextAction", "update");
+                editBooking(request, response, bDao);
                 forward(request, response, "bookingEdit.jsp");
                 break;
-
             case "update":
-                updateBooking(request, response, dao);
+                updateBooking(request, response, bDao);
                 break;
-
             case "mlist":
-                request.setAttribute("bookingList", dao.getUserBooking(request.getParameter("username")));
+                request.setAttribute("bookingList", bDao.getUserBooking(request.getParameter("username")));
                 forward(request, response, "bookingList.jsp");
                 break;
-
+            case "mbooking":
+                prepareBookingPage(request, response, bDao, rDao);
+                break;
+            case "createBooking":
+                createBooking(request, response, bDao, rDao, username);
+                break;
             default:
                 response.sendRedirect("dashboard.jsp");
         }
@@ -81,26 +75,38 @@ public class BookingServlet extends HttpServlet {
     private void handleMemberActions(HttpServletRequest request, HttpServletResponse response, String action, String username)
             throws ServletException, IOException {
 
-        BookingDAO bookingDao = new BookingDAO();
-        RoomDAO roomDao = new RoomDAO();
+        BookingDAO bDao = new BookingDAO();
+        RoomDAO rDao = new RoomDAO();
 
         switch (action) {
             case "mlist":
-                request.setAttribute("bookingList", bookingDao.getUserBooking(username));
+                request.setAttribute("bookingList", bDao.getUserBooking(username));
                 forward(request, response, "bookingList.jsp");
                 break;
 
             case "mbooking":
-                prepareBookingPage(request, response, bookingDao, roomDao);
+                prepareBookingPage(request, response, bDao, rDao);
                 break;
 
             case "createBooking":
-                createBooking(request, response, bookingDao, roomDao, username);
+                createBooking(request, response, bDao, rDao, username);
                 break;
 
             default:
-                response.sendRedirect("dashboard.jsp");
+                response.sendRedirect("home.jsp");
         }
+    }
+
+    private void editBooking(HttpServletRequest request, HttpServletResponse response, BookingDAO dao) {
+        String bookingID = request.getParameter("bookingID");
+        BookingDTO booking = dao.load(bookingID);
+
+        ArrayList<RoomDTO> availableRooms = (ArrayList<RoomDTO>) dao.findAllAvailableRoom(booking.getTypeRoomID(),
+                booking.getCheckInDate(), booking.getCheckOutDate());
+
+        request.setAttribute("booking", booking);
+        request.setAttribute("availableRooms", availableRooms);
+        request.setAttribute("nextAction", "update");
     }
 
     private void updateBooking(HttpServletRequest request, HttpServletResponse response, BookingDAO dao)
@@ -156,16 +162,11 @@ public class BookingServlet extends HttpServlet {
         RoomDTO typeRoomDetails = roomDao.getTypeDetails(typeRoomID);
 
         if (dateIn == null || dateOut == null || dateIn.compareTo(dateOut) >= 0) {
-            forwardToBooking(request, response, bookingID, typeRoomDetails, "Error: Invalid check-in/check-out dates.");
+            forwardToBooking(request, response, bookingID, typeRoomDetails, "Invalid check-in/check-out dates.");
             return;
         }
 
         Integer roomID = bookingDao.findAvailableRoomID(typeRoomID, dateIn, dateOut);
-        if (roomID == null) {
-            forwardToBooking(request, response, bookingID, typeRoomDetails, "Error: No available room.");
-            return;
-        }
-
         BookingDTO booking = new BookingDTO(bookingID, roomID, typeRoomID, username, phone, dateIn, dateOut, totalPrice);
         if (bookingDao.addBooking(booking)) {
             request.setAttribute("bookingList", bookingDao.getUserBooking(username));
