@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Room Details</title>
+        <link rel="icon" href="images/thd-icon.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css"/>
         <!--font - family-->
@@ -16,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        
+
         <!-- Bootstrap CSS -->
         <link 
             rel="stylesheet" 
@@ -27,6 +28,7 @@
             rel="stylesheet" 
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
             />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
     </head>
     <body class="room-details-page">
         <%@ include file="/navbar.jsp" %>
@@ -42,26 +44,31 @@
             </div>
             <div class="details-section">
                 <h1>${requestScope.room.typeName}</h1>
-                <p>Type room: ${requestScope.room.typeName}</p>
-                <p class="price">Price: <fmt:formatNumber value="${requestScope.room.price}" pattern="#,##0" /> VNĐ</p>
-                <p>Description: ${requestScope.room.typeDes}</p>
-
-                <div class="row row-cols-2 g-2 text-center">
+                <p class="price"><fmt:formatNumber value="${requestScope.room.price}" pattern="Price: #,##0" /> VNĐ</p>
+                <div class="row row-cols-3 g-2 text-center">
                     <div class="col d-flex flex-column">
-                        <i class="bi bi-buildings fs-2"></i>
+                        <i class="fa-solid fa-city"></i>
                         <p class="mt-2 mb-0">${room.viewDetail}</p>
                     </div>
                     <div class="col d-flex flex-column">
-                        <i class="bi bi-cup-hot fs-2"></i>
-                        <p class="mt-2 mb-0">Complimentary Nespresso</p>
+                        <i class="fa-solid fa-person"></i>
+                        <p class="mt-2 mb-0">${room.maxOccupancy}</p>
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <i class="fa-solid fa-bed"></i>
+                        <p class="mt-2 mb-0">${room.bedSize}</p>
+                    </div>
+                    <div class="col d-flex flex-column ">
+                        <i class="fa-solid fa-toilet"></i>
+                        <p class="mt-2 mb-0">${room.bathroom}</p>
                     </div>
                     <div class="col d-flex flex-column">
                         <i class="bi bi-rulers fs-2"></i>
                         <p class="mt-2 mb-0">${room.roomSize}</p>
                     </div>
                     <div class="col d-flex flex-column">
-                        <i class="bi bi-wifi fs-2"></i>
-                        <p class="mt-2 mb-0">Complimentary Wifi</p>
+                        <i class="fa-solid fa-smoking"></i>
+                        <p class="mt-2 mb-0">${room.smoking}</p>
                     </div>
                 </div>
 

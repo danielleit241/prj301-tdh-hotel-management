@@ -4,6 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Navbar</title>
+        <link rel="icon" href="images/thd-icon.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/style.css"/>
         <!--font - family-->
@@ -15,7 +16,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand" href="/25sp-prj301-asm-g07/home.jsp">
-                     <img src="../images/hotel2.svg" alt="THD-Hotel Logo" height="80"> 
+                    <img src="../images/hotel2.svg" alt="THD-Hotel Logo" height="80"> 
                 </a>
                 <div class="navbar-nav">
                     <ul class="navbar-nav me-auto">

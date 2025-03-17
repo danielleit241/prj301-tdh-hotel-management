@@ -41,7 +41,7 @@ public class RoomDAO {
         }
 
         if (type != null && !type.trim().isEmpty()) {
-            sql += " AND tr.typeName = ? ";
+            sql += " AND tr.typeName LIKE ? ";
         }
 
         if (view != null && !view.trim().isEmpty()) {
@@ -64,7 +64,7 @@ public class RoomDAO {
             }
 
             if (type != null && !type.trim().isEmpty()) {
-                ps.setString(parameterIndex++, type);
+                ps.setString(parameterIndex++, "%" + type + "%");
             }
 
             if (view != null && !view.trim().isEmpty()) {

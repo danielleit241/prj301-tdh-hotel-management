@@ -4,11 +4,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Room Details</title>
+        <link rel="icon" href="images/thd-icon.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/style.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <style>
-            
+
 
             h1 {
                 text-align: center;
@@ -16,7 +17,7 @@
                 margin-bottom: 20px;
             }
 
-           
+
 
             th, td {
                 padding: 12px;

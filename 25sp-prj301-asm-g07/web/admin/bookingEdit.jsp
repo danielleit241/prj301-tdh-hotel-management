@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Booking: ${booking.bookingID}</title>
+        <link rel="icon" href="images/thd-icon.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
             body {
@@ -12,7 +13,7 @@
                 background: #f8f9fa;
             }
 
-           
+
 
             h1 {
                 text-align: center;
@@ -114,7 +115,7 @@
 
                 <input type="hidden" name="bookingID" value="${booking.bookingID}">
                 <input type="hidden" name="action" value="${nextAction}">
-                
+
                 <input type="submit" class="update-btn" value="Update">
             </form>
         </div>

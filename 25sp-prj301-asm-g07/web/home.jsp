@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <title>THD Hotel</title>
+        <link rel="icon" href="images/thd-icon.png">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
@@ -60,7 +61,7 @@
                 <div class="row d_flex">
                     <div class="col-md-7" style="padding: 0px;">
                         <div class="about_img">
-                            <figure><img src="images/about.png" alt="#" style="width: 100%"/></figure>
+                            <figure><img src="https://robbreport.com/wp-content/uploads/2023/03/UnitedLandmark-Forte-03-PH_Living_Room-03-1.jpg?w=1000" alt="#" style="width: 100%"/></figure>
                         </div>
                     </div>
                     <div class="col-md-5">
