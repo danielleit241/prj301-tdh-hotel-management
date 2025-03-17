@@ -61,8 +61,8 @@
                 </div>
                 <div class="col-md-6 col-lg-4 text-md-right">
                     <p class="mb-0 list-unstyled">
-                        <a class="mr-md-3" href="#">About Us</a>
-                        <a class="mr-md-3" href="contact.jsp" target="_blank">Contact</a>
+                        <a class="mr-md-3" href="aboutus.jsp">About Us</a>
+                        <a class="mr-md-3" href="contact.jsp">Contact</a>
                         <a class="mr-md-3" href="#">Privacy Policy</a>
                     </p>
                 </div>

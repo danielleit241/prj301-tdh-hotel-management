@@ -41,7 +41,7 @@
                             <a class="nav-link" href="contact.jsp">CONTACT</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">ABOUT </a>
+                            <a class="nav-link" href="aboutus.jsp">ABOUT </a>
                         </li>
                     </ul>
                 </div>
