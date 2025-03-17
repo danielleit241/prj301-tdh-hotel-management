@@ -15,7 +15,7 @@
     <body>
         <div class="login-container">
             <div class="login-form">
-                <h2>Login</h2>
+                <h2><a href="home.jsp" style="color: black; text-decoration: none; font-weight: 600">Login</a></h2>
                 <% String error = (String) request.getAttribute("error");%>
                 <form action="./login" method="GET">
                     <div class="mb-3">

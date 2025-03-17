@@ -17,7 +17,7 @@
     <body>
         <div class="login-container">
             <div class="login-form">
-                <h2>Sign Up</h2>
+                <h2><a href="home.jsp" style="color: black; text-decoration: none; font-weight: 600">Sign Up</a></h2>
                 <%
                     String errorPassword = (String) request.getAttribute("errorPassword");
                     String errorUsername = (String) request.getAttribute("errorUsername");

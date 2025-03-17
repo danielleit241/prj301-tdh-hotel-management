@@ -48,15 +48,10 @@
 
                 <select name="type">
                     <option value="">Room Type</option>
-                    <option value="DELUXE KING" ${type == 'DELUXE KING' ? 'selected' : ''}>DELUXE KING</option>
-                    <option value="DELUXE DOUBLE" ${type == 'DELUXE DOUBLE' ? 'selected' : ''}>DELUXE DOUBLE</option>
-                    <option value="PREMIER KING" ${type == 'PREMIER KING' ? 'selected' : ''}>PREMIER KING</option>
-                    <option value="JUNIOR SUITE" ${type == 'JUNIOR SUITE' ? 'selected' : ''}>JUNIOR SUITE</option>
-                    <option value="DELUXE ONE BEDROOM SUITE" ${type == 'DELUXE ONE BEDROOM SUITE' ? 'selected' : ''}>DELUXE ONE BEDROOM SUITE</option>
-                    <option value="PREMIER ONE BEDROOM SUITE" ${type == 'PREMIER ONE BEDROOM SUITE' ? 'selected' : ''}>PREMIER ONE BEDROOM SUITE</option>
-                    <option value="TWO BEDROOM SUITE" ${type == 'TWO BEDROOM SUITE' ? 'selected' : ''}>TWO BEDROOM SUITE</option>
-                    <option value="THD PENTHOUSE SUITE" ${type == 'THD PENTHOUSE SUITE' ? 'selected' : ''}>THD PENTHOUSE SUITE</option>
-                    <option value="ONE BEDROOM SUITE" ${type == 'ONE BEDROOM SUITE' ? 'selected' : ''}>ONE BEDROOM SUITE</option>
+                    <option value="DELUXE" ${type == 'DELUXE' ? 'selected' : ''}>DELUXE</option>
+                    <option value="KING" ${type == 'KING' ? 'selected' : ''}>KING</option>
+                    <option value="SUITE" ${type == 'SUITE' ? 'selected' : ''}>SUITE</option>
+                    <option value="PENTHOUSE" ${type == 'PENTHOUSE' ? 'selected' : ''}>PENTHOUSE</option>
                 </select>
                 <select name="view">
                     <option value="">View Details</option>
@@ -105,7 +100,7 @@
                                 </c:choose>
                             </h3>
                             <span class="fw-bold text-danger">
-                                $<fmt:formatNumber value="${room.price}" pattern="#,##0"/> /NIGHT
+                                <fmt:formatNumber value="${room.price}" pattern="#,##0"/> VND/NIGHT
                             </span>
                         </div>
 
