@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Sign Up</title>
+        <link rel="icon" href="images/thd-icon.png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap CSS -->
@@ -53,7 +54,7 @@
                     <% } %>
                     <input type="hidden" name="action" value="${nextAction}">
                     <button type="submit" class="btn btn-primary">Sign Up</button>
-                    
+
                     <% if (success != null) {%>
                     <div class="alert alert-success mt-3" role="alert">
                         <%= success%>
