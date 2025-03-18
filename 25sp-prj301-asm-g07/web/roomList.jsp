@@ -32,7 +32,7 @@
 
         <script>
             function resetForm() {
-                window.location.href = "./roomList?action=list";
+                window.location.href = "./roomList?action=mlist";
             }
             function syncDates() {
                 document.getElementById("hiddenDateIn").value = document.getElementById("dateIn").value;
