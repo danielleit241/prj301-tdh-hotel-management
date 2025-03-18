@@ -34,17 +34,23 @@
             function resetForm() {
                 window.location.href = "./roomList?action=list";
             }
+            function syncDates() {
+                document.getElementById("hiddenDateIn").value = document.getElementById("dateIn").value;
+                document.getElementById("hiddenDateOut").value = document.getElementById("dateOut").value;
+            }
         </script>
     </head>
     <body>
         <%@include file="/navbar.jsp"%>
         <div class="search-container" style="margin-bottom: 15px">
             <div class="date-selection">
-                <input type="date" name="dateIn" value="${dateIn}">
-                <input type="date" name="dateOut" value="${dateOut}">
+                <input type="date" name="dateIn" id="dateIn" value="${dateIn}">
+                <input type="date" name="dateOut" id="dateOut" value="${dateOut}">
             </div>
 
-            <form action="./roomList" class="search-form">
+            <form action="./roomList" class="search-form" onsubmit="syncDates()">
+                <input type="hidden" name="dateIn" id="hiddenDateIn">
+                <input type="hidden" name="dateOut" id="hiddenDateOut">
                 <input type="text" name="keyword" placeholder="Search..." value="${keyword}">
 
                 <select name="type">
