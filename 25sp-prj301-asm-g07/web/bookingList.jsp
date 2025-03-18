@@ -18,9 +18,6 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <style>
-
-        </style>
     </head>
     <body<%@include file="/navbar.jsp"%>
         <h2 style="text-align: center; font-weight: 600; margin-top: 20px; font-size: 60px">MY BOOKING</h2>

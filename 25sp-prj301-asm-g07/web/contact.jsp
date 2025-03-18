@@ -19,73 +19,17 @@
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <style>
-            body {
-                background-color: #f8f9fa;
-                font-family: Arial, sans-serif;
-            }
-            .contact-container {
-                max-width: 1100px;
-                margin: auto;
-                padding: 20px;
-            }
-            .admin-card {
-                text-align: center;
-                border-radius: 12px;
-                padding: 20px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                background: white;
-                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            }
-            .admin-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            }
-            .admin-img {
-                width: 120px;
-                height: 120px;
-                border-radius: 50%;
-                object-fit: cover;
-                border: 4px solid #007bff;
-                margin-bottom: 15px;
-            }
-            .admin-card h4 {
-                margin-bottom: 8px;
-                color: #007bff;
-            }
-            .admin-card p {
-                margin-bottom: 5px;
-                color: #333;
-            }
-            .admin-card .contact-info {
-                font-size: 15px;
-            }
-            .admin-card .contact-info a {
-                text-decoration: none;
-                color: #007bff;
-                font-weight: bold;
-            }
-            .admin-card .contact-info a:hover {
-                text-decoration: underline;
-            }
-            .contact-heading {
-                text-align: center;
-                color: #007bff;
-                margin-bottom: 20px;
-            }
-            .icon {
-                color: #007bff;
-                margin-right: 5px;
-            }
+
         </style>
     </head>
     <body>
         <%@include file="navbar.jsp"%>
         <div class="contact-container mt-5">
-            <h2 class="contact-heading">📞 Contact Us</h2>
+            <h2 class="contact-heading">Contact Us</h2>
             <div class="row g-4">
 
                 <!-- Admin 1 -->
-                <div class="col-md-4">
+                <div class="col-md-4-about">
                     <div class="admin-card">
                         <img src="images/admin1.jpg" alt="Admin 1" class="admin-img">
                         <h4>Lê Vũ Phương Hòa</h4>
@@ -97,7 +41,7 @@
                 </div>
 
                 <!-- Admin 2 -->
-                <div class="col-md-4">
+                <div class="col-md-4-about">
                     <div class="admin-card">
                         <img src="images/admin2.jpg" alt="Admin 2" class="admin-img">
                         <h4>Trần Phú Thịnh</h4>
@@ -108,7 +52,7 @@
                     </div>
                 </div>
                 <!-- Admin 3 -->
-                <div class="col-md-4">
+                <div class="col-md-4-about">
                     <div class="admin-card">
                         <img src="images/admin3.jpg" alt="Admin 3" class="admin-img">
                         <h4>Ngô Thành Đạt</h4>
