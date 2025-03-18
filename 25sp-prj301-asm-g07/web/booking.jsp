@@ -23,8 +23,19 @@
             <div class="row">
                 <div class="col-md-7">
                     <div class="details-section-booking">
-                        <h1>${typeRoomDetails.typeName}</h1>
-                        <p class="price">Price: <fmt:formatNumber value="${typeRoomDetails.price}" pattern="#,##0"/> VNĐ</p>
+                        <h3 class="text-uppercase fw-bold mb-0">
+                            <c:choose>
+                                <c:when test="${not empty typeRoomDetails.viewDetail}">
+                                    ${typeRoomDetails.typeName}, ${typeRoomDetails.viewDetail}
+                                </c:when>
+                                <c:otherwise>
+                                    ${typeRoomDetails.typeName}
+                                </c:otherwise>
+                            </c:choose>
+                        </h3>
+                        <h5 class="fw-bold text-danger-details">
+                            <fmt:formatNumber value="${typeRoomDetails.price}" pattern="#,##0"/> VND/NIGHT
+                        </h5>
                         <p>Description: ${typeRoomDetails.typeDes}</p>
                     </div>
                     <div class="image-section">

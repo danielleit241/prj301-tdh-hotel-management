@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sign Up</title>
+        <title>THD Hotel Sign Up</title>
         <link rel="icon" href="images/thd-icon.png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
