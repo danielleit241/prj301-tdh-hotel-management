@@ -31,7 +31,7 @@
             <section class="hotel-info">
                 <div class="content-about">
                     <div class="image-container">
-                        <img src="https://imageio.forbes.com/specials-images/imageserve/659711594f353386992204fe/Living-room/960x0.jpg?format=jpg&width=960" alt="Hotel Image" class="hotel-image">
+                        <img src="images/thd-5start.jpg" alt="Hotel Image" class="hotel-image">
                     </div>
                     <div class="text-content">
                         <p>The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum.</p>
