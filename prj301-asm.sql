@@ -15,14 +15,14 @@ CREATE TABLE users (
 -- Bảng danh mục loại phòng: lưu mã và tên loại phòng
 CREATE TABLE typeRoom (
     typeRoomID INT PRIMARY KEY,
-    typeName NVARCHAR(100) NOT NULL,  -- Ví dụ: 'Special King Room'
+    typeName NVARCHAR(100) NOT NULL,
 	typeDes NVARCHAR(255),
 	price INT NOT NULL CHECK(price > 0),
-    roomSize NVARCHAR(50) NOT NULL,            -- Ví dụ: '50 m2'
-    bedSize NVARCHAR(100) NOT NULL,            -- Ví dụ: '1 x Special King size – 1m8 x 2m'
-    maxOccupancy NVARCHAR(50) NOT NULL,        -- Ví dụ: '02 - 03 Adults'
-    viewDetail NVARCHAR(50) NOT NULL,                -- Ví dụ: 'City view'
-    bathroom NVARCHAR(200) NOT NULL,           -- Ví dụ: 'Toilet room, shower room, washbasin and bathtub'
+    roomSize NVARCHAR(50) NOT NULL,
+    bedSize NVARCHAR(100) NOT NULL,
+    maxOccupancy NVARCHAR(50) NOT NULL, 
+    viewDetail NVARCHAR(50) NOT NULL,
+    bathroom NVARCHAR(200) NOT NULL,
     smoking NVARCHAR(10) NOT NULL CHECK (smoking IN ('Yes', 'No')),
 );
 

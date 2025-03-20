@@ -56,6 +56,7 @@ The **THD Hotel Management System** is a modern, web-based platform for managing
   - `NetBeans IDE`
 
 ## **II. GUI**
+![](images/GUI/9.png)
 ## Member
 ![](images/GUI/1.png)
 ![](images/GUI/2.png)
@@ -65,8 +66,13 @@ The **THD Hotel Management System** is a modern, web-based platform for managing
 ![](images/GUI/6.png)
 ![](images/GUI/7.png)
 ## Admin
-![](images/GUI/9.png)
 ![](images/GUI/10.png)
 ![](images/GUI/11.png)
 ![](images/GUI/12.png)
+![](images/GUI/15.png)
+![](images/GUI/16.png)
 ![](images/GUI/13.png)
+
+## **III. DATABASE**
+![](images/Database/prj301asm_sql.drawio.png)
+
