@@ -6,7 +6,7 @@
             <div class="col-md-6 col-lg-3 mb-md-0 mb-4" >
                 <h2 class="footer-heading"><a href="#" class="logo">THD HOTEL</a></h2>
                 <p style="text-align: justify" class="head12" >The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets...</p>
-                <a class="readmore" href="#">Read More</a>
+                <a class="readmore" href="aboutus.jsp">Read More</a>
             </div>
             <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
                 <h2 class="footer-heading">Services</h2>
@@ -20,7 +20,7 @@
             <div class="col-md-6 col-lg-3 mb-md-0 mb-4">
                 <h2 class="footer-heading">Hotel Facilities </h2>
                 <div class="tagcloud">
-                    <a href="#" class="tag-cloud-link"  >Suite</a>
+                    <a href="#" class="tag-cloud-link">Suite</a>
                     <a href="#" class="tag-cloud-link">Pool</a>
                     <a href="#" class="tag-cloud-link">Gym</a>
                     <a href="#" class="tag-cloud-link">Bar</a>
@@ -42,9 +42,9 @@
                 </form>
                 <h2 class="footer-heading mt-5">Follow us</h2>
                 <ul class="ftco-footer-social p-0">
-                    <li class="ftco-animate"><a href="https://www.facebook.com/ngo.thanh.at.47212" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                    <li class="ftco-animate"><a href="https://www.facebook.com/phuonghoa241" title="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                    <li class="ftco-animate"><a href="https://www.facebook.com/thnh.kevin/" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li class="ftco-animate"><a href="https://www.facebook.com/gcfootball2024" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li class="ftco-animate"><a href="https://www.facebook.com/gcfootball2024" title="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="ftco-animate"><a href="https://www.facebook.com/gcfootball2024" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a></li>
                 </ul>
 
             </div>

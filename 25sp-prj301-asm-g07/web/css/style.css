@@ -153,6 +153,7 @@ body {
 .d_flex {
     display: flex;
     align-items: flex-start;
+    padding: 20px; 
 }
 
 .about_img {
@@ -162,6 +163,7 @@ body {
 
 .about_img img {
     width: 100%;
+    border-radius: 15px;
 }
 
 .col-md-5 {
@@ -337,7 +339,7 @@ body {
     padding: 20px;
     display: grid; /* Sử dụng CSS Grid */
     grid-template-columns: 1fr; /* Một cột cho nội dung text */
-    gap: 60px;
+    gap: 30px;
 }
 
 .details-section h1 {
@@ -351,7 +353,9 @@ body {
     margin-bottom: 10px;
     grid-column: 1; /* Đảm bảo các đoạn p nằm đúng vị trí trong lưới */
 }
-
+.text-uppercase{
+    font-size: 2em;
+}
 .price {
     font-size: 1.8em;
     color: #d9534f;
@@ -404,6 +408,11 @@ input[type="submit"]:hover {
 }
 .text-danger{
     font-size: 22px;
+}
+
+.text-danger-details{
+    font-size: 2em;
+    color: #DD3545;
 }
 
 /* CSS cho form tìm kiếm */
@@ -563,7 +572,7 @@ input[type="submit"]:hover {
     background-color: #CB1A3C; /* Màu xanh dương đậm hơn khi hover */
 }
 .col-md-7 {
-    width: 60%; /* Tăng chiều rộng cột hình ảnh */
+    width: 55%; /* Tăng chiều rộng cột hình ảnh */
     padding: 0px 20px;
 }
 
@@ -998,7 +1007,7 @@ body {
 }
 
 .text-content p {
-    font-size: 1.1em;
+    font-size: 1.5em;
     color: #666;
     margin-bottom: 20px;
 }
@@ -1013,6 +1022,7 @@ body {
 
 .advantages h2 {
     font-weight: bold;
+    text-align: center;
     color: #333;
     font-size: 2em;
     margin-bottom: 20px;
@@ -1042,7 +1052,7 @@ body {
     border-radius: 10px;
     margin-bottom: 20px;
     width: 100%;
-    height: auto; 
+    height: 292px; 
     display: block; 
 }
 
@@ -1067,6 +1077,7 @@ body {
 
 .achievements h2 {
     font-weight: bold;
+    text-align: center;
     color: #333;
     font-size: 2em;
     margin-bottom: 20px;

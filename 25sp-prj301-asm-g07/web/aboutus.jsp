@@ -7,7 +7,7 @@
         <link rel="icon" href="images/thd-icon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>About Us - THD 5-Star Hotel</title>
+        <title>THD Hotel About Us</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css"/>
         <!--font - family-->
@@ -24,7 +24,7 @@
         <%@include file="/navbar.jsp"%>
         <div class="container-about">
             <header>
-                <h1 class="header-aboutus-h1">Welcome to THD 5-Star Hotel</h1>
+                <h1 class="header-aboutus-h1">WELCOME TO THD HOTEL</h1>
                 <p class="header-aboutus-p">Experience luxury, comfort, and elegance like never before.</p>
             </header>
 
