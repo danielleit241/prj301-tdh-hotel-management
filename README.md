@@ -91,7 +91,7 @@ The **THD Hotel Management System** is a modern, web-based platform for managing
 ### **1. System structure**
 ![](images/Systemdesign/systemdesign.png)
 
-### **2. Diagram**
+### **2. Flowchart**
 ![](images/Systemdesign/diagram.jpg)
 
 ## **V. CONCLUSION AND DISCUSSION**

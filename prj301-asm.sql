@@ -11,6 +11,8 @@ CREATE TABLE users (
     role VARCHAR(6) NOT NULL CHECK (role IN ('admin', 'member')) DEFAULT 'member',
     createAt DATETIME DEFAULT GETDATE()
 );
+ALTER TABLE users  
+ADD status VARCHAR(10) NOT NULL CHECK (status IN ('active', 'inactive')) DEFAULT 'active';
 
 -- Bảng danh mục loại phòng: lưu mã và tên loại phòng
 CREATE TABLE typeRoom (
@@ -162,3 +164,8 @@ INSERT INTO rooms (roomID, typeRoomID) VALUES (911, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (912, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (913, 9);
 INSERT INTO rooms (roomID, typeRoomID) VALUES (914, 9);
+
+
+SELECT roomID FROM rooms WHERE typeRoomID = 1
+
+select * from users
